@@ -1,21 +1,15 @@
 
 import { ArrowRightIcon, AtSymbolIcon } from "@heroicons/react/16/solid";
-import { KeyIcon } from "@heroicons/react/20/solid";
-import Image from "next/image";
+import { KeyIcon, UserCircleIcon } from "@heroicons/react/20/solid";
 import { Button } from "../global/button";
+import LogoBanner from "../global/logo-banner";
+import Link from "next/link";
 
 export default function LoginForm()
 {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="hidden lg:flex h-screen items-center justify-center">
-                <Image
-                alt="hero image"
-                src={"/logo/talkspace-banner.png"}
-                width={500}
-                height={500}
-                />
-            </div>
+            <LogoBanner />
             <div className="mx-auto flex h-screen items-center justify-center">
                 <form className="min-w-[300px] max-w-[800px]">
                 <p className="text-3xl my-8 font-semibold">Log in into your account</p>
@@ -32,10 +26,10 @@ export default function LoginForm()
                         id="username"
                         type="username"
                         name="username"
-                        placeholder="Enter your username address"
+                        placeholder="Enter your username"
                         required
                     />
-                    <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400 peer-focus:text-gray-600" />
+                    <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400 peer-focus:text-gray-600" />
                     </div>
                 </div>
                 <div>
@@ -60,6 +54,9 @@ export default function LoginForm()
                 <Button className="my-8 w-full justify-center">
                     Log in <ArrowRightIcon className="w-7 pl-2" />
                 </Button>
+                <div className="p-4 text-center text-gray-400">
+                    Don't have an account? <Link className="text-blue-500 font-semibold" href={"register"}>Sign up</Link>
+                </div>
                 </form>
             </div>
         </div>

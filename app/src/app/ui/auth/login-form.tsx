@@ -11,8 +11,8 @@ export default function LoginForm()
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <LogoBanner />
             <div className="mx-auto flex h-screen items-center justify-center">
-                <form className="min-w-[300px] max-w-[800px]">
-                <p className="text-3xl my-8 font-semibold">Log in into your account</p>
+                <form className="max-w-[800px] p-5">
+                <p className="text-3xl my-8 font-semibold text-center">Log in into your account</p>
                 <div>
                     <label
                     className="mb-3 mt-5 block text-xs font-medium"

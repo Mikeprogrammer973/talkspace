@@ -55,7 +55,7 @@ export default function LoginForm()
                     Log in <ArrowRightIcon className="w-7 pl-2" />
                 </Button>
                 <div className="p-4 text-center text-gray-400">
-                    Don't have an account? <Link className="text-blue-500 font-semibold" href={"register"}>Sign up</Link>
+                    Don&apos;t have an account? <Link className="text-blue-500 font-semibold" href={"register"}>Sign up</Link>
                 </div>
                 </form>
             </div>

@@ -16,13 +16,20 @@ import MsgBox from "../global/msgBox";
 export default function RegisterForm()
 {
     const initialState: UserState = {message: {}, errors: {}}
+    const [spinnerV, setSpinnerV] = useState<boolean>(false)
     const [state, formAction] = useFormState(create, initialState)
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <LogoBanner />
             <div className="mx-auto flex h-screen items-center justify-center">
-                <form action={formAction} className="max-w-[800px] p-5">
+                <form onSubmit={(e)=>{
+                    setSpinnerV(true)
+                    setTimeout(()=>{
+                        setSpinnerV(false)
+                    }, 3000)
+                }} action={formAction} className="max-w-[800px] p-5">
+                    <Spinner visible={spinnerV} label="Processing..." />
                     <p className="text-3xl my-8 font-semibold text-center">Create account</p>
                     {state.message?.content && <Alert title="" msg={<p className="font-semibold">{state.message.content}</p>} color={state.message.type || "danger"} />}
                     <div>

@@ -31,3 +31,12 @@ body {
     text-wrap: balance;
   }
 }
+
+.scrollbar-none {
+  scrollbar-width: none; /* Para Firefox */
+  -ms-overflow-style: none; /* Para IE e Edge */
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Para Chrome, Safari e outros navegadores Webkit */
+}

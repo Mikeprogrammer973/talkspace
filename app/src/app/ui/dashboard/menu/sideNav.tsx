@@ -17,7 +17,7 @@ export default function SideNav()
         setVisible(true)
     }
     return (
-        <div className="bg-gray-700 md:w-[20%] md:h-screen text-gray-200 overflow-y-scroll scrollbar-none sticky md:relative top-0 left-0 right-0 flex justify-between md:block">
+        <div className="bg-gray-700 md:w-[20%] md:h-screen md:fixed text-gray-200 overflow-y-scroll scrollbar-none sticky top-0 left-0 right-0 flex justify-between md:block">
             <div className="flex items-center justify-center sticky top-0 bg-gray-800">
                 <Image alt="logo_banner" className="hidden md:block" src={"/logo/talkspace-banner.png"} width={150} height={150} />
                 <Image alt="logo_short" className="block md:hidden" src={"/logo/talkspace-logo-short.png"} width={75} height={75} />

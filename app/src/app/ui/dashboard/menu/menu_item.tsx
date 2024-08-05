@@ -3,12 +3,13 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { ReactNode } from "react";
 
-export default function MenuItem({icon, label, normal = true}: {icon: ReactNode, label: string, normal?: boolean})
+export default function MenuItem({icon, label, normal = true, counter}: {icon: ReactNode, label: string, normal?: boolean, counter?: ReactNode})
 {
     return (
-        <div title={label} className={"flex gap-4 items-center p-3 cursor-pointer hover:animate-pulse" + (normal === true && " justify-center md:justify-normal")}>
+        <div title={label} className={"flex gap-4 items-center p-3 cursor-pointer hover:animate-pulse" + (normal === true && " justify-center lg:justify-normal")}>
             {icon}
-            <p className={"text-lg" + (normal === true && " hidden md:block")}>{label}</p>
+            {counter && counter}
+            <p className={"text-lg" + (normal === true && " hidden lg:block")}>{label}</p>
         </div>
     )
 }

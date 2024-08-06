@@ -6,7 +6,12 @@ export function StatusTopNav()
     const [pause, setPause] = useState<boolean>(false)
     return (
         <>
-            <div>TIMECONTROLLER </div>
+            <div className="grid grid-cols-4 gap-2 mb-2">
+                <div className="h-1 bg-slate-500 rounded-2xl"></div>
+                <div className="h-1 bg-slate-500 rounded-2xl"></div>
+                <div className="h-1 bg-slate-500 rounded-2xl"></div>
+                <div className="h-1 bg-slate-500 rounded-2xl"></div>
+            </div>
             <div className="flex justify-between items-center px-2">
                 <div className="flex items-center cursor-pointer">
                     <img className="w-10 h-10 rounded-full" alt="demo-status-image" src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCKhSSwriyDJ4jG9pHgrfUFjfM3jbemkw0Jw&s"} width={100} height={100} />

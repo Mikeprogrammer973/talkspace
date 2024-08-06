@@ -1,4 +1,4 @@
-import { StatusWrapper } from "tspace/app/ui/dashboard/user/statusWrapper"
+import { StatusWrapper } from "tspace/app/ui/dashboard/user/status/statusWrapper"
 
 export default function Page()
 {

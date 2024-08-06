@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react";
-import { Button } from "../../global/button";
+import { Button } from "../../../global/button";
 import { Status } from "./status";
 
 export function StatusWrapper()
@@ -28,7 +28,7 @@ export function StatusWrapper()
 
     return (
         <div className="flex justify-around items-center">
-            <Button className="max-w-[10%] w-10 h-10 rounded-3xl cursor-pointer select-none text-center" onClick={()=>scrollLeft()}>&lt;</Button>
+            <Button className="hidden sm:flex max-w-[10%] w-10 h-10 rounded-3xl cursor-pointer select-none text-center" onClick={()=>scrollLeft()}>&lt;</Button>
             <div ref={scrollContainerRef} className="flex flex-row overflow-x-auto max-w-[80%] box-border gap-2 justify-between items-center flex-shrink-0 p-4 bg-transparent text-white scrollbar-none">
                 <Status user={null}/>
                 <Status user={null}/>
@@ -77,7 +77,7 @@ export function StatusWrapper()
                 <Status user={null}/>
                 <Status user={null}/>
             </div>
-            <Button className="max-w-[10%] w-10 h-10 rounded-3xl cursor-pointer select-none text-center" onClick={()=>scrollRight()}>&gt;</Button>
+            <Button className="hidden sm:flex max-w-[10%] w-10 h-10 rounded-3xl cursor-pointer select-none text-center" onClick={()=>scrollRight()}>&gt;</Button>
         </div>
     )
 }

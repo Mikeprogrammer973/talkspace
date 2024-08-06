@@ -30,9 +30,11 @@ export default function SideNav()
                 <MenuItem label="Explore" icon={<ArrowsPointingOutIcon fill="currentColor" className="w-8 h-8" />} />
             </div>
             <MenuItem label="Reels" icon={<FilmIcon fill="currentColor" className="w-8 h-8" />} />
-            <MenuItem label="Messages" counter={<span className="relative -ml-7 -mt-3 w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full flex items-center justify-center">{18}</span>} icon={<ChatBubbleLeftRightIcon fill="currentColor" className="w-8 h-8" />}/>
-            <MenuItem label="Notifications" counter={<span className="relative -ml-7 -mt-3 w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full flex items-center justify-center">{61}</span>} icon={<BellAlertIcon fill="currentColor" className="w-8 h-8" />}/>
-            <MenuItem label="Create" icon={<PlusCircleIcon fill="currentColor" className="w-8 h-8" />} />
+            <MenuItem label="Messages" counter={<span className="-ml-7 -mt-3 w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full flex items-center justify-center">{18}</span>} icon={<ChatBubbleLeftRightIcon fill="currentColor" className="w-8 h-8" />}/>
+            <MenuItem label="Notifications" counter={<span className="-ml-7 -mt-3 w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full flex items-center justify-center">{61}</span>} icon={<BellAlertIcon fill="currentColor" className="w-8 h-8" />}/>
+            <div className="hidden md:block">
+                <MenuItem label="Create" icon={<PlusCircleIcon fill="currentColor" className="w-8 h-8" />} />
+            </div>
             <MenuItem label="Profile" icon={<Image alt="icon_profile" className="w-8 h-8 rounded-full bg-slate-500" src={"/lib/util/generate/user/profile/image"} width={200} height={200} />} />
             <button className="w-full text-center md:text-left hidden md:block" onClick={()=>showMoreOptions()}>
                 <MenuItem label="More" icon={<Bars3Icon fill="currentColor" className="w-8 h-8" />} />

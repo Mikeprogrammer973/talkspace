@@ -1,4 +1,3 @@
-
 import Image from "next/image"
 import { Button } from "../../../global/button"
 import { EllipsisHorizontalIcon, HeartIcon, PlayIcon, PlayPauseIcon } from "@heroicons/react/20/solid"

@@ -1,4 +1,3 @@
-
 import { HeartIcon, PaperAirplaneIcon } from "@heroicons/react/20/solid";
 
 export function StatusBottomNav()

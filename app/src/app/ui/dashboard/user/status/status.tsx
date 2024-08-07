@@ -1,4 +1,3 @@
-
 import { Profile, User } from "@prisma/client"
 import Image from "next/image"
 import { useState } from "react"

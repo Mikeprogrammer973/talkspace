@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import { Button } from "../../../global/button";
 import { Status } from "./status";
-import React from "react";
 
 export function StatusWrapper()
 {

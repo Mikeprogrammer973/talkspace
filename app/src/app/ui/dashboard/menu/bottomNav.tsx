@@ -1,4 +1,3 @@
-
 import { MagnifyingGlassIcon, BellAlertIcon, PlusCircleIcon, ArrowsPointingOutIcon } from "@heroicons/react/20/solid";
 import MenuItem from "./menu_item";
 

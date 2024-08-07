@@ -1,5 +1,4 @@
 import { PlayIcon, EllipsisHorizontalIcon, PauseIcon } from "@heroicons/react/20/solid";
-import React from "react";
 import { useEffect, useRef, useState } from "react";
 
 export function StatusTopNav()

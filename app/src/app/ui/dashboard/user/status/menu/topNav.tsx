@@ -1,16 +1,51 @@
 import { PlayIcon, EllipsisHorizontalIcon, PauseIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function StatusTopNav()
 {
     const [pause, setPause] = useState<boolean>(false)
+    const timerRef = useRef<HTMLDivElement>(null)
+    const animationIdRef = useRef<number>(0);
+    const [width, setWidth] = useState(0);
+
+    const play = () => {
+        setWidth(prev => prev >= 100 ? .2 : prev + .2);
+        animationIdRef.current = requestAnimationFrame(play);
+      };
+
+      useEffect(() => {
+        // Iniciar a animação
+        animationIdRef.current = requestAnimationFrame(play);
+    
+        // Limpar a animação quando o componente é desmontado
+        return () => {
+          if (animationIdRef.current) {
+            cancelAnimationFrame(animationIdRef.current);
+          }
+        };
+    }, []);
+
+    const handlePause = () => {
+    if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current);
+    }
+    };
+
     return (
         <>
             <div className="grid grid-cols-4 gap-2 mb-2">
-                <div className="h-1 bg-slate-500 rounded-2xl"></div>
-                <div className="h-1 bg-slate-500 rounded-2xl"></div>
-                <div className="h-1 bg-slate-500 rounded-2xl"></div>
-                <div className="h-1 bg-slate-500 rounded-2xl"></div>
+                <div className="h-1 bg-slate-500 rounded-2xl">
+                    <div style={{width: `${width}%`}} ref={timerRef} className="h-1 bg-slate-200 rounded-2xl"></div>
+                </div>
+                <div className="h-1 bg-slate-500 rounded-2xl">
+                    <div style={{width: `${width}%`}} ref={timerRef} className="h-1 bg-slate-200 rounded-2xl"></div>
+                </div>
+                <div className="h-1 bg-slate-500 rounded-2xl">
+                    <div style={{width: `${width}%`}} ref={timerRef} className="h-1 bg-slate-200 rounded-2xl"></div>
+                </div>
+                <div className="h-1 bg-slate-500 rounded-2xl">
+                    <div style={{width: `${width}%`}} ref={timerRef} className="h-1 bg-slate-200 rounded-2xl"></div>
+                </div>
             </div>
             <div className="flex justify-between items-center px-2">
                 <div className="flex items-center cursor-pointer">
@@ -19,8 +54,8 @@ export function StatusTopNav()
                     <p className="text-gray-400">21h</p>
                 </div>
                 <div className="flex items-center gap-4">
-                    <PlayIcon onClick={()=>setPause(false)} title="Play" className={"w-5 h-5 cursor-pointer " + (!pause && "hidden")} />
-                    <PauseIcon onClick={()=>setPause(true)} title="Pause" className={"w-5 h-5 cursor-pointer " + (pause && "hidden")} />
+                    <PlayIcon onClick={()=>{setPause(false); play()}} title="Play" className={"w-5 h-5 cursor-pointer " + (!pause && "hidden")} />
+                    <PauseIcon onClick={()=>{setPause(true); handlePause()}} title="Pause" className={"w-5 h-5 cursor-pointer " + (pause && "hidden")} />
                     <EllipsisHorizontalIcon title="Menu" className="w-8 h-8 cursor-pointer" />
                 </div>
             </div>

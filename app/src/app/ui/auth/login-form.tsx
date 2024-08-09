@@ -13,19 +13,14 @@ import { useState } from "react";
 export default function LoginForm()
 {
     const [errorMessage, formAction, isPending] = useFormState(authenticate, undefined)
-    const [spinnerV, setSpinnerV] = useState<boolean>(false)
+    const [spinnerV, setSpinnerV] = useState<boolean>(true)
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <LogoBanner />
             <div className="mx-auto flex h-screen items-center justify-center">
-                <form onSubmit={(e)=>{
-                    setSpinnerV(true)
-                    setTimeout(()=>{
-                        setSpinnerV(false)
-                    }, 3000)
-                }} action={formAction} className="max-w-[800px] p-5">
-                    <Spinner visible={spinnerV} label="Processing..." />
+                <form action={formAction} className="max-w-[800px] p-5">
+                    {isPending && <Spinner visible={spinnerV} label="Processing..." />}
                     {errorMessage && <Alert title="" color="danger" msg={<div className="font-light text-lg">{errorMessage}</div>} />}
                     <p className="text-3xl my-8 font-semibold text-center">Log in into your account</p>
                     <div>

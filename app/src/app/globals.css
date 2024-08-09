@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+ /* Custom animations defined in tailwind.config.js */
+ @layer utilities {
+  .fade-out {
+    @apply animate-fadeOut;
+  }
+  .rotate-cube {
+    @apply animate-rotateCube;
+    transform-style: preserve-3d;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

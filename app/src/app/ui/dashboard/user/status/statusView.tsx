@@ -29,7 +29,7 @@ export function StatusView()
                         src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO3fw-6itilhqMfWao69syYXFzH6FKUX_KLQ&s"} 
                         width={100} height={100} 
                     />}
-                    {timer === 3 && <video className="h-[70vh] w-full" autoPlay preload="none">
+                    {timer === 3 && <video onTimeUpdate={(e)=>console.log(e.currentTarget.duration)} className="h-[70vh] w-full" autoPlay preload="none">
                         <source src="/intro.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>

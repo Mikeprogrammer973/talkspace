@@ -10,7 +10,7 @@ export const authConfig = {
         {
             const isLoggedIn = !!auth?.user
             const isOnDashboard = nextUrl.pathname.startsWith("/dashboard")
-            const isOnLib = nextUrl.pathname.startsWith("/lib")
+            const isOnLib = nextUrl.pathname.startsWith("/intro.mp4")
             if(isOnDashboard || isOnLib)
             {
                 if(isLoggedIn) return true

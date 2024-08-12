@@ -1,24 +1,37 @@
 import { PlayIcon, EllipsisHorizontalIcon, PauseIcon } from "@heroicons/react/20/solid";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 
-export function StatusTopNav({setTimer}: {setTimer: Dispatch<SetStateAction<number>>})
+export function StatusTopNav({setTimer, setVideoStatus, videoStatus}: {setTimer: Dispatch<SetStateAction<number>>, setVideoStatus: Dispatch<SetStateAction<{current: number, total: number}>>, videoStatus: {current: number, total: number}})
 {
     const [pause, setPause] = useState<boolean>(false)
     const timerRef = useRef<HTMLDivElement>(null)
     const animationIdRef = useRef<number>(0);
     const [width, setWidth] = useState(0);
     const timerId = useRef<number>(0)
-    let pos: number[] = [1, 1, 2, 2, 3, 3]
-    
+    let pos: number[] = [1, 1, 2, 2, 3]
+
+    const next = ()=>{
+        if(pos.length === 0) pos = [0, 0, 1, 1, 2, 2, 3]
+        timerId.current = pos.shift() || 0
+        setTimeout(()=>{
+            setTimer(timerId.current)
+        }, 100)
+        console.log(timerId, pos)
+    }
+
+    if(((videoStatus.current/videoStatus.total)*100) >= 100)
+    {
+        setTimeout(()=>{
+            setVideoStatus({current: 0, total: 0})
+        }, 200)
+        next()
+    }
+
     const play = () => {
         setWidth(prev => {
+            if(timerId.current === 3) return 0
             if(prev >= 100){
-                if(pos.length === 0) pos = [0, 0, 1, 1, 2, 2, 3, 3]
-                timerId.current = pos.shift() || 0
-                setTimeout(()=>{
-                    setTimer(timerId.current)
-                }, 100)
-                console.log(timerId, pos)
+                next()
                 return .3
             }
             return prev + .3
@@ -52,6 +65,8 @@ export function StatusTopNav({setTimer}: {setTimer: Dispatch<SetStateAction<numb
         setWidth(0)
     }
 
+    // console.log(width)
+
     return (
         <>
             <div className="grid grid-cols-4 gap-2 mb-2">
@@ -65,7 +80,7 @@ export function StatusTopNav({setTimer}: {setTimer: Dispatch<SetStateAction<numb
                     <div style={{width: `${timerId.current === 2 ? width : 0}%`}} ref={timerRef} className="h-1 bg-slate-200 rounded-2xl"></div>
                 </div>
                 <div onClick={()=>select(3)} className="h-1 bg-slate-500 cursor-pointer rounded-2xl">
-                    <div style={{width: `${timerId.current === 3 ? width : 0}%`}} ref={timerRef} className="h-1 bg-slate-200 rounded-2xl"></div>
+                    <div style={{width: `${timerId.current === 3 ? (videoStatus.current/videoStatus.total)*100 : 0}%`}} ref={timerRef} className="h-1 bg-slate-200 rounded-2xl"></div>
                 </div>
             </div>
             <div className="flex justify-between items-center px-2">
@@ -78,8 +93,8 @@ export function StatusTopNav({setTimer}: {setTimer: Dispatch<SetStateAction<numb
                     <p className="text-gray-400">21h</p>
                 </div>
                 <div className="flex items-center gap-4">
-                    <PlayIcon onClick={()=>{setPause(false); play()}} title="Play" className={"w-5 h-5 cursor-pointer " + (!pause && "hidden")} />
-                    <PauseIcon onClick={()=>{setPause(true); handlePause()}} title="Pause" className={"w-5 h-5 cursor-pointer " + (pause && "hidden")} />
+                    {timerId.current !== 3 && <><PlayIcon onClick={()=>{setPause(false); play()}} title="Play" className={"w-5 h-5 cursor-pointer " + (!pause && "hidden")} />
+                    <PauseIcon onClick={()=>{setPause(true); handlePause()}} title="Pause" className={"w-5 h-5 cursor-pointer " + (pause && "hidden")} /></>}
                     <EllipsisHorizontalIcon title="Menu" className="w-8 h-8 cursor-pointer" />
                 </div>
             </div>

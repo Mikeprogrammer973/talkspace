@@ -8,9 +8,6 @@ export function StatusView()
     const [timer, setTimer] = useState<number>(0)
     const [videoStatus, setVideoStatus] = useState<{current: number, total: number}>({current: 0, total: 0})
 
-    // console.log(timer)
-    // console.log(videoStatus)
-
     return (
         <div className={"w-full h-full flex justify-center md:justify-between items-center p-5 -mt-6"}>
             <Button className="hidden md:flex">&lt;</Button>

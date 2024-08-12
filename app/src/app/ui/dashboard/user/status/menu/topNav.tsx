@@ -1,5 +1,7 @@
 import { PlayIcon, EllipsisHorizontalIcon, PauseIcon } from "@heroicons/react/20/solid";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import MsgBox from "tspace/app/ui/global/msgBox";
+import { TopNavMenu } from "./topNavMenu";
 
 export function StatusTopNav({setTimer, setVideoStatus, videoStatus}: {setTimer: Dispatch<SetStateAction<number>>, setVideoStatus: Dispatch<SetStateAction<{current: number, total: number}>>, videoStatus: {current: number, total: number}})
 {
@@ -8,6 +10,7 @@ export function StatusTopNav({setTimer, setVideoStatus, videoStatus}: {setTimer:
     const animationIdRef = useRef<number>(0);
     const [width, setWidth] = useState(0);
     const timerId = useRef<number>(0)
+    const [visible, setVisible] = useState<boolean>(false)
     let pos: number[] = [1, 1, 2, 2, 3]
 
     const next = ()=>{
@@ -95,7 +98,8 @@ export function StatusTopNav({setTimer, setVideoStatus, videoStatus}: {setTimer:
                 <div className="flex items-center gap-4">
                     {timerId.current !== 3 && <><PlayIcon onClick={()=>{setPause(false); play()}} title="Play" className={"w-5 h-5 cursor-pointer " + (!pause && "hidden")} />
                     <PauseIcon onClick={()=>{setPause(true); handlePause()}} title="Pause" className={"w-5 h-5 cursor-pointer " + (pause && "hidden")} /></>}
-                    <EllipsisHorizontalIcon title="Menu" className="w-8 h-8 cursor-pointer" />
+                    <MsgBox visible={visible} setVisible={setVisible} msg={<TopNavMenu />} />
+                    <EllipsisHorizontalIcon onClick={()=>setVisible(true)}  title="Menu" className="w-8 h-8 cursor-pointer" />
                 </div>
             </div>
         </>

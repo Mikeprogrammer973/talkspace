@@ -37,13 +37,13 @@ export function StatusView({userStatus}: {userStatus: UserStatus[]})
     }
     
     return (
-        <div onClick={(e)=>e.stopPropagation()} className={"w-full h-full flex justify-center md:justify-between items-center p-5"}>
-            <Button onClick={()=>previous()} className="hidden md:flex">&lt;</Button>
-            <div className="p-5">
+        <div className={"w-full h-full flex justify-center md:justify-between items-center p-20"}>
+            <Button onClick={(e)=>{e.stopPropagation(); previous()}} className="hidden md:flex">&lt;</Button>
+            <div onClick={(e)=>e.stopPropagation()} className="p-5">
                 <div className="bg-gray-800 p-2">
                     <StatusTopNav statusId={statusId} setStatusId={setStatusId} status={{current: userStatus[statusId], all: userStatus}} />
                 </div>
-                <div className="">
+                <div onClick={(e)=>e.stopPropagation()}>
                     {
                         userStatus.map((status_, i) =>{
                             if(status_.type == 'video')
@@ -75,11 +75,11 @@ export function StatusView({userStatus}: {userStatus: UserStatus[]})
                         })
                     }
                 </div>
-                <div className="bg-gray-800 p-2">
+                <div onClick={(e)=>e.stopPropagation()} className="bg-gray-800 p-2">
                     <StatusBottomNav />
                 </div>
             </div>
-            <Button onClick={()=>next()} className="hidden md:flex">&gt;</Button>
+            <Button onClick={(e)=>{e.stopPropagation(); next()}} className="hidden md:flex">&gt;</Button>
         </div>
     )
 }

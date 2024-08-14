@@ -17,7 +17,7 @@ export default function MenuItem({icon, label, normal = true, counter}: {icon: R
 export function MoreOptions()
 {
     return (
-        <div className="bg-gray-800 p-5 rounded-lg text-gray-200">
+        <div onClick={(e)=>e.stopPropagation()} className="bg-gray-800 p-5 rounded-lg text-gray-200">
             <MenuItem normal={false} label="Settings" icon={<AdjustmentsHorizontalIcon fill="currentColor" className="w-8 h-8" />} />
             <MenuItem normal={false} label="Saved" icon={<BookmarkIcon fill="currentColor" className="w-8 h-8" />} />
             <MenuItem normal={false} label="Report a problem" icon={<WrenchScrewdriverIcon fill="currentColor" className="w-8 h-8" />} />

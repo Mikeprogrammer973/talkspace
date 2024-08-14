@@ -37,7 +37,7 @@ export function StatusView({userStatus}: {userStatus: UserStatus[]})
     }
     
     return (
-        <div className={"w-full h-full flex justify-center md:justify-between items-center p-5"}>
+        <div onClick={(e)=>e.stopPropagation()} className={"w-full h-full flex justify-center md:justify-between items-center p-5"}>
             <Button onClick={()=>previous()} className="hidden md:flex">&lt;</Button>
             <div className="p-5">
                 <div className="bg-gray-800 p-2">

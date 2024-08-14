@@ -85,13 +85,7 @@ export async function create(prevState: UserState, formData: FormData)
                 email: email,
                 username: username,
                 name: fullName,
-                password: await hash(password, await genSalt(15)),
-                profile: {
-                    create: {
-                        bio: "New user!",
-                        image: "null",
-                    }
-                }
+                password: await hash(password, await genSalt(15))
             }
         })
 

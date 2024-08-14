@@ -5,19 +5,19 @@ const prisma = new PrismaClient()
 
 export async function GET()
 {
-    const nweUser = await prisma.user.create({
-        data: {
-            email: "thalita@hotmail.com",
-            name: "Thalita Furtado",
-            username: "thalita_f",
-            password: "186464616",
-            profile: {
-                create: {
-                    bio: "New user"
-                }
-            }
-        }
-    })
+    // const nweUser = await prisma.user.create({
+    //     data: {
+    //         email: "thalita@hotmail.com",
+    //         name: "Thalita Furtado",
+    //         username: "thalita_f",
+    //         password: "186464616",
+    //         profile: {
+    //             create: {
+    //                 bio: "New user"
+    //             }
+    //         }
+    //     }
+    // })
 
-    return NextResponse.json(nweUser)
+    // return NextResponse.json(nweUser)
 }

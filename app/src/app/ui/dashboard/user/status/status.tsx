@@ -3,6 +3,7 @@ import Image from "next/image"
 import { useState } from "react"
 import { StatusView } from "./statusView"
 import MsgBox from "../../../global/msgBox"
+import { userStatus } from "tspace/app/lib/user/test/status/data"
 
 type UserData = {
     user: User & Profile | null
@@ -13,7 +14,7 @@ export function Status(data: UserData)
     const [visible, setVisible] = useState<boolean>(false)
     return (
         <div className="w-16">
-            <MsgBox status={true} visible={visible} setVisible={setVisible} msg={<StatusView />} />
+            <MsgBox status={true} visible={visible} setVisible={setVisible} msg={<StatusView userStatus={userStatus} />} />
             <div onClick={()=>setVisible(true)} className="cursor-pointer">
                 <div className="p-1 h-16 rounded-full border-2 overflow-hidden">
                     <Image

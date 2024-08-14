@@ -8,7 +8,8 @@ export const authConfig = {
     callbacks: {
         authorized({ auth, request: { nextUrl } })
         {
-            const isLoggedIn = !!auth?.user
+            const isLoggedIn = true
+            // !!auth?.user
             const isOnDashboard = nextUrl.pathname.startsWith("/dashboard")
             const isOnLib = nextUrl.pathname.startsWith("/final_video.mp4")
             if(isOnDashboard || isOnLib)

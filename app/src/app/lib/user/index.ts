@@ -89,7 +89,7 @@ export async function create(prevState: UserState, formData: FormData)
                 profile: {
                     create: {
                         bio: "New user!",
-                        image: null,
+                        image: "null",
                     }
                 }
             }

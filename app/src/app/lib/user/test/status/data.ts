@@ -3,6 +3,10 @@ import { UserStatus } from "./definition"
 export const userStatus: UserStatus[] = [
     {
         type: 'image',
+        src: 'https://media4.giphy.com/media/dZX3AduGrY3uJ7qCsx/giphy.gif?cid=6c09b952ihcze9k362ewr4dr6ejcvm2fi9g3hw7hjh0npzaz&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g'
+    },
+    {
+        type: 'image',
         src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCKhSSwriyDJ4jG9pHgrfUFjfM3jbemkw0Jw&s'
     },
     {

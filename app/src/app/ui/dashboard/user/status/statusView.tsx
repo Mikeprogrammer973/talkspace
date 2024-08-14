@@ -6,43 +6,80 @@ import { UserStatus } from "tspace/app/lib/user/test/status/definition"
 
 export function StatusView({userStatus}: {userStatus: UserStatus[]})
 {
-    const [timer, setTimer] = useState<number>(0)
-    const [videoStatus, setVideoStatus] = useState<{current: number, duration: number}>({current: 0, duration: 0})
-    const [pause, setPause] = useState<boolean>(false)
+    const [statusId, setStatusId] = useState<number>(0)
+    const [touchStartX, setTouchStartX] = useState(0);
+    const [touchEndX, setTouchEndX] = useState(0);
 
+    const handleTouchStart = (e: React.TouchEvent<HTMLElement>) => {
+        setTouchStartX(e.targetTouches[0].clientX);
+    };
+
+    const handleTouchMove = (e: React.TouchEvent<HTMLElement>) => {
+        setTouchEndX(e.targetTouches[0].clientX);
+    };
+
+    const handleTouchEnd = () => {
+        if (touchStartX - touchEndX > 50) {
+            previous()
+        }
+
+        if (touchEndX - touchStartX > 50) {
+            next()
+        }
+    };
+
+    const previous = ()=>{
+        setStatusId(prev => statusId === 0 ? (userStatus.length - 1) : prev - 1)
+    }
+
+    const next = ()=>{
+        setStatusId(prev => statusId === (userStatus.length - 1) ? 0 : prev + 1)
+    }
+    
     return (
         <div className={"w-full h-full flex justify-center md:justify-between items-center p-5 -mt-6"}>
-            <Button className="hidden md:flex">&lt;</Button>
-            <div className="p-5">
-                <div className="bg-black p-2">
-                    <StatusTopNav pause={pause} setPause={setPause} setTimer={setTimer} setVideoStatus={setVideoStatus} videoStatus={videoStatus} status={{current: userStatus[timer], all: userStatus}} />
+            <Button onClick={()=>previous()} className="hidden md:flex">&lt;</Button>
+            <div className="p-5 mb-10">
+                <div className="bg-gray-800 p-2">
+                    <StatusTopNav statusId={statusId} setStatusId={setStatusId} status={{current: userStatus[statusId], all: userStatus}} />
                 </div>
                 <div>
                     {
-                        userStatus.map((status, i) =>{
-                            if(status.type == 'video')
+                        userStatus.map((status_, i) =>{
+                            if(status_.type == 'video')
                             {
                                 return (
-                                    <video autoPlay key={i} className={"h-[70vh] w-full" + (timer === i ? "" : " hidden")} onTimeUpdate={(e)=>setVideoStatus({current: e.currentTarget.currentTime, duration: e.currentTarget.duration})} controls preload="none">
-                                        {timer === i && <source src={status.src} type="video/mp4" />}
-                                        Your browser does not support the video tag.
-                                    </video>
+                                    <div 
+                                        key={i}
+                                        onTouchStart={handleTouchStart}
+                                        onTouchMove={handleTouchMove}
+                                        onTouchEnd={handleTouchEnd}
+                                    >
+                                        {statusId === i && <video onEnded={()=>next()} autoPlay key={i=1} className={"h-[70vh] w-full" + (statusId === i ? "" : " hidden")} controls preload="none">
+                                            <source key={i+2} src={status_.src} type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>}
+                                    </div>
                                 )
                             } else{
                                 return (
-                                    <img key={i} className={"bg-gray-600 w-full h-[70vh] aspect-square animate-fadeOut" + (timer === i ? "" : " hidden")} alt="demo-status-image"
-                                        src={status.src}
+                                    <img 
+                                        onTouchStart={handleTouchStart}
+                                        onTouchMove={handleTouchMove}
+                                        onTouchEnd={handleTouchEnd}
+                                        onClick={()=>next()} key={i+4} className={"bg-gray-600 w-full h-[70vh] aspect-square animate-fadeOut" + (statusId === i ? "" : " hidden")} alt="demo-status-image"
+                                        src={status_.src}
                                     />
                                 )
                             }
                         })
                     }
                 </div>
-                <div className="bg-black p-2">
+                <div className="bg-gray-800 p-2">
                     <StatusBottomNav />
                 </div>
             </div>
-            <Button className="hidden md:flex">&gt;</Button>
+            <Button onClick={()=>next()} className="hidden md:flex">&gt;</Button>
         </div>
     )
 }

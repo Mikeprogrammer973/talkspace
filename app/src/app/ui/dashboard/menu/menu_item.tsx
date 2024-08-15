@@ -9,7 +9,7 @@ export default function MenuItem({icon, label, normal = true, counter}: {icon: R
         <div title={label} className={"flex gap-4 items-center p-3 cursor-pointer hover:animate-pulse" + (normal === true && " justify-center lg:justify-normal")}>
             {icon}
             {counter && counter}
-            <p className={"text-lg" + (normal === true && " hidden lg:block")}>{label}</p>
+            <p className={"text-sm" + (normal === true && " hidden lg:block")}>{label}</p>
         </div>
     )
 }

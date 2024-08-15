@@ -3,19 +3,11 @@
 import Image from "next/image"
 import MenuItem, { MoreOptions } from "./menu_item"
 import { HomeIcon } from "@heroicons/react/16/solid"
-import { ArrowsPointingOutIcon, Bars3Icon, BellAlertIcon, ChatBubbleLeftRightIcon, FilmIcon, MagnifyingGlassIcon, PlusCircleIcon } from "@heroicons/react/20/solid"
-import MsgBox from "../../global/msgBox"
-import { ReactNode, useState } from "react"
+import { AdjustmentsHorizontalIcon, ArrowLeftStartOnRectangleIcon, ArrowsPointingOutIcon, ArrowsRightLeftIcon, BellAlertIcon, BookmarkIcon, ChatBubbleLeftRightIcon, FilmIcon, MagnifyingGlassIcon, PlusCircleIcon, WrenchScrewdriverIcon } from "@heroicons/react/20/solid"
+import Link from "next/link"
 
 export default function SideNav()
 {
-    const [visible, setVisible] = useState<boolean>(false)
-    const [msg, setMsg] = useState<ReactNode>()
-    function showMoreOptions()
-    {
-        setMsg(<MoreOptions />)
-        setVisible(true)
-    }
     return (
         <div className="bg-gray-700 md:w-[20%] md:h-screen md:fixed text-gray-200 overflow-y-scroll scrollbar-none sticky top-0 left-0 right-0 flex justify-between md:block">
             <div className="flex items-center justify-center sticky top-0 bg-gray-800">
@@ -36,10 +28,16 @@ export default function SideNav()
                 <MenuItem label="Create" icon={<PlusCircleIcon fill="currentColor" className="w-8 h-8" />} />
             </div>
             <MenuItem label="Profile" icon={<Image alt="icon_profile" className="w-8 h-8 rounded-full bg-slate-500" src={"/lib/util/generate/user/profile/image"} width={200} height={200} />} />
-            <button className="w-full text-center md:text-left hidden md:block" onClick={()=>showMoreOptions()}>
-                <MenuItem label="More" icon={<Bars3Icon fill="currentColor" className="w-8 h-8" />} />
-            </button>
-            <MsgBox msg={msg} visible={visible} setVisible={setVisible}/>
+            <div className="hidden md:block">
+                <MenuItem label="Settings" icon={<AdjustmentsHorizontalIcon fill="currentColor" className="w-8 h-8" />} />
+                <MenuItem label="Saved" icon={<BookmarkIcon fill="currentColor" className="w-8 h-8" />} />
+                <MenuItem label="Report a problem" icon={<WrenchScrewdriverIcon fill="currentColor" className="w-8 h-8" />} />
+                <br /><hr /><br />
+                <MenuItem label="Switch accounts" icon={<ArrowsRightLeftIcon fill="currentColor" className="w-8 h-8" />} />
+                <Link href={'/dashboard/logout'}>
+                    <MenuItem label="Log out" icon={<ArrowLeftStartOnRectangleIcon fill="currentColor" className="w-8 h-8" />} />
+                </Link>
+            </div>
         </div>
     )
 }

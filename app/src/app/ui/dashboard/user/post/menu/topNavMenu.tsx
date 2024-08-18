@@ -2,7 +2,7 @@
 export function PostTopNavMenu()
 {
     return(
-        <div>
+        <div className="text-white">
             <p role="button" className="text-sm text-red-500 font-semibold border-b-[1px] text-center py-4 px-2">Report</p>
             <p role="button" className="text-sm text-red-500 font-semibold border-b-[1px] text-center py-4 px-2">Unfollow</p>
             <p role="button" className="text-sm border-b-[1px] text-center py-4 px-2">Add to favorites</p>

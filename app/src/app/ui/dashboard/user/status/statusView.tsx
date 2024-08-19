@@ -37,9 +37,9 @@ export function StatusView({userStatus}: {userStatus: UserStatus[]})
     }
     
     return (
-        <div className={"w-full h-full flex justify-center md:justify-between items-center p-20"}>
+        <div className={"w-full h-full flex justify-center md:justify-between items-center"}>
             <Button onClick={(e)=>{e.stopPropagation(); previous()}} className="hidden md:flex">&lt;</Button>
-            <div onClick={(e)=>e.stopPropagation()} className="p-5">
+            <div onClick={(e)=>e.stopPropagation()} className="p-0">
                 <div className="bg-gray-800 p-2">
                     <StatusTopNav statusId={statusId} setStatusId={setStatusId} status={{current: userStatus[statusId], all: userStatus}} />
                 </div>

@@ -1,17 +1,20 @@
+"use client"
 import { BookmarkIcon, ChatBubbleOvalLeftIcon, HeartIcon, ShareIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import { useState } from "react";
 
 export function PostBottomNav()
 {
+    const [like, setLike] = useState<boolean>(false)
     return (
         <div className="py-2 text-sm">
             <div className="flex items-center justify-between">
                 <div className="flex gap-8">
-                    <HeartIcon role="button" title="Like" stroke="" fill="red" className="w=6 lg:w-8 h-6 lg:h-8" />
-                    <ChatBubbleOvalLeftIcon role="button" title="Comment" stroke="white" fill="transparent" className="w-6 lg:w-8 h-6 lg:h-8" />
-                    <ShareIcon role="button" title="Share Post" stroke="white" fill="transparent" className="w=6 lg:w-8 h-6 lg:h-8" />
+                    <HeartIcon onClick={()=>setLike(prev => !prev)} role="button" title="Like" stroke={like ? "" : "currentColor"} fill={like ? "red" : ""} className="w=6 lg:w-8 h-6 lg:h-8 hover:text-gray-400" />
+                    <ChatBubbleOvalLeftIcon role="button" title="Comment" stroke="currentColor" fill="transparent" className="w-6 lg:w-8 h-6 lg:h-8 hover:text-gray-400" />
+                    <ShareIcon role="button" title="Share Post" stroke="currentColor" fill="transparent" className="w-6 lg:w-8 h-6 lg:h-8 hover:text-gray-400" />
                 </div>
-                <BookmarkIcon role="button" title="Save" stroke="white" fill="transparent" className="w=6 lg:w-8 h-6 lg:h-8" />
+                <BookmarkIcon role="button" title="Save" stroke="currentColor" fill="transparent" className="w-6 lg:w-8 h-6 lg:h-8 hover:text-gray-400" />
             </div>
             <div className="py-2">
                 <p className="font-light">
@@ -29,8 +32,8 @@ export function PostBottomNav()
                     <button>View all 102 comments</button>
                 </p>
                 <p className="flex gap-4">
-                    <input type="text" placeholder="Add a comment..." className="bg-transparent w-[80%] text-gray-300 text-sm p-2 outline-none" />
-                    <button className="relative w-[20%] text-right text-blue-500 font-semibold hover:text-white">Post</button>
+                    <input type="text" placeholder="Add a comment..." className="bg-transparent w-[80%] text-gray-300 text-sm py-2 outline-none" />
+                    <button className="w-[20%] text-right text-blue-500 font-semibold hover:text-white">Post</button>
                 </p>
             </div>
         </div>

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { StatusView } from "./statusView"
 import MsgBox from "../../../global/msgBox"
 import { userStatus } from "tspace/app/lib/user/test/status/data"
+import { ProfileIcon } from "../util/profile_icon"
 
 type UserData = {
     user: User & Profile | null
@@ -16,15 +17,11 @@ export function Status(data: UserData)
         <div className="w-16">
             <MsgBox status={true} visible={visible} setVisible={setVisible} msg={<StatusView userStatus={userStatus} />} />
             <div onClick={()=>setVisible(true)} className="cursor-pointer">
-                <div className="p-1 h-16 rounded-full border-2 overflow-hidden">
-                    <Image
-                        alt="profile_user"
-                        src={"/lib/util/generate/user/profile/image"}
-                        width={150}
-                        height={150}
-                        className="rounded-full bg-slate-200 h-full w-full"
-                    />
-                </div>
+                <ProfileIcon 
+                    image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCKhSSwriyDJ4jG9pHgrfUFjfM3jbemkw0Jw&s"
+                    size={{width: 4, height: 4}}
+                    border={true}
+                />
                 <p className="overflow-hidden overflow-ellipsis">peter_morningstar_007</p>
             </div>
         </div>

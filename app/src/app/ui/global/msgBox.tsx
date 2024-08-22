@@ -18,7 +18,7 @@ export default function MsgBox(prms: MsgPrms)
         <div className={"inline-block" + (prms.status ? " w-full h-screen rounded-none shadow-none bg-transparent" : " bg-gray-900 max-w-[90%] max-h-[90%] rounded-xl shadow-lg overflow-y-scroll scrollbar-none")}>
             {prms.msg}
         </div>
-        {<div title="Close" className="fixed top-0 right-0 p-1"><span onClick={()=>{prms.setVisible(false)}} className="inline-block text-2xl text-gray-400 hover:text-white font-extralight text-center cursor-pointer p-[.4rem]">X</span></div>}
+        {<div title="Close" className="fixed top-0 right-0 p-1"><span onClick={()=>{prms.setVisible(false)}} className="inline-block text-xl text-gray-400 hover:text-white font-extralight text-center cursor-pointer p-[.4rem]">X</span></div>}
     </section> : <div></div>
     )
 }

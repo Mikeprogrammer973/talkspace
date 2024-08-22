@@ -14,7 +14,7 @@ export function PostBottomNav({full = true}: {full?: boolean})
             <div className="flex items-center justify-between">
                 <div className="flex gap-8">
                     {visible && <MsgBox visible={visible} setVisible={setVisible} msg={<CommentZone />} />}
-                    <HeartIcon onClick={()=>setLike(prev => !prev)} role="button" title="Like" stroke={like ? "" : "currentColor"} fill={like ? "red" : ""} className="w=6 lg:w-8 h-6 lg:h-8 hover:text-gray-400" />
+                    <HeartIcon onClick={()=>setLike(prev => !prev)} role="button" title="Like" stroke={like ? "" : "currentColor"} fill={like ? "red" : ""} className="w-6 lg:w-8 h-6 lg:h-8 hover:text-gray-400" />
                     <ChatBubbleOvalLeftIcon onClick={()=>setVisible(true)} role="button" title="Comment" stroke="currentColor" fill="transparent" className="w-6 lg:w-8 h-6 lg:h-8 hover:text-gray-400" />
                     <ShareIcon role="button" title="Share Post" stroke="currentColor" fill="transparent" className="w-6 lg:w-8 h-6 lg:h-8 hover:text-gray-400" />
                 </div>
@@ -25,7 +25,7 @@ export function PostBottomNav({full = true}: {full?: boolean})
                     Liked by <Link className="font-semibold" href={"#"}>0_m_i_r_a_c_l_e_0</Link> and <button className="font-semibold">others</button>
                 </p>
             </div> : <div className="py-2 text-gray-500">
-                <p title="August 8, 2024">August 8</p>
+                <p title="August 8, 2024">10 days</p>
             </div>}
             <div className="py-2">
                 {full && <><p className="text-nowrap overflow-ellipsis overflow-x-hidden ">

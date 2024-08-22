@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, useRef, useState } from "react";
 import MsgBox from "tspace/app/ui/global/msgBox";
 import { TopNavMenu } from "./topNavMenu";
 import { UserStatus } from "tspace/app/lib/user/test/status/definition";
+import { ProfileIcon } from "../../util/profile_icon";
 
 type StatusPrms = {
     statusId: number,
@@ -29,9 +30,9 @@ export function StatusTopNav({setStatusId, status, statusId}: StatusPrms)
             </div>
             <div className="flex justify-between items-center px-2">
                 <div className="flex items-center cursor-pointer">
-                    <img className="w-10 h-10 rounded-full" alt="demo-status-image" 
-                        src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCKhSSwriyDJ4jG9pHgrfUFjfM3jbemkw0Jw&s"}
-                        width={100} height={100} 
+                    <ProfileIcon 
+                        image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCKhSSwriyDJ4jG9pHgrfUFjfM3jbemkw0Jw&s"
+                        size={{width: 3, height: 3}}
                     />
                     <p className="px-2 max-w-40 overflow-x-hidden overflow-ellipsis">maria_eduda_ribeira</p>
                     <p className="text-gray-400">21h</p>

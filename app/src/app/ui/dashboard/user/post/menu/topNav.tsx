@@ -16,7 +16,7 @@ export function PostTopNav()
                     image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCKhSSwriyDJ4jG9pHgrfUFjfM3jbemkw0Jw&s"
                     size={{width: 3, height: 3}}
                 />
-                <p className="px-2 max-w-40 overflow-x-hidden overflow-ellipsis">maria_eduda_ribeira</p>
+                <p className="px-2 max-w-20 md:max-w-80 overflow-x-hidden overflow-ellipsis">maria_eduda_ribeira</p>
                 <p className="text-gray-400">21h</p>
             </div>
             <div className="flex items-center gap-4">

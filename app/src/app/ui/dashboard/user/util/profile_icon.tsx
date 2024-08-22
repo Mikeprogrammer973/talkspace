@@ -8,7 +8,7 @@ interface ProfileIconPrms {
 export function ProfileIcon({image, size, border}: ProfileIconPrms)
 {
     return (
-        <div role="button" style={{width: size.width + "rem", height: size.height + "rem"}} className={"p-1 rounded-full" + (border && " border-2")}>
+        <div role="button" style={{width: size.width + "rem", height: size.height + "rem"}} className={"rounded-full" + (border && " border-2")}>
             <img className="rounded-full w-full h-full" src={image} alt="profile_user" />
         </div>
     )

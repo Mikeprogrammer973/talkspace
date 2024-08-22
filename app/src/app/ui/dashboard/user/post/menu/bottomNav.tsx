@@ -35,7 +35,7 @@ export function PostBottomNav({full = true}: {full?: boolean})
                     <Link href={"#"} className="tracking-widest">#escritoriodocoala</Link>
                 </p>
                 <p className="py-2 text-gray-300">
-                    <button>View all 102 comments</button>
+                    <button onClick={()=>setVisible(true)}>View all 102 comments</button>
                 </p></>}
                 <p className="flex gap-4">
                     <input type="text" placeholder="Add a comment..." className="bg-transparent w-[80%] text-gray-300 text-sm py-2 outline-none" />

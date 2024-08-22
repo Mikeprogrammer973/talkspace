@@ -15,7 +15,7 @@ export function CommentWrapper()
             </div>
             <div>
                 <Comment />
-                {replies.length > 0 && <div className="pl-[6.5rem]">
+                {replies.length > 0 && <div className="pl-2">
                     <button onClick={()=>setVisible(prev => !prev)} className="text-gray-400"> {visible ? "Hide replies" : "Show replies"}({replies.length}) </button>
                     {visible && <div>
                         {

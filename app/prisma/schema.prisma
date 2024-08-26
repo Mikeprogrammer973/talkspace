@@ -27,5 +27,18 @@ model User {
   name String 
   username String @unique
   password String 
-  profile Profile?
+  profiles Profile[]
+  // posts Post[]
+}
+
+model Post {
+  id Int @id @default(autoincrement())
+  type String 
+  url String
+  // user User @relation(fields: [userId], references: [id])
+  // userId Int @unique
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
 }

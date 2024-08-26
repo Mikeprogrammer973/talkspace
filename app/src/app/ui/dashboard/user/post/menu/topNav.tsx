@@ -11,7 +11,7 @@ export function PostTopNav()
 
     return (
         <div className="flex justify-between items-center p-2">
-            <div className="flex items-center cursor-pointer">
+            <div className="flex items-center cursor-pointer flex-wrap">
                 <ProfileIcon 
                     image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCKhSSwriyDJ4jG9pHgrfUFjfM3jbemkw0Jw&s"
                     size={{width: 3, height: 3}}

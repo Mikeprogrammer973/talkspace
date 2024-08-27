@@ -11,12 +11,18 @@ export default function SideNav()
     return (
         <div className="bg-gray-700 md:w-[20%] md:h-screen md:fixed text-gray-200 overflow-y-scroll scrollbar-none sticky top-0 left-0 right-0 flex justify-between md:block">
             <div className="flex items-center justify-center sticky top-0 bg-gray-800">
-                <Image alt="logo_banner" className="hidden md:block" src={"/logo/talkspace-banner.png"} width={150} height={150} />
-                <Image alt="logo_short" className="block md:hidden" src={"/logo/talkspace-logo-short.png"} width={75} height={75} />
+                <Link href={"/dashboard"}>
+                    <Image alt="logo_banner" className="hidden md:block" src={"/logo/talkspace-banner.png"} width={150} height={150} />
+                    <Image alt="logo_short" className="block md:hidden" src={"/logo/talkspace-logo-short.png"} width={75} height={75} />
+                </Link>
             </div>
-            <MenuItem label="Home" icon={<HomeIcon fill="currentColor" className="w-8 h-8" />} /> 
+            <Link className="flex items-center" href={"/dashboard"}>
+                <MenuItem label="Home" icon={<HomeIcon fill="currentColor" className="w-8 h-8" />} />
+            </Link> 
             <div className="hidden md:block">
-                <MenuItem label="Search" icon={<MagnifyingGlassIcon fill="currentColor" className="w-8 h-8" />}/>
+                <Link href={"/dashboard/search"}>
+                    <MenuItem label="Search" icon={<MagnifyingGlassIcon fill="currentColor" className="w-8 h-8" />}/>
+                </Link>
             </div>
             <div className="hidden md:block">
                 <MenuItem label="Explore" icon={<ArrowsPointingOutIcon fill="currentColor" className="w-8 h-8" />} />

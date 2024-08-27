@@ -16,7 +16,7 @@ export default function SideNav()
                     <Image alt="logo_short" className="block md:hidden" src={"/logo/talkspace-logo-short.png"} width={75} height={75} />
                 </Link>
             </div>
-            <Link className="flex items-center" href={"/dashboard"}>
+            <Link className="flex items-center justify-center lg:justify-normal" href={"/dashboard"}>
                 <MenuItem label="Home" icon={<HomeIcon fill="currentColor" className="w-8 h-8" />} />
             </Link> 
             <div className="hidden md:block">

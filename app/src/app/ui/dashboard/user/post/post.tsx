@@ -16,7 +16,7 @@ export function Post({post}: {post: PostModel})
                     ) : (
                         post.type === "video"
                         ? (
-                            <video className="w-full max-w-[600px] h-auto rounded-lg" controls loop preload="none" onBlur={(e) => e.currentTarget.pause()} onFocus={(e) => e.currentTarget.play()}>
+                            <video poster="https://www.healthdigest.com/img/gallery/science-says-this-female-body-type-is-most-attractive-to-men-upgrade/intro-1692030948.jpg" className="w-full max-w-[600px] h-auto rounded-lg" controls loop preload="none" onBlur={(e) => e.currentTarget.pause()} onFocus={(e) => e.currentTarget.play()}>
                                 <source src={post.url} />
                             </video>
                         )

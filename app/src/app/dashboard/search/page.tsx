@@ -2,7 +2,7 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { useState } from "react";
-import { SearchRessulstWrapper } from "./(components)/wrapper";
+import { SearchRessulstWrapper } from "../../ui/dashboard/search/wrapper";
 
 export default function SearchPage()
 {

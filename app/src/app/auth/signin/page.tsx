@@ -2,9 +2,9 @@
 
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
-import LoginForm from "../ui/auth/login-form";
-import { Alert } from "../ui/global/alert";
-import MsgBox from "../ui/global/msgBox";
+import LoginForm from "../../ui/auth/login-form";
+import { Alert } from "../../ui/global/alert";
+import MsgBox from "../../ui/global/msgBox";
 
 function LoginComponent()
 {

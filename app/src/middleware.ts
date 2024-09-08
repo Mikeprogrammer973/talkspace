@@ -1,10 +1,10 @@
+import { NextRequest } from "next/server";
 
-import NextAuth from 'next-auth';
-import { authConfig } from './app/lib/user/auth/config/auth.config';
- 
-export default NextAuth(authConfig).auth;
- 
+export async function middleware(req: NextRequest) {
+  
+}
+
 export const config = {
   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: '/:path*',
 };

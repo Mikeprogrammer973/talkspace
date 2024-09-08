@@ -23,7 +23,7 @@ export default function Page()
             <div>
                 {
                     posts.map((post, i)=>{
-                        return <Post post={post} />
+                        return <Post key={i} post={post} />
                     })
                 }
             </div>

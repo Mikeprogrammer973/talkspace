@@ -51,7 +51,7 @@ export default function RegisterForm()
                             <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400 peer-focus:text-gray-600" />
                         </div>
                     </div>
-                    <div>
+                    {/* <div>
                         <label
                             className="mb-3 mt-5 block text-xs font-medium"
                             htmlFor="Full Name"
@@ -69,7 +69,7 @@ export default function RegisterForm()
                             />
                             <IdentificationIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400 peer-focus:text-gray-600" />
                         </div>
-                    </div>
+                    </div> */}
                     <div>
                         <label
                             className="mb-3 mt-5 block text-xs font-medium"
@@ -113,7 +113,7 @@ export default function RegisterForm()
                         Sign up <ArrowRightIcon className="w-7 pl-2" />
                     </Button>
                     <div className="p-4 text-center text-gray-400">
-                        Have an account? <Link className="text-blue-500 font-semibold" href={"/"}>Log in</Link>
+                        Have an account? <Link className="text-blue-500 font-semibold" href={"signin"}>Sign in</Link>
                     </div>
                 </form>
             </div>

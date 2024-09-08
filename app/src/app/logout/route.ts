@@ -1,4 +1,5 @@
-import { signOut } from "tspace/app/lib/user/auth/auth";
+import { signOut } from "next-auth/react";
+
 
 
 export async function GET() {

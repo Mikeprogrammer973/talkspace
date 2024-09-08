@@ -70,13 +70,13 @@ const handler = NextAuth(
     }
 )
 
-export function GET()
+export async function GET()
 {
-    return Response.bind(handler)
+    return new Response().json()
 }
 
-export function POST()
+export async function POST()
 {
-    return Response.bind(handler)
+    return new Response().json()
 }
 

@@ -72,11 +72,11 @@ const handler = NextAuth(
 
 export function GET()
 {
-    return NextResponse.bind(handler)
+    return Response.bind(handler)
 }
 
 export function POST()
 {
-    return NextResponse.bind(handler)
+    return Response.bind(handler)
 }
 

@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import CredentialProvider from 'next-auth/providers/credentials'
 import { getByUsername } from "tspace/app/lib/user";
 import { compare } from "bcryptjs";
+import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient()
 
@@ -69,5 +70,13 @@ const handler = NextAuth(
     }
 )
 
-export { handler as GET, handler as POST }
+export function GET()
+{
+    return NextResponse.bind(handler)
+}
+
+export function POST()
+{
+    return NextResponse.bind(handler)
+}
 

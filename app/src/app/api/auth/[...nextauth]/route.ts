@@ -70,13 +70,9 @@ const handler = NextAuth(
     }
 )
 
-export async function GET()
-{
-    return new Response().json()
+const POST =async () => {
+    return handler
 }
 
-export async function POST()
-{
-    return new Response().json()
-}
+export { POST }
 

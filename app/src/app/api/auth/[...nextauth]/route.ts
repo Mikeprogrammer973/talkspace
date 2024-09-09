@@ -68,13 +68,11 @@ const config = {
         }
 } satisfies NextAuthConfig
 
-// Função GET: Chamando diretamente o NextAuth
 export async function GET(req: NextRequest) {
     const response = NextAuth(config);
     return NextResponse.json(response);
   }
   
-  // Função POST: Chamando diretamente o NextAuth
   export async function POST(req: NextRequest) {
     const response = NextAuth(config);
     return NextResponse.json(response);

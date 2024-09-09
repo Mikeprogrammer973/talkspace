@@ -1,15 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthConfig } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import CredentialProvider from 'next-auth/providers/credentials'
 import { getByUsername } from "tspace/app/lib/user";
 import { compare } from "bcryptjs";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient()
 
-const handler = NextAuth(
-    {
+const config = {
         adapter: PrismaAdapter(prisma),
         providers: [
             CredentialProvider({
@@ -67,8 +66,18 @@ const handler = NextAuth(
             signIn: "auth/signin",
             newUser: "auth/signup"
         }
-    }
-)
+} satisfies NextAuthConfig
 
-export { handler as GET, handler as POST }
+// Função GET: Chamando diretamente o NextAuth
+export async function GET(req: NextRequest) {
+    const response = NextAuth(config);
+    return NextResponse.json(response);
+  }
+  
+  // Função POST: Chamando diretamente o NextAuth
+  export async function POST(req: NextRequest) {
+    const response = NextAuth(config);
+    return NextResponse.json(response);
+  }
+  
 

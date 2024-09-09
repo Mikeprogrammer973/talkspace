@@ -1,22 +1,26 @@
-
 import { ArrowRightIcon, AtSymbolIcon } from "@heroicons/react/16/solid";
 import { KeyIcon, UserCircleIcon } from "@heroicons/react/20/solid";
 import { Button } from "../global/button";
 import LogoBanner from "../global/logo-banner";
 import Link from "next/link";
 import { useFormState } from "react-dom";
+import { authenticate } from "tspace/app/lib/user";
 import { Alert } from "../global/alert";
 import Spinner from "../global/spinner";
 import { useState } from "react";
 
 export default function LoginForm()
 {
+    const [errorMessage, formAction, isPending] = useFormState(authenticate, undefined)
+    const [spinnerV, setSpinnerV] = useState<boolean>(false)
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <LogoBanner />
             <div className="mx-auto flex h-screen items-center justify-center">
-                <form className="max-w-[800px] p-5">
+                <form action={formAction} className="max-w-[800px] p-5">
+                    <Spinner visible={spinnerV} label="Processing..." />
+                    {errorMessage && <Alert title="" color="danger" msg={<div className="font-light text-lg">{errorMessage}</div>} />}
                     <p className="text-3xl my-8 font-semibold text-center">Log in into your account</p>
                     <div>
                         <label
@@ -56,7 +60,7 @@ export default function LoginForm()
                         <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400 peer-focus:text-gray-600" />
                         </div>
                     </div>
-                    <Button className="my-8 w-full justify-center">
+                    <Button className="my-8 w-full justify-center" aria-disabled={isPending}>
                         Sign in <ArrowRightIcon className="w-7 pl-2" />
                     </Button>
                     <div className="p-4 text-center text-gray-400">

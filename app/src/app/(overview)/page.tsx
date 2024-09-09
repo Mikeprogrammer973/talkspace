@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+
 import { Post } from "tspace/app/ui/dashboard/user/post/post"
 import { Post as PostModel } from '@prisma/client'
 import { StatusWrapper } from "tspace/app/ui/dashboard/user/status/statusWrapper"

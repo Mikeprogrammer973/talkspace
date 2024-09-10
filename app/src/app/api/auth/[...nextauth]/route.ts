@@ -72,12 +72,4 @@ const handler = NextAuth({
     }
 })
 
-//export { handler as GET, handler as POST }
-
-export async function  POST(request: Request) {
-    return handler
-}
-
-export async function  GET(request: Request) {
-    return handler
-}
+export { handler as GET, handler as POST }

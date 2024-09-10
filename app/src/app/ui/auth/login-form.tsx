@@ -4,24 +4,45 @@ import { Button } from "../global/button";
 import LogoBanner from "../global/logo-banner";
 import Link from "next/link";
 import { useFormState } from "react-dom";
-import { authenticate } from "tspace/app/lib/user";
 import { Alert } from "../global/alert";
 import Spinner from "../global/spinner";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm()
 {
-    const [errorMessage, formAction, isPending] = useFormState(authenticate, undefined)
     const [spinnerV, setSpinnerV] = useState<boolean>(false)
+
+    const [username, setUsername] = useState<string>("")
+    const [password,setPassword] = useState<string>("")
+    const [error, setError] = useState<string>("")
+    const router = useRouter()
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) =>{
+        e.preventDefault()
+        const ressult = await signIn("credentials", {
+            redirect: false,
+            username,
+            password
+        })
+
+        if(ressult?.error)
+        {
+            setError(ressult.error)
+        } else{
+            router.push("/")
+        }
+    }
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <LogoBanner />
             <div className="mx-auto flex h-screen items-center justify-center">
-                <form action={formAction} className="max-w-[800px] p-5">
+                <form onSubmit={handleSubmit} className="max-w-[800px] p-5">
                     <Spinner visible={spinnerV} label="Processing..." />
-                    {errorMessage && <Alert title="" color="danger" msg={<div className="font-light text-lg">{errorMessage}</div>} />}
                     <p className="text-3xl my-8 font-semibold text-center">Log in into your account</p>
+                    {error && <Alert title="" color="warning" msg={<div className="font-light text-lg">{error === "CredentialsSignin" ? "Invalid credentials!" : "Something went wrong!" }</div>} />}
                     <div>
                         <label
                         className="mb-3 mt-5 block text-xs font-medium"
@@ -37,6 +58,8 @@ export default function LoginForm()
                             name="username"
                             placeholder="Enter your username"
                             required
+                            value={username}
+                            onChange={(e)=>setUsername(e.currentTarget.value)}
                         />
                         <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400 peer-focus:text-gray-600" />
                         </div>
@@ -56,11 +79,13 @@ export default function LoginForm()
                             name="password"
                             placeholder="Enter your password"
                             required
+                            value={password}
+                            onChange={(e)=>setPassword(e.currentTarget.value)}
                         />
                         <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400 peer-focus:text-gray-600" />
                         </div>
                     </div>
-                    <Button className="my-8 w-full justify-center" aria-disabled={isPending}>
+                    <Button className="my-8 w-full justify-center">
                         Sign in <ArrowRightIcon className="w-7 pl-2" />
                     </Button>
                     <div className="p-4 text-center text-gray-400">

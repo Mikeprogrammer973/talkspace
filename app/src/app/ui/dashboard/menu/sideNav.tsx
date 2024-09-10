@@ -4,12 +4,10 @@ import MenuItem, { MoreOptions } from "./menu_item"
 import { HomeIcon } from "@heroicons/react/16/solid"
 import { AdjustmentsHorizontalIcon, ArrowLeftStartOnRectangleIcon, ArrowsPointingOutIcon, ArrowsRightLeftIcon, BellAlertIcon, BookmarkIcon, ChatBubbleLeftRightIcon, FilmIcon, MagnifyingGlassIcon, PlusCircleIcon, WrenchScrewdriverIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
-import { useFormState } from "react-dom"
-import { authenticate, logout } from "tspace/app/lib/user"
+import { signOut } from "next-auth/react"
 
 export default function SideNav()
 {
-    const [errorMessage, formAction, isPending] = useFormState(logout, undefined)
     return (
         <div className="bg-gray-700 md:w-[20%] md:h-screen md:fixed text-gray-200 overflow-y-scroll scrollbar-none sticky top-0 left-0 right-0 flex justify-between md:block">
             <div className="flex items-center justify-center sticky top-0 bg-gray-800">
@@ -42,11 +40,9 @@ export default function SideNav()
                 <MenuItem label="Report a problem" icon={<WrenchScrewdriverIcon fill="currentColor" className="w-8 h-8" />} />
                 <br /><hr /><br />
                 <MenuItem label="Switch accounts" icon={<ArrowsRightLeftIcon fill="currentColor" className="w-8 h-8" />} />
-                <form className="flex items-center justify-center lg:justify-normal" action={formAction}>
-                    <button>
-                        <MenuItem label="Log out" icon={<ArrowLeftStartOnRectangleIcon fill="currentColor" className="w-8 h-8" />} />
-                    </button>
-                </form>
+                <button onClick={() => signOut({ callbackUrl: '/auth/signin' })} className="flex w-full items-center justify-center lg:justify-normal">
+                    <MenuItem label="Log out" icon={<ArrowLeftStartOnRectangleIcon fill="currentColor" className="w-8 h-8" />} />
+                </button>
             </div>
         </div>
     )

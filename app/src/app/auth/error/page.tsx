@@ -8,5 +8,5 @@ export default function ErrorPage({ searchParams }: { searchParams: { error: str
         <p>{errorMessage}</p>
       </div>
     );
-  }
+}
   

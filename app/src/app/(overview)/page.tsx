@@ -1,7 +1,8 @@
-
+"use client"
 import { Post } from "tspace/app/ui/dashboard/user/post/post"
 import { Post as PostModel } from '@prisma/client'
 import { StatusWrapper } from "tspace/app/ui/dashboard/user/status/statusWrapper"
+import { useSession } from "next-auth/react"
 
 export default function Page()
 {
@@ -17,6 +18,11 @@ export default function Page()
         {id: 10, type: "youtube", url: "bK3EwIMHm94?si=4ut0jHsK3ymePiWU"}, 
         {id: 7, type: "image", url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZcuH4G82tvC1pv_nLDyKfaJBl6HpX4irB-A&s"}   
     ]
+
+    const session = useSession()
+
+    console.log(session.data)
+
     return (
         <div className="w-full max-w-[100vw]">
             <StatusWrapper />

@@ -7,7 +7,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
 import NextAuth from 'next-auth/next'
 
-export const handler = NextAuth({
+const handler = NextAuth({
     adapter: PrismaAdapter(new PrismaClient()),
     providers: [
         Credentials({

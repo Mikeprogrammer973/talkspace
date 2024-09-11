@@ -3,6 +3,8 @@ import { Post } from "tspace/app/ui/dashboard/user/post/post"
 import { Post as PostModel } from '@prisma/client'
 import { StatusWrapper } from "tspace/app/ui/dashboard/user/status/statusWrapper"
 import { useSession } from "next-auth/react"
+import send from "../lib/util/mail"
+import { useEffect } from "react"
 
 export default function Page()
 {
@@ -22,6 +24,15 @@ export default function Page()
     const session = useSession()
 
     console.log(session.data)
+
+    useEffect(()=>{
+        send({
+            to: session.data?.user.email as string,
+            subject: "TESTE",
+            html: "<div style='color:red;font-size:20px;'>__________ TESTANDO _________</div>",
+            from: 'TalkSpace technopro.net@gmail.com'
+        })
+    })
 
     return (
         <div className="w-full max-w-[100vw]">

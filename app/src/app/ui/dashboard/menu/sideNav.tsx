@@ -33,7 +33,7 @@ export default function SideNav()
             <div className="hidden md:block">
                 <MenuItem label="Create" icon={<PlusCircleIcon fill="currentColor" className="w-8 h-8" />} />
             </div>
-            <MenuItem label="Profile" icon={<Image alt="icon_profile" className="w-8 h-8 rounded-full bg-slate-500" src={"/lib/util/generate/user/profile/image"} width={200} height={200} />} />
+            <MenuItem label="Profile" icon={<div className="w-8 h-8"><img alt="icon_profile" className="w-full h-full rounded-full bg-slate-500" src={"https://qaziclinic.com/wp-content/uploads/2021/01/img3-5.jpg"} /></div>} />
             <div className="hidden md:block">
                 <MenuItem label="Settings" icon={<AdjustmentsHorizontalIcon fill="currentColor" className="w-8 h-8" />} />
                 <MenuItem label="Saved" icon={<BookmarkIcon fill="currentColor" className="w-8 h-8" />} />

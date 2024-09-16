@@ -1,13 +1,32 @@
-import { HTMLAttributes, ReactNode } from "react";
-import { renderToString } from "react-dom/server";
+import { ReactNode } from "react"
+import { renderToString } from "react-dom/server"
 
 export default class EmailTemplate
 {
-    public static Teste(): ReactNode
+    public static welcomeTemplate(username: string): ReactNode
     {
         return <this.MountTemplate template={
             <div>
-                Lorem ipsum odor amet, consectetuer adipiscing elit. Est facilisi viverra pellentesque inceptos senectus vitae etiam vulputate. Dictumst primis dignissim suscipit etiam habitasse sit sit parturient. Vel efficitur vel id purus velit auctor morbi himenaeos.
+                 <table width="100%" border={0} cellSpacing={0} cellPadding={0} style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#ffffff', color: '#333333' }}>
+                    <tr>
+                    <td style={{ textAlign: 'center', wordBreak: "break-all" }}>
+                        <h1 style={{ color: '#4f46e5' }}>Welcome to TalkSpace, {username}!</h1>
+                        <p style={{ fontSize: '16px', lineHeight: '24px', margin: '20px 0' }}>
+                            We're excited to have you join our community. TalkSpace is a place where you can connect, share, and engage with people from all over the world.
+                        </p>
+                        <p style={{ fontSize: '16px', lineHeight: '24px' }}>
+                            To get started, simply log in and explore our platform. Whether you're looking to join conversations, create your own groups, or just see what's trending, TalkSpace has something for everyone.
+                        </p>
+                        <p style={{ fontSize: '16px', margin: '30px 0' }}>
+                        <a href="https://talkspace-ten.vercel.app/auth/signin" style={{ padding: '10px 20px', backgroundColor: '#4f46e5', color: '#ffffff', textDecoration: 'none', borderRadius: '5px' }}>
+                            Log In to TalkSpace
+                        </a>
+                        </p>
+                        <p style={{ fontSize: '14px', color: '#6b7280' }}>If you have any questions, feel free to <a href="#" style={{ color: '#4f46e5', textDecoration: 'none' }}>contact our support team</a>.</p>
+                        <p style={{ fontSize: '14px', color: '#6b7280', marginTop: '10px' }}>Enjoy your time on TalkSpace!</p>
+                    </td>
+                    </tr>
+                </table>
             </div>
         } />
     }
@@ -19,7 +38,7 @@ export default class EmailTemplate
                 <div style={{display: "flex", alignItems: "center", justifyContent: "left", backgroundColor: 'black', textAlign: 'center'}}>
                     <a title="TalkSpace" href="https://talkspace-ten.vercel.app/"><img style={{width: "200px"}} src={'https://talkspace-ten.vercel.app/_next/image?url=%2Flogo%2Ftalkspace-logo.png&w=640&q=75'} alt="talkspace-logo" /></a>
                 </div>
-                <div style={{padding: "20px", backgroundColor: "white", margin: "20px"}}>
+                <div style={{padding: "10px", backgroundColor: "white", margin: "20px"}}>
                     {template}
                 </div>
                 <div>
@@ -52,7 +71,7 @@ export default class EmailTemplate
         )
     }
 
-    public static getTemplate(template: ReactNode): string
+    public static getTemplate(template: ReactNode)
     {
         return renderToString(template)
     }

@@ -5,7 +5,6 @@ import { genSalt, hash } from "bcryptjs"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from 'zod'
-
 const UserFormSchema = z.object(
 {
     id: z.number(),

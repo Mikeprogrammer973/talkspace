@@ -3,7 +3,6 @@ import { Post } from "tspace/app/ui/dashboard/user/post/post"
 import { Post as PostModel } from '@prisma/client'
 import { StatusWrapper } from "tspace/app/ui/dashboard/user/status/statusWrapper"
 import { useSession } from "next-auth/react"
-import send from "../lib/util/mail"
 import { useEffect } from "react"
 import EmailTemplate from "../lib/util/mail/template"
 
@@ -24,14 +23,16 @@ export default function Page()
 
     const session = useSession()
 
-    console.log(EmailTemplate.getTemplate(EmailTemplate.Teste()))
+    const email_content = EmailTemplate.getTemplate(EmailTemplate.welcomeTemplate(session.data?.user.username as string))
+
+    console.log(email_content, session.data)
 
     useEffect(()=>{
-        send({
-            to: session.data?.user.email as string,
-            subject: "TESTE",
-            html: EmailTemplate.getTemplate(EmailTemplate.Teste())
-        })
+        // send({
+        //     to: session.data?.user.email as string,
+        //     subject: "Welcome to TalkSpace!",
+        //     html: email_content
+        // })
     })
 
     return (

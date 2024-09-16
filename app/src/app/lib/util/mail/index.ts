@@ -9,7 +9,7 @@ export default async function send(params: EmailParams)
         transporter.verify((error)=>{
             if(error) throw error
             else {
-                transporter.sendMail(params, (error)=>{
+                transporter.sendMail({...params, from: process.env.SMTP_FROM}, (error)=>{
                     if(error) throw error
                 })
             }

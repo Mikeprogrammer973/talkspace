@@ -1,7 +1,6 @@
 import { createTransport } from 'nodemailer'
 
 export interface EmailParams  {
-    readonly from: "TalkSpace technopro.net@gmail.com",
     to: string,
     subject: string,
     html: string

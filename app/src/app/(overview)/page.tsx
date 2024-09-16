@@ -5,6 +5,7 @@ import { StatusWrapper } from "tspace/app/ui/dashboard/user/status/statusWrapper
 import { useSession } from "next-auth/react"
 import send from "../lib/util/mail"
 import { useEffect } from "react"
+import EmailTemplate from "../lib/util/mail/template"
 
 export default function Page()
 {
@@ -23,14 +24,13 @@ export default function Page()
 
     const session = useSession()
 
-    console.log(session.data)
+    console.log(EmailTemplate.getTemplate(EmailTemplate.Teste()))
 
     useEffect(()=>{
         send({
             to: session.data?.user.email as string,
             subject: "TESTE",
-            html: "<div style='color:red;font-size:20px;'>__________ TESTANDO _________</div>",
-            from: 'TalkSpace technopro.net@gmail.com'
+            html: EmailTemplate.getTemplate(EmailTemplate.Teste())
         })
     })
 

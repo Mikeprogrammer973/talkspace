@@ -7,7 +7,7 @@ export default function BottomNav()
     return (
         <div className="sticky bottom-0 left-0 right-0 flex md:hidden justify-between bg-gray-700">
             <div>
-                <Link href="/dashboard/search">
+                <Link href="/search">
                     <MenuItem label="Search" icon={<MagnifyingGlassIcon fill="currentColor" className="w-6 h-6" />}/>
                 </Link>
             </div>

@@ -7,8 +7,10 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
 import NextAuth from 'next-auth/next'
 
+const prisma = new PrismaClient()
+
 const handler = NextAuth({
-    adapter: PrismaAdapter(new PrismaClient()),
+    adapter: PrismaAdapter(prisma),
     providers: [
         Credentials({
             name: "credentials",
@@ -36,7 +38,10 @@ const handler = NextAuth({
                     if(!user) return null
                     const passwordsMatch = await compare(password, user.password)
 
-                    if(passwordsMatch) return user as any
+                    if(passwordsMatch) {
+                        await prisma.user.update({where: {username: username}, data: {verified: false, verificationCode: null}});
+                        return user as any
+                    }
                 }
 
                 return null
@@ -56,9 +61,10 @@ const handler = NextAuth({
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-              token.email = user.email;
-              token.id = user.id;
+              token.email = user.email
+              token.id = user.id
               token.name = user.username
+              token.verified = user.verified
             }
             return token;
         },
@@ -67,7 +73,8 @@ const handler = NextAuth({
                 session.user = {
                     id: token.id as string,
                     email: token.email as string,
-                    username: token.name as string
+                    username: token.name as string,
+                    verified: token.verified as boolean
                 };
             }
             return session

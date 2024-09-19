@@ -5,6 +5,7 @@ import { genSalt, hash } from "bcryptjs"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from 'zod'
+import { verificationCode } from "../util/generate/user/verification/code"
 const UserFormSchema = z.object(
 {
     id: z.number(),
@@ -85,6 +86,10 @@ export async function create(prevState: UserState, formData: FormData)
         revalidatePath("register")
         redirect("/login?message=reg")
     }
+}
+
+export async function setVerificationCode(username: string) {
+    return await prisma.user.update({where: {username: username}, data: {verificationCode: verificationCode.join('')}})
 }
 
 export async function getByEmail(email: string) {

@@ -16,11 +16,11 @@ export default function LoginForm()
 
     const [username, setUsername] = useState<string>("")
     const [password,setPassword] = useState<string>("")
-    const [error, setError] = useState<string>("")
     const router = useRouter()
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
+        setSpinnerV(true)
         const ressult = await signIn("credentials", {
             redirect: false,
             username,
@@ -29,7 +29,7 @@ export default function LoginForm()
 
         if(ressult?.error)
         {
-            setError(ressult.error)
+            router.push(`/auth/error?error=CredentialsSignin`)
         } else{
             router.push("/")
         }
@@ -42,7 +42,6 @@ export default function LoginForm()
                 <form onSubmit={handleSubmit} className="max-w-[800px] p-5">
                     <Spinner visible={spinnerV} label="Processing..." />
                     <p className="text-3xl my-8 font-semibold text-center">Log in into your account</p>
-                    {error && <Alert title="" color="warning" msg={<div className="font-light text-lg">{error === "CredentialsSignin" ? "Invalid credentials!" : "Something went wrong!" }</div>} />}
                     <div>
                         <label
                         className="mb-3 mt-5 block text-xs font-medium"

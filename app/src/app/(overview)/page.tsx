@@ -5,6 +5,8 @@ import { StatusWrapper } from "tspace/app/ui/dashboard/user/status/statusWrapper
 import { useSession } from "next-auth/react"
 import { useEffect } from "react"
 import EmailTemplate from "../lib/util/mail/template"
+import send from "../lib/util/mail"
+import { verificationCode } from "../lib/util/generate/user/verification/code"
 
 export default function Page()
 {
@@ -23,14 +25,24 @@ export default function Page()
 
     const session = useSession()
 
-    const email_content = EmailTemplate.getTemplate(EmailTemplate.welcomeTemplate(session.data?.user.username as string))
+    const notifications = {
+        newFollower: 'JaneDoe',
+        mentioned: { by: 'JohnDoe', context: 'post' },
+        postLike: { by: 'Alice', type: 'comment' },
+        comment: { by: 'Bob', context: 'post' },
+        newMessage: 'Charlie',
+        friendRequest: 'David',
+    }
 
-    console.log(email_content, session.data)
+    const email_content = EmailTemplate.getTemplate(EmailTemplate.notificationMsgTemplate(session.data?.user.username as string, notifications))
+  
+    console.log(session.data)
+    console.log(verificationCode.join(''))
 
     useEffect(()=>{
         // send({
         //     to: session.data?.user.email as string,
-        //     subject: "Welcome to TalkSpace!",
+        //     subject: "Talkspace notifications!",
         //     html: email_content
         // })
     })

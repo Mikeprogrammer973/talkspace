@@ -9,8 +9,8 @@ export default class EmailTemplate
             <div>
                  <table width="100%" border={0} cellSpacing={0} cellPadding={0} style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#ffffff', color: '#333333' }}>
                     <tr>
-                    <td style={{ textAlign: 'center', wordBreak: "break-all" }}>
-                        <h1 style={{ color: '#4f46e5' }}>Welcome to TalkSpace, {username}!</h1>
+                    <td style={{ textAlign: 'center', wordBreak: "break-word" }}>
+                        <h2 style={{ color: '#4f46e5' }}>Welcome to TalkSpace, {username}!</h2>
                         <p style={{ fontSize: '16px', lineHeight: '24px', margin: '20px 0' }}>
                             We're excited to have you join our community. TalkSpace is a place where you can connect, share, and engage with people from all over the world.
                         </p>
@@ -29,6 +29,110 @@ export default class EmailTemplate
                 </table>
             </div>
         } />
+    }
+
+    public static verifyIdTemplate(username: string, verificationCode: string): ReactNode
+    {
+        return (
+            <this.MountTemplate template={
+                <div>
+                    <table width="100%" border={0} cellSpacing={0} cellPadding={0} style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#ffffff', padding: '20px', color: '#333333' }}>
+                        <tr>
+                        <td style={{ textAlign: 'center' }}>
+                            <h1 style={{ color: '#e53e3e' }}>Security Alert</h1>
+                            <p style={{ fontSize: '16px', lineHeight: '24px', margin: '20px 0' }}>
+                                Hi {username},
+                            </p>
+                            <p style={{ fontSize: '16px', lineHeight: '24px', margin: '10px 0' }}>
+                                We have detected an attempt to access your TalkSpace account. To verify that this is you, please use the verification code below:
+                            </p>
+                            <p style={{ fontSize: '24px', fontWeight: 'bold', color: '#4f46e5', margin: '20px 0' }}>
+                            {verificationCode}
+                            </p>
+                            <p style={{ fontSize: '16px', lineHeight: '24px', margin: '10px 0' }}>
+                                If this was not you, please reset your password immediately or <a href="#" style={{ color: '#4f46e5', textDecoration: 'none' }}>contact our support team</a> for assistance.
+                            </p>
+                            <p style={{ fontSize: '14px', color: '#6b7280', marginTop: '20px' }}>
+                                Stay safe,<br />The TalkSpace Security Team
+                            </p>
+                        </td>
+                        </tr>
+                    </table>
+                </div>
+            } />
+        )
+    }
+
+    public static notificationMsgTemplate(username: string, notifications: any): ReactNode
+    {
+        return (
+            <this.MountTemplate template={
+                <div>
+                    <table width="100%" border={0} cellSpacing={0} cellPadding={0} style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#ffffff', padding: '20px', color: '#333333' }}>
+                        <tr>
+                        <td style={{ textAlign: 'left' }}>
+                            <h1 style={{ color: '#4f46e5' }}>Hello, {username}!</h1>
+                            <p style={{ fontSize: '16px', lineHeight: '24px', margin: '20px 0' }}>
+                                You have new notifications on TalkSpace:
+                            </p>
+                            <table width="100%" style={{ margin: '0 auto', maxWidth: '600px' }}>
+                            {notifications.newFollower && (
+                                <tr>
+                                <td style={{ fontSize: '16px', padding: '10px 0', textAlign: 'left' }}>
+                                    👤 <strong>{notifications.newFollower}</strong> started following you.
+                                </td>
+                                </tr>
+                            )}
+                            {notifications.mentioned && (
+                                <tr>
+                                <td style={{ fontSize: '16px', padding: '10px 0', textAlign: 'left' }}>
+                                    💬 You were mentioned in a {notifications.mentioned.context} by <strong>{notifications.mentioned.by}</strong>.
+                                </td>
+                                </tr>
+                            )}
+                            {notifications.postLike && (
+                                <tr>
+                                <td style={{ fontSize: '16px', padding: '10px 0', textAlign: 'left' }}>
+                                    👍 Your {notifications.postLike.type} received a like from <strong>{notifications.postLike.by}</strong>.
+                                </td>
+                                </tr>
+                            )}
+                            {notifications.comment && (
+                                <tr>
+                                <td style={{ fontSize: '16px', padding: '10px 0', textAlign: 'left' }}>
+                                    🗨️ <strong>{notifications.comment.by}</strong> commented on your {notifications.comment.context}.
+                                </td>
+                                </tr>
+                            )}
+                            {notifications.newMessage && (
+                                <tr>
+                                <td style={{ fontSize: '16px', padding: '10px 0', textAlign: 'left' }}>
+                                    📩 You received a new message from <strong>{notifications.newMessage}</strong>.
+                                </td>
+                                </tr>
+                            )}
+                            {notifications.friendRequest && (
+                                <tr>
+                                <td style={{ fontSize: '16px', padding: '10px 0', textAlign: 'left' }}>
+                                    🤝 <strong>{notifications.friendRequest}</strong> sent you a follow request.
+                                </td>
+                                </tr>
+                            )}
+                            </table>
+                            <p style={{ fontSize: '16px', margin: '30px 0' }}>
+                            <a href="https://talkspace-ten.vercel.app/notifications" style={{ padding: '10px 20px', backgroundColor: '#4f46e5', color: '#ffffff', textDecoration: 'none', borderRadius: '5px' }}>
+                                View Notifications
+                            </a>
+                            </p>
+                            <p style={{ fontSize: '14px', color: '#6b7280', marginTop: '20px' }}>
+                            Stay connected on TalkSpace,<br />The TalkSpace Team
+                            </p>
+                        </td>
+                        </tr>
+                    </table>
+                </div>
+            } />
+        )
     }
 
     private static MountTemplate({template}: {template: ReactNode}): ReactNode

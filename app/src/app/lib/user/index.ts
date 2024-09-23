@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from 'zod'
 import { verificationCode } from "../util/generate/user/verification/code"
+
 const UserFormSchema = z.object(
 {
     id: z.number(),
@@ -37,7 +38,7 @@ export async function create(prevState: UserState, formData: FormData)
             password: formData.get("password")
         }
     )
-    console.log(validatedFields.error?.flatten().fieldErrors)
+
     if(!validatedFields.success)
     {
         return {
@@ -83,13 +84,29 @@ export async function create(prevState: UserState, formData: FormData)
             }
         })
 
-        revalidatePath("register")
-        redirect("/login?message=reg")
+        return {
+            message: {
+                type: "success",
+                content: "Account created successfully!"
+            }
+        }
     }
 }
 
 export async function setVerificationCode(username: string) {
     return await prisma.user.update({where: {username: username}, data: {verificationCode: verificationCode.join('')}})
+}
+
+export async function validVerificationCode(username: string, verificationCode: string)
+{
+    const user = await prisma.user.findUnique({where: { username: username, verificationCode: verificationCode }})
+
+    if(user !== null){
+        await prisma.user.update({where: { username: username, verificationCode: verificationCode }, data: {verified: true}})
+        return true
+    }
+
+    return false
 }
 
 export async function getByEmail(email: string) {

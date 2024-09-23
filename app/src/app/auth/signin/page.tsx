@@ -8,12 +8,12 @@ import MsgBox from "../../ui/global/msgBox";
 
 function LoginComponent()
 {
-  const [msgBV, setMsgBV] = useState<boolean>(true)
-  const msg: string | null = new URLSearchParams(useSearchParams()).get("message")
+  // const [msgBV, setMsgBV] = useState<boolean>(true)
+  // const msg: string | null = new URLSearchParams(useSearchParams()).get("message")
 
   return (
     <div>
-      {msg === "reg" && <MsgBox setVisible={setMsgBV} visible={msgBV} msg={<Alert title="TalkSpace" color="success" msg={<div className="font-semibold text-lg"> Account created successfully, you can login now. </div>} />} />}
+      {/* {msg === "reg" && <MsgBox setVisible={setMsgBV} visible={msgBV} msg={<Alert title="TalkSpace" color="success" msg={<div className="font-semibold text-lg"> Account created successfully, you can login now. </div>} />} />} */}
       <LoginForm />
     </div>
   );

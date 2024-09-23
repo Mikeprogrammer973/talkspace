@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 export default function ErrorPage({ searchParams }: { searchParams: { error: string } }) {
     const errorMessage = searchParams.error === "CredentialsSignin" ? "Invalid credentials!" : searchParams.error;
@@ -9,9 +10,9 @@ export default function ErrorPage({ searchParams }: { searchParams: { error: str
           <p className="text-gray-600 text-lg mb-6">
             {errorMessage ? errorMessage : "We were unable to verify your identity. Please try again or contact support if the issue persists."}
           </p>
-          <a href="/signin" className="inline-block px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700">
+          <Link href="/signin" className="inline-block px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700">
             Try Again
-          </a>
+          </Link>
           <p className="text-gray-500 text-sm mt-6">
             Need help? <a href="/support" className="text-indigo-600 hover:underline">Contact Support</a>
           </p>

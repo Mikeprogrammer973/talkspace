@@ -3,8 +3,6 @@ import { KeyIcon, UserCircleIcon } from "@heroicons/react/20/solid";
 import { Button } from "../global/button";
 import LogoBanner from "../global/logo-banner";
 import Link from "next/link";
-import { useFormState } from "react-dom";
-import { Alert } from "../global/alert";
 import Spinner from "../global/spinner";
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
@@ -40,7 +38,7 @@ export default function LoginForm()
             <LogoBanner />
             <div className="mx-auto flex h-screen items-center justify-center">
                 <form onSubmit={handleSubmit} className="max-w-[800px] p-5">
-                    <Spinner visible={spinnerV} label="Processing..." />
+                    <Spinner visible={spinnerV} label="" />
                     <p className="text-3xl my-8 font-semibold text-center">Log in into your account</p>
                     <div>
                         <label

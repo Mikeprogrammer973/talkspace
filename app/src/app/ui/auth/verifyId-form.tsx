@@ -3,6 +3,11 @@ import { FormEvent, useEffect, useState } from "react";
 import send from "tspace/app/lib/util/mail";
 import EmailTemplate from "tspace/app/lib/util/mail/template";
 import MsgBox from "../global/msgBox";
+import { Alert } from "../global/alert";
+import Spinner from "../global/spinner";
+import { Button } from "../global/button";
+import { validVerificationCode } from "tspace/app/lib/user";
+import { useRouter } from "next/navigation";
 
 type User =  {
     id: number;
@@ -21,26 +26,43 @@ export default function VerifyIdForm({user}: {user: User})
 {
     const [verificationCode, setVerificationCode] = useState('')
     const [ visible, setV ] = useState(false)
+    const [ visible2, setV2 ] = useState(true)
+    const [ spinnerV, setSpinnerV ] = useState(false)
+    const router = useRouter()
 
     async function sendVerificationCode()
     {
+        setSpinnerV(true)
+        await new Promise(revolve => setTimeout(revolve, 3000))
         await send({
             to: user?.email as string,
             subject: "Verify your Identity",
             html: EmailTemplate.getTemplate(EmailTemplate.verifyIdTemplate(user?.username as string, user?.verificationCode as string))
         })
+        setSpinnerV(false)
         setV(true)
     }
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Lógica para validar o código de verificação
-    console.log('Verification Code Submitted:', verificationCode);
+    setSpinnerV(true)
+    if(!(await validVerificationCode(user?.username as string, verificationCode)))
+    {
+        router.push("/auth/error")
+    } else {
+        router.push("/")
+    }
   };
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
-        <MsgBox visible={visible} msg={<div>Verification code sent!</div>} setVisible={setV} />
+        <Spinner visible={spinnerV} label="" />
+        <MsgBox visible={visible} msg={<Alert color="info" title="" msg="Verification code sent!" />} setVisible={setV} />
+        <MsgBox visible={visible2} msg={<Button onClick={()=>{
+                setV2(false)
+                sendVerificationCode()
+            }}>Send Verification Code</Button>
+        } setVisible={setV2} />
         <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
             <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">Verify Your Identity</h1>
             <p className="text-gray-600 text-center mb-4">

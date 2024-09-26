@@ -6,7 +6,6 @@ import Credentials from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
 import NextAuth from 'next-auth/next'
-import { verificationCode } from 'tspace/app/lib/util/generate/user/verification/code';
 
 const prisma = new PrismaClient()
 
@@ -40,7 +39,7 @@ const handler = NextAuth({
                     const passwordsMatch = await compare(password, user.password)
 
                     if(passwordsMatch) {
-                        await prisma.user.update({where: {username: username}, data: {verified: false, verificationCode: verificationCode.join('')}});
+                        await prisma.user.update({where: {username: username}, data: {verificationCode: null}});
                         return user as any
                     }
                 }
@@ -67,7 +66,6 @@ const handler = NextAuth({
                 token.email = user_?.email 
                 token.id = user_?.id 
                 token.name = user_?.username 
-                token.verified = user_?.verified
             }
             return token;
         },
@@ -76,8 +74,7 @@ const handler = NextAuth({
                 session.user = {
                     id: token.id as string,
                     email: token.email as string,
-                    username: token.name as string,
-                    verified: token.verified as boolean
+                    username: token.name as string
                 };
             }
             return session

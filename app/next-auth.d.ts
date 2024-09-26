@@ -7,7 +7,6 @@ declare module 'next-auth' {
     email: string;
     name?: string;
     username: string;
-    verified: boolean;
   }
   
   interface Session {

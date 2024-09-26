@@ -5,8 +5,9 @@ import LogoBanner from "../global/logo-banner";
 import Link from "next/link";
 import Spinner from "../global/spinner";
 import { FormEvent, useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import VerifyIdForm from "./verifyId-form";
+import { verifyCreds } from "tspace/app/lib/user";
 
 export default function LoginForm()
 {
@@ -14,22 +15,20 @@ export default function LoginForm()
 
     const [username, setUsername] = useState<string>("")
     const [password,setPassword] = useState<string>("")
+    const [page, setPage] = useState(0)
     const router = useRouter()
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
         setSpinnerV(true)
-        const ressult = await signIn("credentials", {
-            redirect: false,
-            username,
-            password
-        })
+        const result = await verifyCreds(username, password)
 
-        if(ressult?.error)
+        if(!result)
         {
             router.push(`/auth/error?error=CredentialsSignin`)
         } else{
-            router.push("/")
+            setPage(1)
+            setSpinnerV(false)
         }
     }
 
@@ -37,7 +36,7 @@ export default function LoginForm()
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <LogoBanner />
             <div className="mx-auto flex h-screen items-center justify-center">
-                <form onSubmit={handleSubmit} className="max-w-[800px] p-5">
+                {page === 0 && <form onSubmit={handleSubmit} className="max-w-[800px] p-5">
                     <Spinner visible={spinnerV} label="" />
                     <p className="text-3xl my-8 font-semibold text-center">Log in into your account</p>
                     <div>
@@ -88,8 +87,10 @@ export default function LoginForm()
                     <div className="p-4 text-center text-gray-400">
                         Don&apos;t have an account? <Link className="text-blue-500 font-semibold" href={"signup"}>Sign up</Link>
                     </div>
-                </form>
+                </form>}
+                {page === 1 && <VerifyIdForm setPage={setPage} username={username} password={password} />}
             </div>
+            
         </div>
     )
 }

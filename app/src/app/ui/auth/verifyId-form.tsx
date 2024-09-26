@@ -1,34 +1,24 @@
 "use client"
-import { FormEvent, useEffect, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react";
 import send from "tspace/app/lib/util/mail";
 import EmailTemplate from "tspace/app/lib/util/mail/template";
 import MsgBox from "../global/msgBox";
 import { Alert } from "../global/alert";
 import Spinner from "../global/spinner";
 import { Button } from "../global/button";
-import { validVerificationCode } from "tspace/app/lib/user";
+import { getByUsername, validVerificationCode } from "tspace/app/lib/user";
 import { useRouter } from "next/navigation";
+import { ArrowLeftIcon } from "@heroicons/react/20/solid";
+import { signIn } from "next-auth/react";
 
-type User =  {
-    id: number;
-    email: string;
-    name: string | null;
-    username: string;
-    password: string;
-    verified: boolean;
-    verificationCode: string | null;
-    emailVerified: Date | null;
-    createdAt: Date;
-    updatedAt: Date;
-} | null
-
-export default function VerifyIdForm({user}: {user: User})
+export default async function VerifyIdForm({username, password, setPage}: {username: string, password: string, setPage: Dispatch<SetStateAction<number>>})
 {
-    const [verificationCode, setVerificationCode] = useState('')
     const [ visible, setV ] = useState(false)
     const [ visible2, setV2 ] = useState(true)
     const [ spinnerV, setSpinnerV ] = useState(false)
     const router = useRouter()
+
+    const user = await getByUsername(username)
 
     async function sendVerificationCode()
     {
@@ -46,16 +36,27 @@ export default function VerifyIdForm({user}: {user: User})
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSpinnerV(true)
-    if(!(await validVerificationCode(user?.username as string, verificationCode)))
+    if(!(await validVerificationCode(user?.username as string, (new FormData(e.currentTarget)).getAll("verificationCode")[0] as string)))
     {
         router.push("/auth/error")
     } else {
-        router.push("/")
+        const result = await signIn("credentials", {
+            redirect: false,
+            username,
+            password
+        })
+
+        if(result?.error)
+        {
+            router.push(`/auth/error?error=CredentialsSignin`)
+        } else {
+            router.push("/")
+        }
     }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="flex items-center justify-center h-screen">
         <Spinner visible={spinnerV} label="" />
         <MsgBox visible={visible} msg={<Alert color="info" title="" msg="Verification code sent!" />} setVisible={setV} />
         <MsgBox visible={visible2} msg={<Button onClick={()=>{
@@ -63,22 +64,17 @@ export default function VerifyIdForm({user}: {user: User})
                 sendVerificationCode()
             }}>Send Verification Code</Button>
         } setVisible={setV2} />
-        <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
-            <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">Verify Your Identity</h1>
-            <p className="text-gray-600 text-center mb-4">
-            Please enter the 10-digit code sent to your email.
+        <div className="max-w-md w-full p-8 rounded-lg shadow-lg">
+            <h1 className="text-2xl font-bold text-gray-200 text-center mb-6">Verify Your Identity</h1>
+            <p className="text-gray-400 text-center mb-4">
+                Please enter the 10-digit code sent to your email.
             </p>
             <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-                <label htmlFor="verificationCode" className="block text-sm font-medium text-gray-700">
-                Verification Code
-                </label>
                 <input
                 id="verificationCode"
                 name="verificationCode"
                 type="text"
-                value={verificationCode}
-                onChange={(e) => setVerificationCode(e.target.value)}
                 maxLength={10}
                 minLength={10}
                 className="mt-1 block w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -93,9 +89,12 @@ export default function VerifyIdForm({user}: {user: User})
                 Verify
             </button>
             </form>
-            <p className="text-sm text-gray-500 text-center mt-6">
+            <p className="text-sm text-gray-300 text-center mt-6">
             Didn't receive a code? <button onClick={()=>sendVerificationCode()} className="text-indigo-600 hover:underline">Resend</button>
             </p>
+            <Button onClick={()=>setPage(0)} className="my-5 bg-transparent">
+                <ArrowLeftIcon title="Back" fill="white" className="w-8" />
+            </Button>
         </div>
     </div>
   )

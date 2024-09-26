@@ -35,17 +35,6 @@ export default function Page()
     }
 
     const email_content = EmailTemplate.getTemplate(EmailTemplate.notificationMsgTemplate(session.data?.user.username as string, notifications))
-  
-    console.log(session.data)
-    console.log(verificationCode.join(''))
-
-    useEffect(()=>{
-        // send({
-        //     to: session.data?.user.email as string,
-        //     subject: "Talkspace notifications!",
-        //     html: email_content
-        // })
-    })
 
     return (
         <div className="w-full max-w-[100vw]">

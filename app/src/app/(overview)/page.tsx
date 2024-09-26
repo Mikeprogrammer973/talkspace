@@ -3,10 +3,7 @@ import { Post } from "tspace/app/ui/dashboard/user/post/post"
 import { Post as PostModel } from '@prisma/client'
 import { StatusWrapper } from "tspace/app/ui/dashboard/user/status/statusWrapper"
 import { useSession } from "next-auth/react"
-import { useEffect } from "react"
 import EmailTemplate from "../lib/util/mail/template"
-import send from "../lib/util/mail"
-import { verificationCode } from "../lib/util/generate/user/verification/code"
 
 export default function Page()
 {

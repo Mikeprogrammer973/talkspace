@@ -48,7 +48,7 @@ export default async function VerifyIdForm({username, password, setPage}: {usern
 
         if(result?.error)
         {
-            router.push(`/auth/error?error=CredentialsSignin`)
+            router.push(`/auth/error`)
         } else {
             router.push("/")
         }

@@ -8,6 +8,7 @@ import { signOut } from "next-auth/react"
 
 export default function SideNav()
 {
+    const def_style = "flex items-center justify-center lg:justify-normal"
     return (
         <div className="bg-gray-700 md:w-[20%] md:h-screen md:fixed text-gray-200 overflow-y-scroll scrollbar-none sticky top-0 left-0 right-0 flex justify-between md:block">
             <div className="flex items-center justify-center sticky top-0 bg-gray-800">
@@ -16,7 +17,7 @@ export default function SideNav()
                     <Image alt="logo_short" className="block md:hidden" src={"/logo/talkspace-logo-short.png"} width={75} height={75} />
                 </Link>
             </div>
-            <Link className="flex items-center justify-center lg:justify-normal" href={"/"}>
+            <Link className={def_style} href={"/"}>
                 <MenuItem label="Home" icon={<HomeIcon fill="currentColor" className="w-8 h-8" />} />
             </Link> 
             <div className="hidden md:block">
@@ -33,7 +34,9 @@ export default function SideNav()
             <div className="hidden md:block">
                 <MenuItem label="Create" icon={<PlusCircleIcon fill="currentColor" className="w-8 h-8" />} />
             </div>
-            <MenuItem label="Profile" icon={<div className="w-8 h-8"><img alt="icon_profile" className="w-full h-full rounded-full bg-slate-500" src={"https://qaziclinic.com/wp-content/uploads/2021/01/img3-5.jpg"} /></div>} />
+            <Link href={"/profile"} className={def_style} >
+                <MenuItem label="Profile" icon={<div className="w-8 h-8"><img alt="icon_profile" className="w-full h-full rounded-full bg-slate-500" src={"https://qaziclinic.com/wp-content/uploads/2021/01/img3-5.jpg"} /></div>} />
+            </Link>
             <div className="hidden md:block">
                 <MenuItem label="Settings" icon={<AdjustmentsHorizontalIcon fill="currentColor" className="w-8 h-8" />} />
                 <MenuItem label="Saved" icon={<BookmarkIcon fill="currentColor" className="w-8 h-8" />} />

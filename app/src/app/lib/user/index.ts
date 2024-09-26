@@ -97,7 +97,10 @@ export async function verifyCreds(username: string, passsword: string)
 
     if(user !== null)
     {
-        if(await compare(passsword, user.password)) return true
+        if(await compare(passsword, user.password)) {
+            await setVerificationCode(username)
+            return true
+        }
     }
 
     return false

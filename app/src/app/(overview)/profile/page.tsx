@@ -7,7 +7,7 @@ export default async function Dashboard()
     const session = await getServerSession();
 
   if (!session) {
-    return <div>Você não está autenticado.</div>;
+    return <div>Auth Error!</div>;
   }
 
   const user = session.user;

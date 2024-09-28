@@ -1,6 +1,6 @@
-import { PencilSquareIcon } from "@heroicons/react/20/solid";
+import { AdjustmentsHorizontalIcon, ArrowLeftStartOnRectangleIcon, BookmarkIcon, FilmIcon, PencilSquareIcon, TableCellsIcon } from "@heroicons/react/20/solid";
 import { getServerSession } from "next-auth";
-import Image from "next/image";
+import { getByEmail } from "tspace/app/lib/user";
 
 export default async function Dashboard()
 {
@@ -10,7 +10,7 @@ export default async function Dashboard()
     return <div>Auth Error!</div>;
   }
 
-  const user = session.user;
+  const user = await getByEmail(session.user.email);
 
   console.log(session)
 
@@ -23,12 +23,18 @@ export default async function Dashboard()
           <div className="flex items-center space-x-6">
             <img
               src={'https://qaziclinic.com/wp-content/uploads/2021/01/img3-5.jpg'}
-              alt={user.name || 'Usuário'}
+              alt={user?.name || 'User'}
               className="rounded-full w-10 h-10"
             />
-            <span className="font-semibold">{user.name}</span>
-            <button title="Edit Profile" className="text-gray-500 hover:text-gray-300">
+            <span className="font-semibold">{user?.name || "User"}</span>
+            <button title="Edit Profile" className="text-gray-300 hover:text-gray-200">
               <PencilSquareIcon fill="currentColor" className="w-7" />
+            </button>
+            <button title="Settings" className="text-gray-300 hover:text-gray-200">
+              <AdjustmentsHorizontalIcon fill="currentColor" className="w-7" />
+            </button>
+            <button title="Log out" className="text-gray-300 hover:text-gray-200 md:hidden">
+              <ArrowLeftStartOnRectangleIcon fill="currentColor" className="w-7" />
             </button>
           </div>
         </div>
@@ -42,11 +48,11 @@ export default async function Dashboard()
             <div className="flex flex-col items-center">
               <img
                 src={'https://qaziclinic.com/wp-content/uploads/2021/01/img3-5.jpg'}
-                alt={user.name || 'Usuário'}
+                alt={user?.name || 'User'}
                 className="rounded-full w-32 h-32 mb-6 border-4 border-gray-700"
               />
-              <h2 className="text-xl font-bold">{user.name}</h2>
-              <p className="text-gray-400">@{user.username || 'username'}</p>
+              <h2 className="text-xl font-bold">{user?.name || "User"}</h2>
+              <p className="text-gray-400">@{user?.username || 'username'}</p>
               <p className="text-gray-300 mt-4 text-center">{'Aqui vai a bio do usuário'}</p>
             </div>
             <div className="flex justify-around mt-8">
@@ -66,18 +72,31 @@ export default async function Dashboard()
           </div>
 
           {/* User Posts Grid */}
-          <div className="md:col-span-2 grid grid-cols-3 gap-6">
-            {[...Array(50)].map((_, i) => (
-              <div
-                key={i}
-              >
-                <img
-                  src={'https://qaziclinic.com/wp-content/uploads/2021/01/img3-5.jpg'}
-                  alt={`Postagem ${i + 1}`}
-                  className="object-cover w-full h-full hover:scale-105 transition duration-500 ease-in-out rounded-lg cursor-pointer"
-                />
-              </div>
-            ))}
+          <div className="md:col-span-2">
+            <div className="flex items-center justify-between my-5">
+              <button title="ALL POSTS" className="flex flex-wrap items-center justify-center gap-2 text-gray-100 border-t-2 border-current py-4">
+                <TableCellsIcon fill="currentColor" className="w-5" /> ALL
+              </button>
+              <button title="REELS" className="flex flex-wrap items-center justify-center gap-2 text-gray-400">
+                <FilmIcon fill="currentColor" className="w-5" /> REELS
+              </button>
+              <button title="SAVED POSTS" className="flex flex-wrap items-center justify-center gap-2 text-gray-400">
+                <BookmarkIcon fill="currentColor" className="w-5" /> SAVED
+              </button>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              {[...Array(50)].map((_, i) => (
+                <div
+                  key={i}
+                >
+                  <img
+                    src={'https://qaziclinic.com/wp-content/uploads/2021/01/img3-5.jpg'}
+                    alt={`Postagem ${i + 1}`}
+                    className="object-cover w-full h-full hover:scale-105 transition duration-500 ease-in-out rounded-lg cursor-pointer"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </main>

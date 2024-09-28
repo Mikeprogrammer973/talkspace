@@ -61,12 +61,10 @@ const handler = NextAuth({
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                const user_ = await getByUsername(user.username)
-                console.log(user, user_)
-                token.email = user_?.email 
-                token.id = user_?.id 
-                token.name = user_?.name 
-                token.username = user_?.username
+                token.email = user.email 
+                token.id = user.id 
+                token.name = user.name 
+                token.username = user.username
             }
             return token;
         },

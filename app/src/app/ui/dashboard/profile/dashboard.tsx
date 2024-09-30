@@ -4,6 +4,7 @@ import { User } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 import VideoPlayer from "../user/util/video_player";
+import Link from "next/link";
 
 export default function Dashboard({user}: {user: User})
 {
@@ -23,7 +24,9 @@ export default function Dashboard({user}: {user: User})
                 />
                 <span className="font-semibold">{user?.name || "User"}</span>
                 <button title="Edit Profile" className="text-gray-300 hover:text-gray-200">
-                  <PencilSquareIcon fill="currentColor" className="w-7" />
+                  <Link href={"/profile/edit"}>
+                      <PencilSquareIcon fill="currentColor" className="w-7" />
+                  </Link>
                 </button>
                 <button title="Settings" className="text-gray-300 hover:text-gray-200">
                   <AdjustmentsHorizontalIcon fill="currentColor" className="w-7" />

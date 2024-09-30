@@ -1,8 +1,12 @@
-import { AdjustmentsHorizontalIcon, ArrowLeftStartOnRectangleIcon, BookmarkIcon, FilmIcon, PencilSquareIcon, TableCellsIcon } from "@heroicons/react/20/solid";
 import { User } from "@prisma/client";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { getByEmail } from "tspace/app/lib/user";
 import Dashboard from "tspace/app/ui/dashboard/profile/dashboard";
+
+export const metadata: Metadata = {
+  title: "Profile"
+}
 
 export default async function Page()
 {

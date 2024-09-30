@@ -3,6 +3,7 @@ import { PencilSquareIcon, AdjustmentsHorizontalIcon, ArrowLeftStartOnRectangleI
 import { User } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
+import VideoPlayer from "../user/util/video_player";
 
 export default function Dashboard({user}: {user: User})
 {
@@ -33,7 +34,7 @@ export default function Dashboard({user}: {user: User})
               </div>
             </div>
           </header>
-    
+            
           {/* Main Content */}
           <main className="container mx-auto py-12 px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -96,11 +97,7 @@ export default function Dashboard({user}: {user: User})
                     <div
                       key={i}
                     >
-                      <img
-                        src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyaoFceIP1DnWFeoNTo6wcAAxClHDuhqiy9g&s'}
-                        alt={`Postagem ${i + 1}`}
-                        className="object-cover w-full h-full hover:scale-105 transition duration-500 ease-in-out rounded-lg cursor-pointer"
-                      />
+                      <VideoPlayer videoSrc="/final_video.mp4" thumbnail="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyaoFceIP1DnWFeoNTo6wcAAxClHDuhqiy9g&s" />
                     </div>
                   ))}
                 </div>}

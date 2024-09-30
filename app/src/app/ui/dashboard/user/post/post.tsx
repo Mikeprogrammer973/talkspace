@@ -1,4 +1,5 @@
 "use client"
+import VideoPlayer from "../util/video_player"
 import { PostBottomNav } from "./menu/bottomNav"
 import { PostTopNav } from "./menu/topNav"
 import { Post as PostModel} from '@prisma/client'
@@ -16,9 +17,7 @@ export function Post({post}: {post: PostModel})
                     ) : (
                         post.type === "video"
                         ? (
-                            <video poster="https://www.healthdigest.com/img/gallery/science-says-this-female-body-type-is-most-attractive-to-men-upgrade/intro-1692030948.jpg" className="w-full max-w-[600px] h-auto rounded-lg" controls loop preload="none" onBlur={(e) => e.currentTarget.pause()} onFocus={(e) => e.currentTarget.play()}>
-                                <source src={post.url} />
-                            </video>
+                            <VideoPlayer videoSrc={post.url} thumbnail="https://www.healthdigest.com/img/gallery/science-says-this-female-body-type-is-most-attractive-to-men-upgrade/intro-1692030948.jpg" />
                         )
                         : <iframe className="w-full max-w-[600px] h-[300px] md:h-[500px] lg:h-[600px] rounded-lg" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" src={yt_embed + post.url} frameBorder="0"></iframe>
                     )

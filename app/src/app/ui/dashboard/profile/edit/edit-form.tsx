@@ -1,24 +1,35 @@
 "use client"
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
-import { User } from "@prisma/client";
 import { useState } from "react";
+import { verifyId } from "tspace/app/lib/user";
 import { Button } from "tspace/app/ui/global/button";
 
 export default function EditForm({user}: {user: any})
 {
-    const [name, setName] = useState(user.name || "")
-    const [email, setEmail] = useState(user.email)
-    const [username, setUsername] = useState(user.profiles[0].username || "username")
-    const [bio, setBio] = useState(user.profiles[0].bio || 'This is my bio.')
-    const [profilePic, setProfilePic] = useState('')
-    const [page, setPage] = useState(0)
+  const [name, setName] = useState(user.name || "")
+  const [email, setEmail] = useState(user.email)
+  const [username, setUsername] = useState(user.profiles[0].username || "username")
+  const [bio, setBio] = useState(user.profiles[0].bio || 'This is my bio.')
+  const [profilePic, setProfilePic] = useState('')
+  const [picData, setPicData] = useState('')
+  const [page, setPage] = useState(0)
+  const [pass, setPass] = useState('')
+  
+  console.log(picData)
 
   const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if(e.currentTarget.files)
     {
         const file = e.currentTarget.files[0];
-        if (file) {
-        setProfilePic(URL.createObjectURL(file));
+        if (file.type.startsWith("image")) {
+          setProfilePic(URL.createObjectURL(file))
+          const reader = new FileReader()
+          reader.readAsDataURL(file)
+          reader.onload = (e)=>{
+            setPicData(e.target?.result as string)
+          }
+        } else {
+          alert("Invalid profile image")
         }
     }
     
@@ -29,10 +40,9 @@ export default function EditForm({user}: {user: any})
     setPage(1)
   };
 
-  const submitChanges = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitChanges = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission logic here
-    alert('User information updated!');
+    if(await verifyId(pass)) alert('User information updated!');
   };
 
   return (
@@ -140,6 +150,8 @@ export default function EditForm({user}: {user: any})
                 name="password"
                 type="password"
                 minLength={8}
+                value={pass}
+                onChange={(e)=>setPass(e.target.value)}
                 className="mt-1 block text-center w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="Enter password"
                 required

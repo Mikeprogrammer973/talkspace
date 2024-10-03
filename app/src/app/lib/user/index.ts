@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client"
 import { compare, genSalt, hash } from "bcryptjs"
 import { z } from 'zod'
 import { verificationCode } from "../util/generate/user/verification/code"
+import { getServerSession } from "next-auth"
 
 const UserFormSchema = z.object(
 {
@@ -121,6 +122,12 @@ export async function validVerificationCode(email: string, verificationCode: str
     if(user !== null) return true
 
     return false
+}
+
+export async function verifyId(passsword: string) {
+    const user = await prisma.user.findFirst({where: {email: (await getServerSession())?.user.email}})
+
+    return (await compare(passsword, user?.password as string))
 }
 
 export async function getByEmail(email: string) {

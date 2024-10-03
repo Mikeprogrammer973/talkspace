@@ -6,19 +6,19 @@ import MsgBox from "../global/msgBox";
 import { Alert } from "../global/alert";
 import Spinner from "../global/spinner";
 import { Button } from "../global/button";
-import { getByUsername, validVerificationCode } from "tspace/app/lib/user";
+import { getByEmail, validVerificationCode } from "tspace/app/lib/user";
 import { useRouter } from "next/navigation";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { signIn } from "next-auth/react";
 
-export default async function VerifyIdForm({username, password, setPage}: {username: string, password: string, setPage: Dispatch<SetStateAction<number>>})
+export default async function VerifyIdForm({email, password, setPage}: {email: string, password: string, setPage: Dispatch<SetStateAction<number>>})
 {
     const [ visible, setV ] = useState(false)
     const [ visible2, setV2 ] = useState(true)
     const [ spinnerV, setSpinnerV ] = useState(false)
     const router = useRouter()
 
-    const user = await getByUsername(username)
+    const user = await getByEmail(email)
 
     async function sendVerificationCode()
     {
@@ -27,7 +27,7 @@ export default async function VerifyIdForm({username, password, setPage}: {usern
         await send({
             to: user?.email as string,
             subject: "Verify your Identity",
-            html: EmailTemplate.getTemplate(EmailTemplate.verifyIdTemplate(user?.username as string, user?.verificationCode as string))
+            html: EmailTemplate.getTemplate(EmailTemplate.verifyIdTemplate(user?.profiles[0].username as string, user?.verificationCode as string))
         })
         setSpinnerV(false)
         setV(true)
@@ -36,13 +36,13 @@ export default async function VerifyIdForm({username, password, setPage}: {usern
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSpinnerV(true)
-    if(!(await validVerificationCode(user?.username as string, (new FormData(e.currentTarget)).getAll("verificationCode")[0] as string)))
+    if(!(await validVerificationCode(user?.email as string, (new FormData(e.currentTarget)).getAll("verificationCode")[0] as string)))
     {
         router.push("/auth/error")
     } else {
         const result = await signIn("credentials", {
             redirect: false,
-            username,
+            email,
             password
         })
 
@@ -77,7 +77,7 @@ export default async function VerifyIdForm({username, password, setPage}: {usern
                 type="text"
                 maxLength={10}
                 minLength={10}
-                className="mt-1 block w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 text-center block w-full px-3 py-2 text-gray-700 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="Enter code"
                 required
                 />

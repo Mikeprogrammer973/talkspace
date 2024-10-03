@@ -13,7 +13,7 @@ export default function LoginForm()
 {
     const [spinnerV, setSpinnerV] = useState<boolean>(false)
 
-    const [username, setUsername] = useState<string>("")
+    const [email, setEmail] = useState<string>("")
     const [password,setPassword] = useState<string>("")
     const [page, setPage] = useState(0)
     const router = useRouter()
@@ -21,7 +21,7 @@ export default function LoginForm()
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
         setSpinnerV(true)
-        const result = await verifyCreds(username, password)
+        const result = await verifyCreds(email, password)
 
         if(!result)
         {
@@ -42,20 +42,20 @@ export default function LoginForm()
                     <div>
                         <label
                         className="mb-3 mt-5 block text-xs font-medium"
-                        htmlFor="username"
+                        htmlFor="email"
                         >
-                        Username
+                        Email
                         </label>
                         <div className="relative">
                         <input
                             className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 text-gray-600 placeholder:text-gray-400"
-                            id="username"
-                            type="username"
-                            name="username"
-                            placeholder="Enter your username"
+                            id="email"
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
                             required
-                            value={username}
-                            onChange={(e)=>setUsername(e.currentTarget.value)}
+                            value={email}
+                            onChange={(e)=>setEmail(e.currentTarget.value)}
                         />
                         <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400 peer-focus:text-gray-600" />
                         </div>
@@ -88,7 +88,7 @@ export default function LoginForm()
                         Don&apos;t have an account? <Link className="text-blue-500 font-semibold" href={"signup"}>Sign up</Link>
                     </div>
                 </form>}
-                {page === 1 && <VerifyIdForm setPage={setPage} username={username} password={password} />}
+                {page === 1 && <VerifyIdForm setPage={setPage} email={email} password={password} />}
             </div>
             
         </div>

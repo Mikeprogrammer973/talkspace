@@ -77,8 +77,12 @@ export async function create(prevState: UserState, formData: FormData)
         await prisma.user.create({
             data:{
                 email: email,
-                username: username,
-                password: await hash(password, await genSalt(15))
+                password: await hash(password, await genSalt(15)),
+                profiles: {
+                    create: {
+                        username: username
+                    }
+                }
             }
         })
 
@@ -91,14 +95,14 @@ export async function create(prevState: UserState, formData: FormData)
     }
 }
 
-export async function verifyCreds(username: string, passsword: string)
+export async function verifyCreds(email: string, passsword: string)
 {
-    const user = await getByUsername(username)
+    const user = await getByEmail(email)
 
     if(user !== null)
     {
         if(await compare(passsword, user.password)) {
-            await setVerificationCode(username)
+            await setVerificationCode(email)
             return true
         }
     }
@@ -106,13 +110,13 @@ export async function verifyCreds(username: string, passsword: string)
     return false
 }
 
-export async function setVerificationCode(username: string) {
-    return await prisma.user.update({where: {username: username}, data: {verificationCode: verificationCode.join('')}})
+export async function setVerificationCode(email: string) {
+    return await prisma.user.update({where: {email: email}, data: {verificationCode: verificationCode.join('')}})
 }
 
-export async function validVerificationCode(username: string, verificationCode: string)
+export async function validVerificationCode(email: string, verificationCode: string)
 {
-    const user = await prisma.user.findUnique({where: { username: username, verificationCode: verificationCode }})
+    const user = await prisma.user.findUnique({where: { email: email, verificationCode: verificationCode }})
 
     if(user !== null) return true
 
@@ -120,13 +124,13 @@ export async function validVerificationCode(username: string, verificationCode: 
 }
 
 export async function getByEmail(email: string) {
-    return await prisma.user.findUnique({where: {email: email}})
+    return await prisma.user.findUnique({where: {email: email}, include: {profiles: true}})
 }
 
 export async function getByUsername(username: string) {
-    return await prisma.user.findUnique({where: {username: username}})
+    return await prisma.profile.findUnique({where: {username: username}, include: {user: true}})
 }
 
 export async function getById(id: number) {
-    return await prisma.user.findUnique({where: {id: id}})
+    return await prisma.user.findUnique({where: {id: id}, include: {profiles: true}})
 }

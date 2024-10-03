@@ -6,7 +6,7 @@ import { useState } from "react";
 import VideoPlayer from "../user/util/video_player";
 import Link from "next/link";
 
-export default function Dashboard({user}: {user: User})
+export default function Dashboard({user}: {user: any})
 {
     const [filter, setFilter] = useState(0)
 
@@ -50,8 +50,8 @@ export default function Dashboard({user}: {user: User})
                     className="rounded-full w-32 h-32 mb-6 border-4 border-gray-700"
                   />
                   <h2 className="text-xl font-bold">{user?.name || "User"}</h2>
-                  <p className="text-gray-400">@{user?.username || 'username'}</p>
-                  <p className="text-gray-300 mt-4 text-center">{'Aqui vai a bio do usuário'}</p>
+                  <p className="text-gray-400">@{user.profiles[0].username || 'username'}</p>
+                  <p className="text-gray-300 mt-4 text-center">{user.profiles[0].bio || 'Aqui vai a bio do usuário'}</p>
                 </div>
                 <div className="flex justify-around mt-8">
                   <div className="text-center">
@@ -100,7 +100,7 @@ export default function Dashboard({user}: {user: User})
                     <div
                       key={i}
                     >
-                      <VideoPlayer videoSrc="/final_video.mp4" thumbnail="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyaoFceIP1DnWFeoNTo6wcAAxClHDuhqiy9g&s" />
+                      <VideoPlayer videoSources={["/final_video.mp4"]} thumbnail="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyaoFceIP1DnWFeoNTo6wcAAxClHDuhqiy9g&s" />
                     </div>
                   ))}
                 </div>}

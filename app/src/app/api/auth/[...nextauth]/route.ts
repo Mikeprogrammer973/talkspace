@@ -1,6 +1,6 @@
 
 import { z } from 'zod'
-import { getByUsername } from 'tspace/app/lib/user';
+import { getByEmail, getByUsername } from 'tspace/app/lib/user';
 import { compare } from "bcryptjs";
 import Credentials from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
@@ -15,31 +15,31 @@ const handler = NextAuth({
         Credentials({
             name: "credentials",
             credentials: {
-                usernaname: {
-                    label: "Username",
+                email: {
+                    label: "Email",
                     type: "text"
                 },
-                passsword: {
+                password: {
                     label: "Password",
                     type: "password"
                 }
             },
             async authorize(credentials){
                 const parsedCreds = z.object({
-                    username: z.string().trim(),
+                    email: z.string().trim(),
                     password: z.string().min(8)
                 }).safeParse(credentials)
                 
                 if(parsedCreds.success)
                 {
-                    const {username, password} = parsedCreds.data
+                    const {email, password} = parsedCreds.data
 
-                    const user = await getByUsername(username)
+                    const user = await getByEmail(email)
                     if(!user) return null
                     const passwordsMatch = await compare(password, user.password)
 
                     if(passwordsMatch) {
-                        await prisma.user.update({where: {username: username}, data: {verificationCode: null}});
+                        await prisma.user.update({where: {email: email}, data: {verificationCode: null}});
                         return user as any
                     }
                 }
@@ -64,7 +64,6 @@ const handler = NextAuth({
                 token.email = user.email 
                 token.id = user.id 
                 token.name = user.name 
-                token.username = user.username
             }
             return token;
         },
@@ -73,7 +72,6 @@ const handler = NextAuth({
                 session.user = {
                     id: token.id as string,
                     email: token.email as string,
-                    username: token.username as string,
                     name: token.name as string
                 };
             }

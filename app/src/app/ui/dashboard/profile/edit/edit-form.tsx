@@ -4,12 +4,12 @@ import { User } from "@prisma/client";
 import { useState } from "react";
 import { Button } from "tspace/app/ui/global/button";
 
-export default function EditForm({user}: {user: User})
+export default function EditForm({user}: {user: any})
 {
     const [name, setName] = useState(user.name || "")
     const [email, setEmail] = useState(user.email)
-    const [username, setUsername] = useState(user.username)
-    const [bio, setBio] = useState('This is my bio.')
+    const [username, setUsername] = useState(user.profiles[0].username || "username")
+    const [bio, setBio] = useState(user.profiles[0].bio || 'This is my bio.')
     const [profilePic, setProfilePic] = useState('')
     const [page, setPage] = useState(0)
 
@@ -129,7 +129,7 @@ export default function EditForm({user}: {user: User})
         </form>}
 
         {page === 1 && <div className="max-w-md w-full p-8">
-            <h1 className="text-2xl font-bold text-gray-200 text-center mb-6">Confirm Your Identity</h1>
+            <h1 className="text-xl font-bold text-gray-200 text-center mb-6">Confirm Your Identity</h1>
             <p className="text-gray-400 text-center mb-4">
                 Please enter your password.
             </p>

@@ -1,9 +1,10 @@
 import { ArrowLeftCircleIcon } from "@heroicons/react/20/solid";
-import { User } from "@prisma/client";
+import { Profile, User } from "@prisma/client";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { getByEmail } from "tspace/app/lib/user";
+import { FolderPath, Mega } from "tspace/app/lib/util/mail/storage";
 import EditForm from "tspace/app/ui/dashboard/profile/edit/edit-form";
 
 export const metadata: Metadata = {
@@ -12,7 +13,10 @@ export const metadata: Metadata = {
 
 const UserProfileEdit = async () => {
     const session = await getServerSession()
-    const user: User = await getByEmail(session?.user.email as string) as User
+    const user = await getByEmail(session?.user.email as string)
+
+    console.log((await new Mega().download(FolderPath.POSTS, "teste.txt"))?.toString('base64'))
+
    return (
     <div className="bg-gray-900">
         <button title="Back" className="p-5 text-gray-300 hover:text-gray-100 sticky top-0">

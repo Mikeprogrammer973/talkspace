@@ -16,7 +16,7 @@ export default async function Page()
     return <div>Auth Error!</div>;
   }
 
-  const user: User = await getByEmail(session.user.email) as User;
+  const user = await getByEmail(session.user.email)
 
   console.log(session)
 

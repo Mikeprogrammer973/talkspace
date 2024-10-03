@@ -17,7 +17,7 @@ export function Post({post}: {post: PostModel})
                     ) : (
                         post.type === "video"
                         ? (
-                            <VideoPlayer videoSrc={post.url} thumbnail="https://www.healthdigest.com/img/gallery/science-says-this-female-body-type-is-most-attractive-to-men-upgrade/intro-1692030948.jpg" />
+                            <VideoPlayer videoSources={[post.url]} thumbnail="https://www.healthdigest.com/img/gallery/science-says-this-female-body-type-is-most-attractive-to-men-upgrade/intro-1692030948.jpg" />
                         )
                         : <iframe className="w-full max-w-[600px] h-[300px] md:h-[500px] lg:h-[600px] rounded-lg" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" src={yt_embed + post.url} frameBorder="0"></iframe>
                     )

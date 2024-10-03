@@ -1,11 +1,14 @@
+import { Square2StackIcon, Squares2X2Icon } from '@heroicons/react/20/solid';
 import React, { useRef, useState, useEffect } from 'react';
 
-const VideoPlayer = ({ videoSrc, thumbnail }: {videoSrc: string, thumbnail: string}) => {
+const VideoPlayer = ({ videoSources, thumbnail }: {videoSources: string[], thumbnail:string}) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [showControls, setShowControls] = useState(true);
+  const [speed, setSpeed] = useState(1); // Default speed is 1x
+  const [quality, setQuality] = useState(videoSources[0]); // Default quality is the first source
 
   const handlePlayPause = () => {
     if (videoRef.current) {
@@ -40,12 +43,35 @@ const VideoPlayer = ({ videoSrc, thumbnail }: {videoSrc: string, thumbnail: stri
     }
   };
 
-  const handleMouseEnter = () => {
-    setShowControls(true);
+  const handleFullScreen = () => {
+    if (videoRef.current) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        videoRef.current.requestFullscreen();
+      }
+    }
   };
 
-  const handleMouseLeave = () => {
-    setShowControls(false);
+  const handlePictureInPicture = async () => {
+    if (videoRef.current && document.pictureInPictureElement !== videoRef.current) {
+      await videoRef.current.requestPictureInPicture();
+    } else if (document.pictureInPictureElement) {
+      await document.exitPictureInPicture();
+    }
+  };
+
+  const handleSpeedChange = (newSpeed: number) => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = newSpeed;
+      setSpeed(newSpeed);
+    }
+  };
+
+  const handleSkip = (seconds: number) => {
+    if (videoRef.current) {
+      videoRef.current.currentTime += seconds;
+    }
   };
 
   // Pausar o vídeo quando a aba perde o foco
@@ -67,30 +93,64 @@ const VideoPlayer = ({ videoSrc, thumbnail }: {videoSrc: string, thumbnail: stri
   return (
     <div
       className="relative w-full mx-auto bg-black rounded-lg overflow-hidden"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => setShowControls(true)}
+      onMouseLeave={() => setShowControls(false)}
     >
       <video
         ref={videoRef}
-        src={videoSrc}
+        src={quality}
         poster={thumbnail}
         className="w-full h-auto"
         onClick={handlePlayPause}
         onTimeUpdate={handleTimeUpdate}
         muted={isMuted}
+        controls={false}
       />
-      {/* Exibir controles apenas quando o mouse estiver sobre o vídeo */}
+
+      {/* Controles de Vídeo */}
       {showControls && (
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-center">
-          <button onClick={handlePlayPause} className="text-white text-xl">
-            {isPlaying ? '❚❚' : '▶️'}
-          </button>
-          <div className="relative w-full h-2 bg-gray-600 rounded mx-4 cursor-pointer" onClick={handleSeek}>
-            <div className="absolute top-0 left-0 h-full bg-indigo-500" style={{ width: `${progress}%` }}></div>
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex flex-col space-y-3">
+          {/* Botões de Controle */}
+          <div className="flex justify-between items-center text-white">
+            <button onClick={handlePlayPause}>
+              {isPlaying ? '❚❚' : '▶️'}
+            </button>
+            <button title='Back 10s' onClick={() => handleSkip(-10)}>⏪</button>
+            <button title='Foward 10s' onClick={() => handleSkip(10)}>⏩</button>
+            <button onClick={handleMuteUnmute}>
+              {isMuted ? '🔇' : '🔊'}
+            </button>
+            <button title='FullScreen' onClick={handleFullScreen}><Squares2X2Icon className='w-4' /></button>
+            <button title='Picture-in-picture' onClick={handlePictureInPicture}><Square2StackIcon className='w-4' /></button>
           </div>
-          <button onClick={handleMuteUnmute} className="text-white text-xl">
-            {isMuted ? '🔇' : '🔊'}
-          </button>
+
+          {/* Barra de Progresso */}
+          <div
+            className="relative w-full h-2 bg-gray-600 rounded cursor-pointer"
+            onClick={handleSeek}
+          >
+            <div
+              className="absolute top-0 left-0 h-full bg-indigo-500"
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+
+          {/* Controles de Velocidade e Qualidade */}
+          <div className="flex justify-between text-white">
+            <div>
+              <label>Speed: </label>
+              <select
+                className="bg-gray-800 text-white rounded px-2 py-1"
+                value={speed}
+                onChange={(e) => handleSpeedChange(parseFloat(e.target.value))}
+              >
+                <option value="0.5">0.5x</option>
+                <option value="1">1x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2">2x</option>
+              </select>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -31,7 +31,7 @@ export default function Page()
         friendRequest: 'David',
     }
 
-    const email_content = EmailTemplate.getTemplate(EmailTemplate.notificationMsgTemplate(session.data?.user.username as string, notifications))
+    // const email_content = EmailTemplate.getTemplate(EmailTemplate.notificationMsgTemplate(session.data?.user.username as string, notifications))
 
     return (
         <div className="w-full max-w-[100vw]">

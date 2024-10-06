@@ -104,6 +104,10 @@ export async function update(data: {name: string | null, email: string, username
     const img_name = data.picture && `${data.username}_profile_picture.${data.picture.split(';')[0].split(':')[1].split('/')[1]}`
     if(data.picture)
     {
+        if(user?.profiles[0].imageId !== null)
+        {
+            await new Mega().delete(FolderPath.PROFILES, (await prisma.image.findFirst({where: {id: user?.profiles[0].imageId as number}}))?.name as string)
+        }
         await new Mega().upload(FolderPath.PROFILES, {name: img_name as string, data: data.picture.split(',')[1]})
     }
 

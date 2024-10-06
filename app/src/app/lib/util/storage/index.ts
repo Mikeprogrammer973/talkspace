@@ -17,7 +17,8 @@ export class Mega
 
     async upload(path: FolderPath, filePrms: {name: string, data: any})
     {
-        (await this.connect(path))?.upload(filePrms.name, filePrms.data)
+        await this.delete(path, filePrms.name);
+        (await this.connect(path))?.upload(filePrms.name, Buffer.from(filePrms.data, 'base64'))
     }
 
     async delete(path: FolderPath, filename: string)

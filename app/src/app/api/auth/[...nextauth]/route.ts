@@ -1,6 +1,6 @@
 
 import { z } from 'zod'
-import { getByEmail, getByUsername } from 'tspace/app/lib/user';
+import { getByEmail, getByUsername, getProfilePicture } from 'tspace/app/lib/user';
 import { compare } from "bcryptjs";
 import Credentials from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
@@ -72,7 +72,8 @@ const handler = NextAuth({
                 session.user = {
                     id: token.id as string,
                     email: token.email as string,
-                    name: token.name as string
+                    name: token.name as string,
+                    image: await getProfilePicture()
                 };
             }
             return session

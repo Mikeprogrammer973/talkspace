@@ -102,6 +102,7 @@ const VideoPlayer = ({ videoSources, thumbnail }: {videoSources: string[], thumb
         poster={thumbnail}
         className="w-full h-auto"
         onClick={handlePlayPause}
+        onDoubleClick={handleFullScreen}
         onTimeUpdate={handleTimeUpdate}
         muted={isMuted}
         controls={false}
@@ -136,7 +137,7 @@ const VideoPlayer = ({ videoSources, thumbnail }: {videoSources: string[], thumb
           </div>
 
           {/* Controles de Velocidade e Qualidade */}
-          <div className="flex justify-between text-white">
+          {/* <div className="flex justify-between text-white">
             <div>
               <label>Speed: </label>
               <select
@@ -150,7 +151,7 @@ const VideoPlayer = ({ videoSources, thumbnail }: {videoSources: string[], thumb
                 <option value="2">2x</option>
               </select>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </div>

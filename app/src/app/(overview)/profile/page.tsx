@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
-import { getByEmail } from "tspace/app/lib/user";
+import { getByEmail, getProfilePicture } from "tspace/app/lib/user";
 import Dashboard from "tspace/app/ui/dashboard/profile/dashboard";
 
 export const metadata: Metadata = {

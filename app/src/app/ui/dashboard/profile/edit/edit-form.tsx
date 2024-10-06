@@ -1,21 +1,24 @@
 "use client"
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/20/solid";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { verifyId } from "tspace/app/lib/user";
+import { update, verifyId } from "tspace/app/lib/user";
 import { Button } from "tspace/app/ui/global/button";
+import Spinner from "tspace/app/ui/global/spinner";
 
 export default function EditForm({user}: {user: any})
 {
-  const [name, setName] = useState(user.name || "")
-  const [email, setEmail] = useState(user.email)
-  const [username, setUsername] = useState(user.profiles[0].username || "username")
-  const [bio, setBio] = useState(user.profiles[0].bio || 'This is my bio.')
-  const [profilePic, setProfilePic] = useState('')
-  const [picData, setPicData] = useState('')
+  const [name, setName] = useState<string>(user.name || "")
+  const [email, setEmail] = useState<string>(user.email)
+  const [username, setUsername] = useState<string>(user.profiles[0].username || "username")
+  const [bio, setBio] = useState<string>(user.profiles[0].bio || 'This is my bio.')
+  const [profilePic, setProfilePic] = useState(useSession().data?.user.image)
+  const [picData, setPicData] = useState<string>('')
   const [page, setPage] = useState(0)
   const [pass, setPass] = useState('')
-  
-  console.log(picData)
+  const [spinnerV, setSpinnerV] = useState(false)
+  const router = useRouter()
 
   const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if(e.currentTarget.files)
@@ -42,11 +45,18 @@ export default function EditForm({user}: {user: any})
 
   const submitChanges = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if(await verifyId(pass)) alert('User information updated!');
+    setSpinnerV(true)
+    if(await verifyId(pass)) 
+    {
+      await update({name: name, username: username, email: email, picture: picData, bio: bio})
+    } else {
+      router.push('/error')
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center py-6">
+      <Spinner visible={spinnerV} label={""} />
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-lg">
         <h1 className="text-2xl font-bold text-center text-white mb-6">Edit Your Profile</h1>
 

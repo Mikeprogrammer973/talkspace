@@ -4,10 +4,11 @@ import MenuItem, { MoreOptions } from "./menu_item"
 import { HomeIcon } from "@heroicons/react/16/solid"
 import { AdjustmentsHorizontalIcon, ArrowLeftStartOnRectangleIcon, ArrowsPointingOutIcon, ArrowsRightLeftIcon, BellAlertIcon, BookmarkIcon, ChatBubbleLeftRightIcon, FilmIcon, MagnifyingGlassIcon, PlusCircleIcon, WrenchScrewdriverIcon } from "@heroicons/react/20/solid"
 import Link from "next/link"
-import { signOut } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 
 export default function SideNav()
 {
+    const {data} = useSession()
     const def_style = "flex items-center justify-center lg:justify-normal"
     return (
         <div className="bg-gray-700 md:w-[20%] md:h-screen md:fixed text-gray-200 overflow-y-scroll scrollbar-none sticky top-0 left-0 right-0 flex justify-between md:block">
@@ -35,7 +36,7 @@ export default function SideNav()
                 <MenuItem label="Create" icon={<PlusCircleIcon fill="currentColor" className="w-8 h-8" />} />
             </div>
             <Link href={"/profile"} className={def_style} >
-                <MenuItem label="Profile" icon={<div className="w-8 h-8"><img alt="icon_profile" className="w-full h-full rounded-full bg-slate-500" src={"https://qaziclinic.com/wp-content/uploads/2021/01/img3-5.jpg"} /></div>} />
+                <MenuItem label="Profile" icon={<div className="w-8 h-8"><img alt="icon_profile" className="w-full h-full rounded-full bg-slate-500" src={data?.user.image} /></div>} />
             </Link>
             <div className="hidden md:block">
                 <MenuItem label="Settings" icon={<AdjustmentsHorizontalIcon fill="currentColor" className="w-8 h-8" />} />

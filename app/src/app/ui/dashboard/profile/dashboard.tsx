@@ -1,7 +1,6 @@
 "use client"
 import { PencilSquareIcon, AdjustmentsHorizontalIcon, ArrowLeftStartOnRectangleIcon, TableCellsIcon, FilmIcon, BookmarkIcon } from "@heroicons/react/20/solid";
-import { User } from "@prisma/client";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import VideoPlayer from "../user/util/video_player";
 import Link from "next/link";
@@ -9,6 +8,7 @@ import Link from "next/link";
 export default function Dashboard({user}: {user: any})
 {
     const [filter, setFilter] = useState(0)
+    const picture = useSession().data?.user.image
 
     return (
         <div className="min-h-screen bg-gray-900 text-gray-100">
@@ -18,7 +18,7 @@ export default function Dashboard({user}: {user: any})
               <h1 className="text-xl font-bold text-white hidden md:block">Account Dashboard</h1>
               <div className="flex items-center space-x-6">
                 <img
-                  src={'https://qaziclinic.com/wp-content/uploads/2021/01/img3-5.jpg'}
+                  src={picture}
                   alt={user?.name || 'User'}
                   className="rounded-full w-10 h-10"
                 />
@@ -45,7 +45,7 @@ export default function Dashboard({user}: {user: any})
               <div className="bg-gray-800 p-8 rounded-lg shadow-md">
                 <div className="flex flex-col items-center">
                   <img
-                    src={'https://qaziclinic.com/wp-content/uploads/2021/01/img3-5.jpg'}
+                    src={picture}
                     alt={user?.name || 'User'}
                     className="rounded-full w-32 h-32 mb-6 border-4 border-gray-700"
                   />
@@ -82,7 +82,7 @@ export default function Dashboard({user}: {user: any})
                     <BookmarkIcon fill="currentColor" className="w-5" /> SAVED
                   </button>
                 </div>
-                {filter === 0 && <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                {filter === 0 && <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {[...Array(50)].map((_, i) => (
                     <div
                       key={i}
@@ -95,7 +95,7 @@ export default function Dashboard({user}: {user: any})
                     </div>
                   ))}
                 </div>}
-                {filter === 1 && <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                {filter === 1 && <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {[...Array(20)].map((_, i) => (
                     <div
                       key={i}
@@ -104,7 +104,7 @@ export default function Dashboard({user}: {user: any})
                     </div>
                   ))}
                 </div>}
-                {filter === 2 && <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                {filter === 2 && <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {[...Array(10)].map((_, i) => (
                     <div
                       key={i}

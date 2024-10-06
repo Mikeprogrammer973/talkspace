@@ -59,7 +59,7 @@ export default function RegisterForm()
                         <div className="text-center max-w-md p-6 bg-white rounded-lg shadow-lg">
                             <h1 className="text-3xl font-bold text-green-600 mb-4">Account Registration</h1>
                             <p className="text-gray-600 text-lg mb-6">
-                                Your has been successfully created! Now you can proceed to the login page by pressing the button bellow.
+                                Your account has been successfully created! Now you can proceed to the login page by pressing the button bellow.
                             </p>
                             <a href="/signin" className="inline-block px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700">
                             Start Now

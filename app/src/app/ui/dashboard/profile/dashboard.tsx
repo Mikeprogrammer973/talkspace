@@ -19,10 +19,10 @@ export default function Dashboard({user}: {user: any})
               <div className="flex items-center space-x-6">
                 <img
                   src={picture}
-                  alt={user?.name || 'User'}
+                  alt={user.user.name || 'User'}
                   className="rounded-full w-10 h-10"
                 />
-                <span className="font-semibold">{user?.name || "User"}</span>
+                <span className="font-semibold">{user.user.name || "User"}</span>
                 <button title="Edit Profile" className="text-gray-300 hover:text-gray-200">
                   <Link href={"/profile/edit"}>
                       <PencilSquareIcon fill="currentColor" className="w-7" />
@@ -49,21 +49,21 @@ export default function Dashboard({user}: {user: any})
                     alt={user?.name || 'User'}
                     className="rounded-full w-32 h-32 mb-6 border-4 border-gray-700"
                   />
-                  <h2 className="text-xl font-bold">{user?.name || "User"}</h2>
-                  <p className="text-gray-400">@{user.profiles[0].username || 'username'}</p>
-                  <p className="text-gray-300 mt-4 text-center">{user.profiles[0].bio || 'Aqui vai a bio do usuário'}</p>
+                  <h2 className="text-xl font-bold">{user.user.name || "User"}</h2>
+                  <p className="text-gray-400">@{user.username || 'username'}</p>
+                  <p className="text-gray-300 mt-4 text-center">{user.bio || 'Aqui vai a bio do usuário'}</p>
                 </div>
                 <div className="flex justify-around mt-8">
                   <div className="text-center">
-                    <span className="font-bold text-lg text-white">350</span>
+                    <span className="font-bold text-lg text-white"> {user.posts.length} </span>
                     <p className="text-gray-400">Posts</p>
                   </div>
                   <div className="text-center">
-                    <span className="font-bold text-lg text-white">1200</span>
+                    <span className="font-bold text-lg text-white"> {user.followers.length} </span>
                     <p className="text-gray-400">Followers</p>
                   </div>
                   <div className="text-center">
-                    <span className="font-bold text-lg text-white">200</span>
+                    <span className="font-bold text-lg text-white"> {user.following.length} </span>
                     <p className="text-gray-400">Following</p>
                   </div>
                 </div>

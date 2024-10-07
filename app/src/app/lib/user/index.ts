@@ -186,7 +186,7 @@ export async function getByEmail(email: string) {
 }
 
 export async function getByUsername(username: string) {
-    return await prisma.profile.findUnique({where: {username: username}, include: {user: true, image: true}})
+    return await prisma.profile.findUnique({where: {username: username}, include: {user: true, image: true, followers: true, following: true, posts: true}})
 }
 
 export async function getById(id: number) {

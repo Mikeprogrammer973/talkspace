@@ -1,5 +1,5 @@
 "use client"
-import { PencilSquareIcon, AdjustmentsHorizontalIcon, ArrowLeftStartOnRectangleIcon, TableCellsIcon, FilmIcon, BookmarkIcon } from "@heroicons/react/20/solid";
+import { PencilSquareIcon, AdjustmentsHorizontalIcon, ArrowLeftStartOnRectangleIcon, TableCellsIcon, FilmIcon, BookmarkIcon, LinkIcon } from "@heroicons/react/20/solid";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import VideoPlayer from "../user/util/video_player";
@@ -9,6 +9,12 @@ export default function Dashboard({user}: {user: any})
 {
     const [filter, setFilter] = useState(0)
     const picture = useSession().data?.user.image
+
+    const regex = /\[(.*?)\]/g
+
+    const user_bio = user.bio.replace(regex, "")
+    
+    const bio_links: string[] = user.bio.match(regex)?.map((match: string) => match.slice(1, -1))
 
     return (
         <div className="min-h-screen bg-gray-900 text-gray-100">
@@ -22,7 +28,7 @@ export default function Dashboard({user}: {user: any})
                   alt={user.user.name || 'User'}
                   className="rounded-full w-10 h-10"
                 />
-                <span className="font-semibold">{user.user.name || "User"}</span>
+                <span className="font-semibold inline-flex min-w-10 whitespace-nowrap overflow-hidden overflow-ellipsis">{user.user.name || "User"}</span>
                 <button title="Edit Profile" className="text-gray-300 hover:text-gray-200">
                   <Link href={"/profile/edit"}>
                       <PencilSquareIcon fill="currentColor" className="w-7" />
@@ -49,11 +55,24 @@ export default function Dashboard({user}: {user: any})
                     alt={user?.name || 'User'}
                     className="rounded-full w-32 h-32 mb-6 border-4 border-gray-700"
                   />
-                  <h2 className="text-xl font-bold">{user.user.name || "User"}</h2>
-                  <p className="text-gray-400">@{user.username || 'username'}</p>
-                  <p className="text-gray-300 mt-4 text-center">{user.bio || 'Aqui vai a bio do usuário'}</p>
+                  <h2 className="text-xl font-bold text-center">{user.user.name || "User"}</h2>
+                  <p className="text-gray-400 text-center">@{user.username || 'username'}</p>
+                  <textarea readOnly rows={7} className="bg-transparent scrollbar-none outline-none text-center my-5" value={user_bio || 'Aqui vai a bio do usuário'}></textarea>
+                  {bio_links && 
+                  <div className="max-w-full">
+                    {
+                      bio_links.map((link, i)=>{
+                        const link_split = link.split('|')
+                        return <p title={link_split[0]} key={i} className="whitespace-nowrap max-w-full overflow-hidden overflow-ellipsis text-purple-400 hover:text-purple-300 py-2">
+                          <LinkIcon fill="gray" className="w-4 inline-block" />
+                          <a className="" target="_blank" href={link_split[1]}> {link_split[0]} </a>
+                        </p>
+                      })
+                    }
+                  </div>
+                  }
                 </div>
-                <div className="flex justify-around mt-8">
+                <div className="flex gap-5 justify-around mt-8 overflow-x-scroll scrollbar-none">
                   <div className="text-center">
                     <span className="font-bold text-lg text-white"> {user.posts.length} </span>
                     <p className="text-gray-400">Posts</p>

@@ -195,7 +195,8 @@ export async function getById(id: number) {
 
 export async function getProfilePicture()
 {
-    const image = await prisma.image.findFirst({where: {id: (await getByEmail((await getServerSession())?.user.email as string))?.profiles[0].imageId as number}})
+    const imgID = (await getByEmail((await getServerSession())?.user.email as string))?.profiles[0].imageId
+    const image = imgID && await prisma.image.findFirst({where: {id: imgID as number}})
 
     return image ? `${image?.type},${(await new Mega().download(FolderPath.PROFILES, image?.name as string))?.toString('base64')}` : "https://qaziclinic.com/wp-content/uploads/2021/01/img3-5.jpg"
 }

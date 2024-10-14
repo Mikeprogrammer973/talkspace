@@ -14,8 +14,6 @@ const UserProfileEdit = async () => {
     const session = await getServerSession()
     const user = await getByEmail(session?.user.email as string)
 
-    // console.log((await new Mega().download(FolderPath.POSTS, "teste.txt"))?.toString('base64'))
-
    return (
     <div className="bg-gray-900">
         <button title="Back" className="p-5 text-gray-300 hover:text-gray-100 sticky top-0">

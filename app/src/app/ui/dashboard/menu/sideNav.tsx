@@ -39,7 +39,9 @@ export default function SideNav()
                 <MenuItem label="Profile" icon={<div className="w-8 h-8"><img alt="icon_profile" className="w-full h-full rounded-full bg-slate-500" src={data?.user.image} /></div>} />
             </Link>
             <div className="hidden md:block">
-                <MenuItem label="Settings" icon={<AdjustmentsHorizontalIcon fill="currentColor" className="w-8 h-8" />} />
+                <Link href={"/settings"} className={def_style}>
+                    <MenuItem label="Settings" icon={<AdjustmentsHorizontalIcon fill="currentColor" className="w-8 h-8" />} />
+                </Link>
                 <MenuItem label="Saved" icon={<BookmarkIcon fill="currentColor" className="w-8 h-8" />} />
                 <MenuItem label="Report a problem" icon={<WrenchScrewdriverIcon fill="currentColor" className="w-8 h-8" />} />
                 <br /><hr /><br />

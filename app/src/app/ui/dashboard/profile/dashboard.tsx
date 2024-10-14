@@ -35,7 +35,9 @@ export default function Dashboard({user}: {user: any})
                   </Link>
                 </button>
                 <button title="Settings" className="text-gray-300 hover:text-gray-200">
-                  <AdjustmentsHorizontalIcon fill="currentColor" className="w-7" />
+                  <Link href={"/settings"}>
+                    <AdjustmentsHorizontalIcon fill="currentColor" className="w-7" />
+                  </Link>
                 </button>
                 <button onClick={() => signOut({ callbackUrl: '/auth/signin' })} title="Log out" className="text-gray-300 hover:text-gray-200 md:hidden">
                   <ArrowLeftStartOnRectangleIcon fill="currentColor" className="w-7" />

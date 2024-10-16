@@ -9,6 +9,7 @@ import Spinner from "tspace/app/ui/global/spinner";
 
 export default function EditForm({user}: {user: any})
 {
+  if(user.user !== undefined) user = user.user
   const [name, setName] = useState<string>(user.name || "")
   const [email, setEmail] = useState<string>(user.email)
   const [username, setUsername] = useState<string>(user.profiles[0].username || "username")

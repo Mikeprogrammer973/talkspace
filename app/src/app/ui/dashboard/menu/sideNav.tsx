@@ -11,7 +11,7 @@ export default function SideNav()
     const {data} = useSession()
     const def_style = "flex items-center justify-center lg:justify-normal"
     return (
-        <div className="bg-gray-700 md:w-[20%] md:h-screen md:fixed text-gray-200 overflow-y-scroll scrollbar-none sticky top-0 left-0 right-0 flex justify-between md:block">
+        <div className="bg-gray-700 z-50 md:w-[20%] md:h-screen md:fixed text-gray-200 overflow-y-scroll scrollbar-none sticky top-0 left-0 right-0 flex justify-between md:block">
             <div className="flex items-center justify-center sticky top-0 bg-gray-800">
                 <Link href={"/"}>
                     <Image alt="logo_banner" className="hidden md:block" src={"/logo/talkspace-banner.png"} width={150} height={150} />

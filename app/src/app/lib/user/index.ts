@@ -168,7 +168,7 @@ export async function setVerificationCode(email: string) {
 
 export async function validVerificationCode(email: string, verificationCode: string)
 {
-    const user = await prisma.user.findUnique({where: { email: email, verificationCode: verificationCode }})
+    const user = await prisma.user.findFirst({where: { email: email, verificationCode: verificationCode }})
 
     if(user !== null) return true
 
@@ -182,15 +182,15 @@ export async function verifyId(passsword: string) {
 }
 
 export async function getByEmail(email: string) {
-    return await prisma.user.findUnique({where: {email: email}, include: {profiles: true}})
+    return await prisma.user.findFirst({where: {email: email}, include: {profiles: true}})
 }
 
 export async function getByUsername(username: string) {
-    return await prisma.profile.findUnique({where: {username: username}, include: {user: true, image: true, followers: true, following: true, posts: true}})
+    return await prisma.profile.findFirst({where: {username: username}, include: {user: true, image: true, followers: true, following: true, posts: true}})
 }
 
 export async function getById(id: number) {
-    return await prisma.user.findUnique({where: {id: id}, include: {profiles: true}})
+    return await prisma.user.findFirst({where: {id: id}, include: {profiles: true}})
 }
 
 export async function getProfilePicture()

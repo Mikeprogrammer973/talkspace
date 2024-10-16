@@ -1,5 +1,4 @@
 import { ArrowLeftCircleIcon } from "@heroicons/react/20/solid";
-import { Profile, User } from "@prisma/client";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import Link from "next/link";

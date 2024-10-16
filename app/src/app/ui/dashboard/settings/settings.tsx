@@ -1,8 +1,14 @@
 "use client"
+import React, { useState, forwardRef, useRef } from 'react';
+import { Transition } from '@headlessui/react';
+import NotificationsSection from './sections/notification';
+import PreferencesSection from './sections/preference';
+import ProfileSection from './sections/profile';
+import SecuritySection from './sections/security';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid';
-import React, { useState } from 'react';
+import FeedbackSection from './sections/feedback';
 
-const SettingsPage = () => {
+const SettingsPage = ({user_}: {user_: any}) => {
   const [activeSection, setActiveSection] = useState('profile');
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -13,13 +19,15 @@ const SettingsPage = () => {
   const renderSection = () => {
     switch (activeSection) {
       case 'profile':
-        return <ProfileSection />;
+        return <ProfileSection user={user_} />;
       case 'security':
         return <SecuritySection />;
       case 'notifications':
         return <NotificationsSection />;
       case 'preferences':
         return <PreferencesSection />;
+      case "feedback":
+        return <FeedbackSection />
       default:
         return null;
     }
@@ -27,155 +35,94 @@ const SettingsPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white md:flex">
-      {/* Menu Lateral - Visível em telas médias e grandes */}
-      <div className="hidden md:block md:w-1/4 h-screen bg-gray-800 p-6">
+      {/* Menu Lateral para telas médias e grandes */}
+      <div className="md:w-1/4 hidden md:block fixed bg-black p-6 h-screen">
         <h2 className="text-3xl font-bold mb-6">Settings</h2>
         <ul className="space-y-4">
-          <li>
-            <button
-              onClick={() => setActiveSection('profile')}
-              className={`block text-lg py-2 px-4 rounded-lg hover:bg-gray-700 focus:ring-2 focus:ring-indigo-500 ${
-                activeSection === 'profile' ? 'bg-gray-700' : ''
-              }`}
-            >
-              Profile
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => setActiveSection('security')}
-              className={`block text-lg py-2 px-4 rounded-lg hover:bg-gray-700 focus:ring-2 focus:ring-indigo-500 ${
-                activeSection === 'security' ? 'bg-gray-700' : ''
-              }`}
-            >
-              Security
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => setActiveSection('notifications')}
-              className={`block text-lg py-2 px-4 rounded-lg hover:bg-gray-700 focus:ring-2 focus:ring-indigo-500 ${
-                activeSection === 'notifications' ? 'bg-gray-700' : ''
-              }`}
-            >
-              Notifications
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => setActiveSection('preferences')}
-              className={`block text-lg py-2 px-4 rounded-lg hover:bg-gray-700 focus:ring-2 focus:ring-indigo-500 ${
-                activeSection === 'preferences' ? 'bg-gray-700' : ''
-              }`}
-            >
-              Preferences
-            </button>
-          </li>
+          {['profile', 'security', 'notifications', 'preferences', "feedback"].map((section) => (
+            <li key={section}>
+              <button
+                onClick={() => setActiveSection(section)}
+                className={`block w-full text-left text-lg p-2 overflow-hidden overflow-ellipsis rounded-lg transition-colors duration-300 hover:bg-gray-700 ${
+                  activeSection === section ? 'bg-gray-700' : ''
+                }`}
+              >
+                {section.charAt(0).toUpperCase() + section.slice(1)}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
 
-      {/* Menu Superior - Visível em telas pequenas */}
-      <div className="md:hidden bg-gray-800 p-4 flex justify-between items-center">
+      {/* Menu superior em telas pequenas */}
+      <div className="md:hidden w-full sticky top-0 z-20 bg-black p-4 flex justify-between items-center py-5">
         <h2 className="text-xl font-bold">Settings</h2>
         <button
           onClick={toggleMenu}
           className="text-white focus:outline-none"
         >
-          {menuOpen ? <XMarkIcon className='w-6' title='Close menu' /> : <Bars3Icon className='w-6' title='Open menu' />}
+          {menuOpen ? <XMarkIcon title='Close' fill='currentColor' className='w-6' /> : <Bars3Icon title='Menu' className='w-6' />}
         </button>
       </div>
-      {/* Dropdown Menu para telas pequenas */}
-      {menuOpen && (
-        <div className="md:hidden bg-gray-700 p-4 space-y-4">
-          <ul className="space-y-4">
-            <li>
-              <button
-                onClick={() => {
-                  setActiveSection('profile');
-                  toggleMenu();
-                }}
-                className={`block text-lg py-2 px-4 rounded-lg hover:bg-gray-600 ${
-                  activeSection === 'profile' ? 'bg-gray-600' : ''
-                }`}
-              >
-                Profile
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  setActiveSection('security');
-                  toggleMenu();
-                }}
-                className={`block text-lg py-2 px-4 rounded-lg hover:bg-gray-600 ${
-                  activeSection === 'security' ? 'bg-gray-600' : ''
-                }`}
-              >
-                Security
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  setActiveSection('notifications');
-                  toggleMenu();
-                }}
-                className={`block text-lg py-2 px-4 rounded-lg hover:bg-gray-600 ${
-                  activeSection === 'notifications' ? 'bg-gray-600' : ''
-                }`}
-              >
-                Notifications
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  setActiveSection('preferences');
-                  toggleMenu();
-                }}
-                className={`block text-lg py-2 px-4 rounded-lg hover:bg-gray-600 ${
-                  activeSection === 'preferences' ? 'bg-gray-600' : ''
-                }`}
-              >
-                Preferences
-              </button>
-            </li>
-          </ul>
-        </div>
-      )}
 
-      {/* Conteúdo Principal */}
-      <div className="w-full md:w-3/4 p-6">{renderSection()}</div>
+      {/* Dropdown animado para menu em telas pequenas */}
+      <Transition
+        show={menuOpen}
+        enter="transition ease-out duration-300 transform"
+        enterFrom="-translate-y-full opacity-0"
+        enterTo="translate-y-0 opacity-100"
+        leave="transition ease-in duration-200 transform"
+        leaveFrom="translate-y-0 opacity-100"
+        leaveTo="-translate-y-full opacity-0"
+      >
+        {/* Envolva o conteúdo do Transition em uma div e passe o ref */}
+        <DropdownMenu
+          className="md:hidden w-full absolute top-[9rem] z-30 bg-gray-950 p-4"
+          onClose={toggleMenu}
+        >
+          <ul className="space-y-4">
+            {['profile', 'security', 'notifications', 'preferences', "feedback"].map((section) => (
+              <li key={section}>
+                <button
+                  onClick={() => {
+                    setActiveSection(section);
+                    toggleMenu();
+                  }}
+                  className={`block w-full text-left text-lg p-2 overflow-hidden overflow-ellipsis rounded-lg transition-colors duration-300 hover:bg-gray-700 ${
+                    activeSection === section ? 'bg-gray-600' : ''
+                  }`}
+                >
+                  {section.charAt(0).toUpperCase() + section.slice(1)}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </DropdownMenu>
+      </Transition>
+
+      {/* Conteúdo principal */}
+      <div className="md:w-3/4 md:ml-[30%] w-full p-6 transition-all duration-300 ease-in-out">
+        <Transition
+          appear={true}
+          show={true}
+          enter="transition-opacity duration-500"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+        >
+          {/* Envolva o conteúdo do Transition em uma div e passe o ref */}
+          <div className="transition-content">{renderSection()}</div>
+        </Transition>
+      </div>
     </div>
   );
 };
 
-const ProfileSection = () => (
-  <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-    <h2 className="text-2xl font-semibold mb-4">Profile</h2>
-    {/* Conteúdo da seção Profile */}
-  </div>
+// Ajuste no componente DropdownMenu para aceitar `props` corretamente
+const DropdownMenu = forwardRef<HTMLDivElement, { className?: string; children: React.ReactNode; onClose: () => void }>(
+  ({ className, children, onClose }, ref) => (
+    <div ref={ref} className={className}>
+      {children}
+    </div>
+  )
 );
-
-const SecuritySection = () => (
-  <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-    <h2 className="text-2xl font-semibold mb-4">Security</h2>
-    {/* Conteúdo da seção Security */}
-  </div>
-);
-
-const NotificationsSection = () => (
-  <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-    <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
-    {/* Conteúdo da seção Notifications */}
-  </div>
-);
-
-const PreferencesSection = () => (
-  <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-    <h2 className="text-2xl font-semibold mb-4">Preferences</h2>
-    {/* Conteúdo da seção Preferences */}
-  </div>
-);
-
 export default SettingsPage;

@@ -1,11 +1,15 @@
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { getByEmail } from "tspace/app/lib/user";
 import SettingsPage from "tspace/app/ui/dashboard/settings/settings";
 
 export const metadata: Metadata = {
     title: "Settings"
 }
 
-export default function Settings()
+export default async function Settings()
 {
-    return <SettingsPage />
+    const session = await getServerSession()
+    const user = await getByEmail(session?.user.email as string)
+    return <SettingsPage user_={user} />
 }

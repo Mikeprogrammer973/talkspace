@@ -12,9 +12,9 @@ export default function Dashboard({user}: {user: any})
 
     const regex = /\[(.*?)\]/g
 
-    const user_bio = user.bio.replace(regex, "")
+    const user_bio = user.bio && user.bio.replace(regex, "") || "My bio here"
     
-    const bio_links: string[] = user.bio.match(regex)?.map((match: string) => match.slice(1, -1))
+    const bio_links: string[] = user.bio && user.bio.match(regex)?.map((match: string) => match.slice(1, -1)) || []
 
     return (
         <div className="min-h-screen bg-gray-900 text-gray-100">

@@ -18,8 +18,6 @@ export default async function Page()
 
   const user = await getByUsername((await getByEmail(session.user.email))?.profiles[0].username as string)
 
-  console.log(session)
-
   return (
     <Dashboard user={user} />
   )

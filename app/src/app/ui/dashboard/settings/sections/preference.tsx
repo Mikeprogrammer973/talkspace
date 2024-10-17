@@ -37,7 +37,7 @@ export default function PreferencesSection() {
     <div className="space-y-4 mb-8">
       <h3 className="text-lg font-medium">Accessibility</h3>
       <p className="text-sm text-gray-400">Customize your accessibility settings.</p>
-      <div className="flex items-center space-x-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <label className="flex items-center text-sm">
           <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
           <span className="ml-2 text-white">High Contrast</span>
@@ -57,7 +57,7 @@ export default function PreferencesSection() {
     <div className="space-y-4 mb-8">
       <h3 className="text-lg font-medium">Font Size</h3>
       <p className="text-sm text-gray-400">Adjust the font size for better readability.</p>
-      <div className="flex items-center space-x-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <button className="bg-gray-700 text-white py-2 px-4 rounded-lg focus:outline-none">Small</button>
         <button className="bg-gray-700 text-white py-2 px-4 rounded-lg focus:outline-none">Medium</button>
         <button className="bg-gray-700 text-white py-2 px-4 rounded-lg focus:outline-none">Large</button>
@@ -68,7 +68,7 @@ export default function PreferencesSection() {
     <div className="space-y-4 mb-8">
       <h3 className="text-lg font-medium">Content Preferences</h3>
       <p className="text-sm text-gray-400">Customize your content preferences.</p>
-      <div className="flex items-center space-x-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <label className="flex items-center text-sm">
           <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
           <span className="ml-2 text-white">Show Adult Content</span>
@@ -87,7 +87,7 @@ export default function PreferencesSection() {
     {/* Privacidade */}
     <div className="space-y-4 mb-8">
         <h3 className="text-lg font-medium">Privacy Settings</h3>
-        <div className="flex items-center space-x-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <label className="flex items-center text-sm">
             <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
             <span className="ml-2 text-white">Make Profile Private</span>

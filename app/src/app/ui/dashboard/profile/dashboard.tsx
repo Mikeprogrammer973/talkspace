@@ -28,8 +28,8 @@ export default function Dashboard({user}: {user: any})
                   alt={user.user.name || 'User'}
                   className="rounded-full w-10 h-10"
                 />
-                <p className="font-semibold inline-block max-w-40 whitespace-nowrap overflow-hidden overflow-ellipsis">{user.user.name || "User"}</p>
-                <button title="Edit Profile" className="text-gray-300 hover:text-gray-200">
+                <p className="font-semibold sm:inline-block hidden max-w-40 whitespace-nowrap overflow-hidden overflow-ellipsis">{user.user.name || "User"}</p>
+                <button title="Edit Profile" className="text-gra y-300 hover:text-gray-200">
                   <Link href={"/profile/edit"}>
                       <PencilSquareIcon fill="currentColor" className="w-7" />
                   </Link>

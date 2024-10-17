@@ -37,7 +37,7 @@ export default function FeedbackSection() {
       </div>
   
       {/* Submit Button */}
-      <button className="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-200">
+      <button className="bg-indigo-600 w-full sm:w-auto text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-200">
         Submit Feedback
       </button>
   

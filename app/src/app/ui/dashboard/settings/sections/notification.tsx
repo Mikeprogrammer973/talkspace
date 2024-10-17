@@ -9,7 +9,7 @@ export default function NotificationsSection() {
       <p className="text-sm text-gray-400">
         Receive a notification when someone follows you.
       </p>
-      <div className="flex items-center space-x-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <label className="flex items-center text-sm">
           <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
           <span className="ml-2 text-white">App Notification</span>
@@ -31,7 +31,7 @@ export default function NotificationsSection() {
       <p className="text-sm text-gray-400">
         Get notified when someone mentions you in a comment or post.
       </p>
-      <div className="flex items-center space-x-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <label className="flex items-center text-sm">
           <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
           <span className="ml-2 text-white">App Notification</span>
@@ -53,7 +53,7 @@ export default function NotificationsSection() {
       <p className="text-sm text-gray-400">
         Receive a notification when someone likes your post or comment.
       </p>
-      <div className="flex items-center space-x-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <label className="flex items-center text-sm">
           <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
           <span className="ml-2 text-white">App Notification</span>
@@ -75,7 +75,7 @@ export default function NotificationsSection() {
       <p className="text-sm text-gray-400">
         Get notified when someone comments on your post or reply.
       </p>
-      <div className="flex items-center space-x-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <label className="flex items-center text-sm">
           <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
           <span className="ml-2 text-white">App Notification</span>
@@ -97,7 +97,7 @@ export default function NotificationsSection() {
       <p className="text-sm text-gray-400">
         Receive a notification when someone sends you a new message.
       </p>
-      <div className="flex items-center space-x-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <label className="flex items-center text-sm">
           <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
           <span className="ml-2 text-white">App Notification</span>
@@ -119,7 +119,7 @@ export default function NotificationsSection() {
       <p className="text-sm text-gray-400">
         Receive a notification when someone sends you a follow request.
       </p>
-      <div className="flex items-center space-x-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <label className="flex items-center text-sm">
           <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
           <span className="ml-2 text-white">App Notification</span>

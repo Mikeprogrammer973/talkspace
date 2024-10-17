@@ -28,7 +28,7 @@ export default function SecuritySection() {
         />
       </div>
       <button
-        className="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-all duration-300 focus:ring-2 focus:ring-red-500"
+        className="bg-red-600 w-full sm:w-auto text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-all duration-300 focus:ring-2 focus:ring-red-500"
       >
         Update Password
       </button>
@@ -54,7 +54,7 @@ export default function SecuritySection() {
         Manage the devices currently logged into your account.
       </p>
       <ul className="space-y-2">
-        <li className="bg-gray-700 p-4 rounded-lg flex justify-between items-center">
+        <li className="bg-gray-700 p-4 rounded-lg flex flex-wrap gap-5 justify-between items-center">
           <div>
             <p className="text-white font-medium">Chrome on Windows</p>
             <p className="text-sm text-gray-400">Last active: 2 hours ago</p>
@@ -76,7 +76,7 @@ export default function SecuritySection() {
         Revoke devices you've trusted for faster login without verification codes.
       </p>
       <ul className="space-y-2">
-        <li className="bg-gray-700 p-4 rounded-lg flex justify-between items-center">
+        <li className="bg-gray-700 p-4 rounded-lg flex flex-wrap gap-5 justify-between items-center">
           <div>
             <p className="text-white font-medium">iPhone 13 Pro</p>
             <p className="text-sm text-gray-400">Trusted on: September 15, 2024</p>
@@ -91,6 +91,7 @@ export default function SecuritySection() {
       </ul>
     </div>
 
+    {/* Security logs */}
     <div className="space-y-4 mb-8">
         <h3 className="text-2xl font-semibold mb-4">Security Logs</h3>
         <ul className="space-y-2">
@@ -107,17 +108,19 @@ export default function SecuritySection() {
       </p>
 
         {/* Dados */}
-        <div className="bg-gray-700 p-4 rounded-lg flex gap-4 justify-between items-center">
+        <div className="bg-gray-700 p-4 rounded-lg flex flex-wrap gap-5 justify-between items-center">
             <div>
                 <h4 className="text-white font-medium">Data Management</h4>
                 <p className="text-sm text-gray-400">Download your data or delete specific information.</p>
             </div>
-            <button className="bg-indigo-600 text-white py-2 px-4 rounded-lg mb-2">Download My Data</button>
-            <button className="bg-red-600 text-white py-2 px-4 rounded-lg">Delete My Account Data</button>
+            <p className="flex flex-wrap gap-3 justify-between items-center">
+              <button className="bg-indigo-600 text-white py-2 px-4 rounded-lg mb-2">Download My Data</button>
+              <button className="bg-red-600 text-white py-2 px-4 rounded-lg">Delete My Account Data</button>
+            </p>
         </div>
 
       {/* Suspender Conta */}
-      <div className="bg-gray-700 p-4 rounded-lg flex justify-between items-center">
+      <div className="bg-gray-700 p-4 rounded-lg flex flex-wrap gap-5 justify-between items-center">
         <div>
           <h4 className="text-white font-medium">Suspend Account</h4>
           <p className="text-sm text-gray-400">
@@ -132,7 +135,7 @@ export default function SecuritySection() {
       </div>
 
         {/* Remover Conta */}
-        <div className="bg-gray-700 p-4 rounded-lg flex justify-between items-center">
+        <div className="bg-gray-700 p-4 rounded-lg flex flex-wrap gap-5 justify-between items-center">
             <div>
                 <h4 className="text-white font-medium">Delete Account</h4>
                 <p className="text-sm text-gray-400">
@@ -147,13 +150,15 @@ export default function SecuritySection() {
         </div>
 
         {/* Pagamento */}
-        <div className="bg-gray-700 p-4 rounded-lg flex gap-4 justify-between items-center">
+        <div className="bg-gray-700 p-4 rounded-lg flex flex-wrap gap-5 justify-between items-center">
             <div>
                 <h4 className="text-white font-medium">Payment Settings</h4>
                 <p className="text-sm text-gray-400">Manage your payment methods and subscriptions.</p>
             </div>
-            <button className="bg-indigo-600 text-white py-2 px-4 rounded-lg mb-2">Add Payment Method</button>
-            <button className="bg-gray-600 text-white py-2 px-4 rounded-lg">View Transaction History</button>
+            <p className="flex flex-wrap gap-3 justify-between items-center">
+              <button className="bg-indigo-600 text-white py-2 px-4 rounded-lg mb-2">Add Payment Method</button>
+              <button className="bg-gray-600 text-white py-2 px-4 rounded-lg">View Transaction History</button>
+            </p>
         </div>
     </div>
   </div>

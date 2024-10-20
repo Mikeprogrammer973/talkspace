@@ -93,7 +93,7 @@ export default function SecuritySection() {
 
     {/* Security logs */}
     <div className="space-y-4 mb-8">
-        <h3 className="text-2xl font-semibold mb-4">Security Logs</h3>
+        <h3 className="text-lg font-medium">Security Logs</h3>
         <ul className="space-y-2">
         <li className="text-sm text-gray-400">Logged in from New York, NY on October 15, 2024</li>
         <li className="text-sm text-gray-400">Logged out from Los Angeles, CA on October 10, 2024</li>

@@ -11,7 +11,7 @@ export default function SideNav()
     const {data} = useSession()
     const def_style = "flex items-center justify-center lg:justify-normal"
     return (
-        <div className="bg-gray-700 z-50 md:w-[20%] md:h-screen md:fixed text-gray-200 overflow-y-scroll scrollbar-none sticky top-0 left-0 right-0 flex justify-between md:block">
+        <div className="bg-gray-700 z-40 md:w-[20%] md:h-screen md:fixed text-gray-200 overflow-y-scroll scrollbar-none sticky top-0 left-0 right-0 flex justify-between md:block">
             <div className="flex items-center justify-center sticky top-0 bg-gray-800">
                 <Link href={"/"}>
                     <Image alt="logo_banner" className="hidden md:block" src={"/logo/talkspace-banner.png"} width={150} height={150} />
@@ -43,7 +43,6 @@ export default function SideNav()
                     <MenuItem label="Settings" icon={<AdjustmentsHorizontalIcon fill="currentColor" className="w-8 h-8" />} />
                 </Link>
                 <MenuItem label="Saved" icon={<BookmarkIcon fill="currentColor" className="w-8 h-8" />} />
-                <MenuItem label="Report a problem" icon={<WrenchScrewdriverIcon fill="currentColor" className="w-8 h-8" />} />
                 <br /><hr /><br />
                 <MenuItem label="Switch accounts" icon={<ArrowsRightLeftIcon fill="currentColor" className="w-8 h-8" />} />
                 <button onClick={() => signOut({ callbackUrl: '/auth/signin' })} className="flex w-full items-center justify-center lg:justify-normal">

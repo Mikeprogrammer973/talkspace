@@ -14,7 +14,7 @@ const UserProfileEdit = async () => {
     const user = await getByEmail(session?.user.email as string)
 
    return (
-    <div className="bg-gray-900">
+    <div className="bg-gray-900 p-5">
         <button title="Back" className="p-5 text-gray-300 hover:text-gray-100 sticky top-0">
             <Link href={"/profile"}>
                 <ArrowLeftCircleIcon fill="currentColor" className="w-10" />

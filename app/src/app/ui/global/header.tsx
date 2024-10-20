@@ -12,7 +12,7 @@ const report = {
 
 const reportNavigation = [
   { name: 'Support team', href: '#' },
-  { name: 'Contacts', href: '#' },
+  { name: 'Contact us', href: '#' },
   { name: 'Report a bug', href: '#' },
 ]
 

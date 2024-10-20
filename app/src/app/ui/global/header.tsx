@@ -12,7 +12,7 @@ const report = {
 
 const reportNavigation = [
   { name: 'Support team', href: '#' },
-  { name: 'Join us', href: '#' },
+  { name: 'Contacts', href: '#' },
   { name: 'Report a bug', href: '#' },
 ]
 
@@ -59,7 +59,7 @@ export default function InitHeader({selectedPage}: {selectedPage: number}) {
                     ))}
                   </div>
                 </div>
-                <h1 className='md:hidden tracking-widest text-2xl text-gray-400 hover:text-gray-200 cursor-none font-thin'>TalkSpace</h1>
+                <h1 translate='no' className='md:hidden tracking-widest text-2xl text-gray-400 hover:text-gray-200 cursor-none font-thin'>TalkSpace</h1>
               </div>
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
@@ -126,7 +126,7 @@ export default function InitHeader({selectedPage}: {selectedPage: number}) {
                 </div>
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">{report.name}</div>
-                  <div className="text-sm font-medium leading-none text-gray-400">{report.email}</div>
+                  <div translate='no' className="text-sm font-medium leading-none text-gray-400">{report.email}</div>
                 </div>
               </div>
               <div className="mt-3 space-y-1 px-2">

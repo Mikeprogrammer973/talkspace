@@ -36,7 +36,7 @@ const SettingsPage = ({user_}: {user_: any}) => {
   return (
     <div className="min-h-screen bg-gray-900 text-white md:flex">
       {/* Menu Lateral para telas médias e grandes */}
-      <div className="md:w-1/4 hidden md:block fixed bg-black p-6 h-screen">
+      <div className="md:w-1/4 hidden md:block fixed bg-gray-900 p-6 h-screen">
         <h2 className="text-3xl font-bold mb-6">Settings</h2>
         <ul className="space-y-4">
           {['profile', 'security', 'notifications', 'preferences', "feedback"].map((section) => (
@@ -55,7 +55,7 @@ const SettingsPage = ({user_}: {user_: any}) => {
       </div>
 
       {/* Menu superior em telas pequenas */}
-      <div className="md:hidden w-full sticky top-0 z-20 bg-black p-4 flex justify-between items-center py-5">
+      <div className="md:hidden w-full sticky top-0 z-20 bg-gray-900 p-4 flex justify-between items-center py-5">
         <h2 className="text-xl font-bold">Settings</h2>
         <button
           onClick={toggleMenu}

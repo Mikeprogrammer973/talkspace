@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import VerifyIdForm from "./verifyId-form";
 import { verifyCreds } from "tspace/app/lib/user";
 import InitHeader from "../global/header";
+import MsgBox from "../global/msgBox";
 
 export default function LoginForm()
 {
@@ -18,6 +19,7 @@ export default function LoginForm()
     const [password,setPassword] = useState<string>("")
     const [page, setPage] = useState(0)
     const router = useRouter()
+    const [msgV, setMsgV] = useState(false)
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
@@ -39,6 +41,7 @@ export default function LoginForm()
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <LogoBanner />
                 <div className="mx-auto flex h-screen items-center justify-center">
+                    <MsgBox setVisible={setMsgV} visible={msgV} msg={<RessetPassword />} />
                     {page === 0 && <form onSubmit={handleSubmit} className="max-w-[800px] p-5">
                         <Spinner visible={spinnerV} label="" />
                         <p className="text-3xl my-8 font-semibold text-center">Log in into your account</p>
@@ -84,11 +87,14 @@ export default function LoginForm()
                             <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400 peer-focus:text-gray-600" />
                             </div>
                         </div>
-                        <Button className="my-8 w-full justify-center">
+                        <Button type="submit" className="my-8 w-full justify-center">
                             Sign in <ArrowRightIcon className="w-7 pl-2" />
                         </Button>
-                        <div className="p-4 text-center text-gray-400">
+                        <div className="p-2 text-center text-gray-400">
                             Don&apos;t have an account? <Link className="text-blue-500 font-semibold" href={"signup"}>Sign up</Link>
+                        </div>
+                        <div className="p-2 text-center text-red-500">
+                            <button type="reset" onClick={()=>setMsgV(true)}>Forgot your password?</button>
                         </div>
                     </form>}
                     {page === 1 && <VerifyIdForm setPage={setPage} email={email} password={password} />}
@@ -96,4 +102,40 @@ export default function LoginForm()
             </div>
         </div>
     )
+}
+
+const RessetPassword = ()=>{
+    return <div onClick={(e)=> e.stopPropagation()} className="m-5 flex items-center justify-center">
+        <div className="text-white p-8 rounded-lg shadow-lg max-w-md w-full space-y-6">
+        
+        <h1 className="text-3xl font-bold text-center">Reset Your Password</h1>
+        <p className="text-center text-gray-400">
+            Forgot your password? No worries! Enter your email below, and we’ll send you a link to reset your password.
+        </p>
+
+        <form className="space-y-4">
+            
+            <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                Email Address
+            </label>
+            <input
+                type="email"
+                id="email"
+                className="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="you@example.com"
+                required
+            />
+            </div>
+
+            {/* Botão de Enviar */}
+            <button
+            type="submit"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold transition duration-300"
+            >
+            Send Reset Link
+            </button>
+        </form>
+        </div>
+  </div>
 }

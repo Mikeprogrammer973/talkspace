@@ -10,6 +10,7 @@ import VerifyIdForm from "./verifyId-form";
 import { verifyCreds } from "tspace/app/lib/user";
 import InitHeader from "../global/header";
 import MsgBox from "../global/msgBox";
+import ResetPasswordRequestForm from "./reset-pwd-request";
 
 export default function LoginForm()
 {
@@ -41,7 +42,7 @@ export default function LoginForm()
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <LogoBanner />
                 <div className="mx-auto flex h-screen items-center justify-center">
-                    <MsgBox setVisible={setMsgV} visible={msgV} msg={<RessetPassword />} />
+                    <MsgBox setVisible={setMsgV} visible={msgV} msg={<ResetPasswordRequestForm />} />
                     {page === 0 && <form onSubmit={handleSubmit} className="max-w-[800px] p-5">
                         <Spinner visible={spinnerV} label="" />
                         <p className="text-3xl my-8 font-semibold text-center">Log in into your account</p>
@@ -93,7 +94,7 @@ export default function LoginForm()
                         <div className="p-2 text-center text-gray-400">
                             Don&apos;t have an account? <Link className="text-blue-500 font-semibold" href={"signup"}>Sign up</Link>
                         </div>
-                        <div className="p-2 text-center text-red-500">
+                        <div className="p-2 text-center text-purple-500">
                             <button type="reset" onClick={()=>setMsgV(true)}>Forgot your password?</button>
                         </div>
                     </form>}
@@ -102,40 +103,4 @@ export default function LoginForm()
             </div>
         </div>
     )
-}
-
-const RessetPassword = ()=>{
-    return <div onClick={(e)=> e.stopPropagation()} className="m-5 flex items-center justify-center">
-        <div className="text-white p-8 rounded-lg shadow-lg max-w-md w-full space-y-6">
-        
-        <h1 className="text-3xl font-bold text-center">Reset Your Password</h1>
-        <p className="text-center text-gray-400">
-            Forgot your password? No worries! Enter your email below, and we’ll send you a link to reset your password.
-        </p>
-
-        <form className="space-y-4">
-            
-            <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                Email Address
-            </label>
-            <input
-                type="email"
-                id="email"
-                className="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="you@example.com"
-                required
-            />
-            </div>
-
-            {/* Botão de Enviar */}
-            <button
-            type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold transition duration-300"
-            >
-            Send Reset Link
-            </button>
-        </form>
-        </div>
-  </div>
 }

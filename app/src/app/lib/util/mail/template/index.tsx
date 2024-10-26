@@ -135,6 +135,44 @@ export default class EmailTemplate
         )
     }
 
+    public static resetPasswordTemplate(username: string, resetLink: string)
+    {
+        return (
+            <this.MountTemplate template={
+                <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif', backgroundColor: '#f4f4f7', color: '#333333', padding: '20px', maxWidth: '600px', margin: '0 auto', borderRadius: '8px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+                    <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px', color: 'purple' }}>
+                        Reset Your Password
+                    </h2>
+                    <p style={{ fontSize: '16px', color: '#333333', lineHeight: '1.6', marginBottom: '20px' }}>
+                        Hello, {username}! <br /><br />
+                        We received a request to reset the password for your account. Click the button below to reset it:
+                    </p>
+                    <a
+                        href={resetLink}
+                        style={{
+                        display: 'block',
+                        width: '100%',
+                        maxWidth: '200px',
+                        margin: '20px auto',
+                        padding: '12px',
+                        textAlign: 'center',
+                        color: '#ffffff',
+                        backgroundColor: '#1a73e8',
+                        borderRadius: '5px',
+                        textDecoration: 'none',
+                        fontSize: '16px'
+                        }}
+                    >
+                        Reset Password
+                    </a>
+                    <p style={{ fontSize: '16px', color: '#333333', lineHeight: '1.6', marginBottom: '20px' }}>
+                        If you did not request this, please ignore this email or <a href="#" style={{ color: '#4f46e5', textDecoration: 'none' }}>contact our support team</a> if you have any concerns.
+                    </p>
+                </div>
+            } />
+        )
+    }
+
     private static MountTemplate({template}: {template: ReactNode}): ReactNode
     {
         return (

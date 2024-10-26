@@ -163,7 +163,19 @@ export async function verifyCreds(email: string, passsword: string)
 }
 
 export async function setVerificationCode(email: string) {
-    return await prisma.user.update({where: {email: email}, data: {verificationCode: verificationCode.join('')}})
+    return await prisma.user.update({where: {email: email}, data: {verificationCode: verificationCode().join('')}})
+}
+
+export async function setResetPwdToken(user_mail: string) {
+    const user = await getByEmail(user_mail)
+
+    if(!user) return false
+
+    const token = verificationCode().join('')
+
+    await prisma.user.update({where: {email: user_mail}, data: {emailVerified: token}})
+
+    return {username: user.profiles[0].username, token: token}
 }
 
 export async function validVerificationCode(email: string, verificationCode: string)

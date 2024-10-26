@@ -139,7 +139,7 @@ export default class EmailTemplate
     {
         return (
             <this.MountTemplate template={
-                <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif', backgroundColor: '#f4f4f7', color: '#333333', padding: '20px', maxWidth: '600px', margin: '0 auto', borderRadius: '8px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+                <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif', color: '#333333', padding: '20px', margin: '0 auto', borderRadius: '8px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
                     <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px', color: 'purple' }}>
                         Reset Your Password
                     </h2>

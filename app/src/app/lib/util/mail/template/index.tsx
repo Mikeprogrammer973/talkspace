@@ -152,9 +152,8 @@ export default class EmailTemplate
                         style={{
                         display: 'block',
                         width: '100%',
-                        maxWidth: '200px',
                         margin: '20px auto',
-                        padding: '12px',
+                        padding: '5px 10px',
                         textAlign: 'center',
                         color: '#ffffff',
                         backgroundColor: '#1a73e8',

@@ -27,7 +27,7 @@ export default function ResetPasswordRequestForm()
             subject: "Password Reset Request"
         })
         
-        window.location.reload()
+        // window.location.reload()
     }
 
     return <div onClick={(e)=> e.stopPropagation()} className="m-5 flex items-center justify-center">

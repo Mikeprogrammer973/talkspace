@@ -12,31 +12,31 @@ export default function ResetPasswordForm()
             <form className="space-y-4">
             
                 <div>
-                <label htmlFor="new-password" className="block text-sm font-medium text-gray-300">
-                    New Password
-                </label>
-                <input
-                    type="password"
-                    id="new-password"
-                    className="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="Enter new password" pattern="^(?=.*[A-Z].*[A-Z])(?=.*[\W_]).+$" title="Must contain at least two uppercase letters and one special character!"
-                    minLength={8}
-                    required
-                />
+                    <label htmlFor="new-password" className="block text-sm font-medium text-gray-300">
+                        New Password
+                    </label>
+                    <input
+                        type="password"
+                        name="new-password"
+                        className="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="Enter new password" pattern="^(?=.*[A-Z].*[A-Z])(?=.*[\W_]).+$" title="Must contain at least two uppercase letters and one special character!"
+                        minLength={8}
+                        required
+                    />
                 </div>
                 <div>
-                <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-300">
-                    Confirm Password
-                </label>
-                <input
-                    type="password"
-                    id="confirm-password"
-                    className="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="Confirm new password"
-                    required
-                />
+                    <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-300">
+                        Confirm Password
+                    </label>
+                    <input
+                        type="password"
+                        name="confirm-password"
+                        className="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="Confirm new password"
+                        required
+                    />
                 </div>
-
+                <br />
                 <button
                 type="submit"
                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold transition duration-300"

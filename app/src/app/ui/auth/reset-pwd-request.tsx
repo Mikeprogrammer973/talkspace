@@ -21,7 +21,7 @@ export default function ResetPasswordRequestForm()
 
         if(res === false)
         {
-            setNsg(<Alert color="danger" msg={<div className="text-lg font-semibold">Invalid email address; user not found!</div>} title="" />)
+            setNsg(<Alert color="danger" msg={<div className="text-sm md:text-lg font-semibold">Invalid email address; user not found!</div>} title="" />)
             setNsgV(true)
             setSpinnerV(false)
             return
@@ -37,7 +37,7 @@ export default function ResetPasswordRequestForm()
             subject: "Password Reset Request"
         })
 
-        setNsg(<Alert color="info" msg={<div className="text-lg font-semibold">Reset link sent successfully!</div>} title="" />)
+        setNsg(<Alert color="info" msg={<div className="text-sm md:text-lg font-semibold">Reset link sent successfully!</div>} title="" />)
         setNsgV(true)
         
         setSpinnerV(false)
@@ -54,21 +54,19 @@ export default function ResetPasswordRequestForm()
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 
-                <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                    Email Address
-                </label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    className="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="you@example.com"
-                    required
-                />
+                <div className="mb-3">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                        Email Address
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        className="mt-1 block w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="you@example.com"
+                        required
+                    />
                 </div>
-
-                {/* Botão de Enviar */}
                 <button
                 type="submit"
                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold transition duration-300"

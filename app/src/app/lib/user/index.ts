@@ -162,6 +162,25 @@ export async function verifyCreds(email: string, passsword: string)
     return false
 }
 
+export async function verifyResetPwdCreds(username: string, token: string)
+{
+    let msg_error = "Something went wrong!"
+
+    const profile = await getByUsername(username)
+
+    if(!profile)
+    {
+        msg_error = `We were unable to verify your identity: '${username}' is not a valid username!`
+        redirect(`/auth/error?error=${msg_error}`)
+    }
+
+    if(profile.user.emailVerified !== token)
+    {
+        msg_error = `We were unable to verify your identity: '${token}' is not a valid token! You must request another reset link!`
+        redirect(`/auth/error?error=${msg_error}`)
+    }
+}
+
 export async function setVerificationCode(email: string) {
     return await prisma.user.update({where: {email: email}, data: {verificationCode: verificationCode().join('')}})
 }

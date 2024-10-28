@@ -7,10 +7,10 @@ export default function ErrorPage({ searchParams }: { searchParams: { error: str
     const router = useRouter()
   
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-100">
-        <div className="text-center max-w-md p-6 bg-white rounded-lg shadow-lg">
+      <div className="flex items-center justify-center h-screen bg-gray-900">
+        <div className="text-center max-w-md p-6 bg-gray-950 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-red-600 mb-4">Authentication Failed</h1>
-          <p className="text-gray-600 text-lg mb-6">
+          <p className="text-gray-200 text-lg mb-6">
             {errorMessage ? errorMessage : "We were unable to verify your identity. Please try again or contact support if the issue persists."}
           </p>
           <button onClick={()=>router.back()} className="inline-block px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700">

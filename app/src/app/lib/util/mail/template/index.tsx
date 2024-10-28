@@ -151,7 +151,7 @@ export default class EmailTemplate
                         href={resetLink}
                         style={{
                         display: 'block',
-                        width: '100%',
+                        maxWidth: '200px',
                         margin: '20px auto',
                         padding: '5px 10px',
                         textAlign: 'center',

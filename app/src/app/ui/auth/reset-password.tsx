@@ -1,3 +1,4 @@
+"use client"
 import { FormEvent, ReactNode, useState } from "react";
 import MsgBox from "../global/msgBox";
 import Spinner from "../global/spinner";

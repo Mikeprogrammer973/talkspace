@@ -3,6 +3,7 @@ import { FormEvent, ReactNode, useState } from "react";
 import MsgBox from "../global/msgBox";
 import Spinner from "../global/spinner";
 import { Alert } from "../global/alert";
+import { updatePassword } from "tspace/app/lib/user";
 
 export default function ResetPasswordForm({username}: {username: string})
 {
@@ -23,6 +24,15 @@ export default function ResetPasswordForm({username}: {username: string})
             setSpinnerV(false)
             return
         }
+
+        await updatePassword(username, data.get("new-password") as string)
+
+        setNsg(<Alert color="success" msg={<div className="text-sm md:text-lg">Password updated successfully! <br/><span className="font-extralight italic">Redirecting...</span></div>} title="" />)
+        setNsgV(true)
+        setTimeout(()=>{
+            window.location.replace('/')
+        }, 3000)
+        setSpinnerV(false)
     }
     
     return <div className="min-h-screen flex items-center justify-center bg-gray-900">

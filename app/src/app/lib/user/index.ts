@@ -185,6 +185,13 @@ export async function setVerificationCode(email: string) {
     return await prisma.user.update({where: {email: email}, data: {verificationCode: verificationCode().join('')}})
 }
 
+export async function updatePassword(username: string, new_password: string)
+{
+    await prisma.profile.update({where: {username: username}, data: {user: {update: {password: await hash(new_password, await genSalt(15)), emailVerified: verificationCode().join('')}}}})
+
+    return true
+}
+
 export async function setResetPwdToken(user_mail: string) {
     const user = await getByEmail(user_mail)
 

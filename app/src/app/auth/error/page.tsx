@@ -7,7 +7,7 @@ export default function ErrorPage({ searchParams }: { searchParams: { error: str
     const router = useRouter()
   
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-900">
+      <div className="flex items-center justify-center h-screen bg-gray-900 p-10">
         <div className="text-center max-w-md p-6 bg-gray-950 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold text-red-600 mb-4">Authentication Failed</h1>
           <p className="text-gray-200 text-lg mb-6">

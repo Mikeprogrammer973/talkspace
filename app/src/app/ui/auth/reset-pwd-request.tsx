@@ -29,7 +29,7 @@ export default function ResetPasswordRequestForm()
 
         const domains = ["http://localhost:3000/auth/reset-password/", "http://talkspace-ten.vercel.app/auth/reset-password/"]
 
-        const msg_mail = EmailTemplate.getTemplate(EmailTemplate.resetPasswordTemplate(res.username, `${domains[0]}${res.username}/${res.token}`))
+        const msg_mail = EmailTemplate.getTemplate(EmailTemplate.resetPasswordTemplate(res.username, `${domains[1]}${res.username}/${res.token}`))
 
         await send({
             to: user_mail as string,

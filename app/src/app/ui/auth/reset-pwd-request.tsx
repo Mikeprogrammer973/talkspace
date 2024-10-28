@@ -48,7 +48,7 @@ export default function ResetPasswordRequestForm()
             <MsgBox visible={msgV} setVisible={setNsgV} msg={msg} />
             <Spinner label="Sending..." visible={spinnerV} />
             <h1 className="text-3xl font-bold text-center">Reset Your Password</h1>
-            <p className="text-center text-gray-400">
+            <p className="text-center text-gray-400 p-5">
                 Forgot your password? No worries! Enter your email below, and we’ll send you a link to reset your password.
             </p>
 

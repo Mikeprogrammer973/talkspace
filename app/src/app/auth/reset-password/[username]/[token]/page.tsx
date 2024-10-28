@@ -5,6 +5,6 @@ export default async function Page({params}: {params: {username: string, token: 
 {
     await verifyResetPwdCreds(params.username, params.token)
     return (
-        <ResetPasswordForm />
+        <ResetPasswordForm username={params.username} />
     )
 }

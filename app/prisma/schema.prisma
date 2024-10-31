@@ -25,6 +25,8 @@ model Profile {
   followers Follow[] @relation("follower")
   following Follow[] @relation("following")
   posts Post[]
+  preferenceId Int @unique
+  preference Preference @relation(fields: [preferenceId], references: [id])
 }
 
 model Follow {
@@ -47,6 +49,24 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   profiles Profile[]
+}
+
+model Preference {
+  id Int @id @default(autoincrement())
+  language String
+  region_format String
+  theme String
+  accessibilbity String?
+  font_size String
+  content String?
+  private Boolean
+  ntf_follower String?
+  ntf_mention String?
+  ntf_like String?
+  ntf_comment String?
+  ntf_msg String?
+  ntf_follow_req String?
+  profile Profile?
 }
 
 model Post {

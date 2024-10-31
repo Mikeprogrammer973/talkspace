@@ -7,6 +7,9 @@ import { verificationCode } from "../util/generate/user/verification/code"
 import { getServerSession } from "next-auth"
 import { FolderPath, Mega } from "../util/storage"
 import { redirect } from "next/dist/client/components/navigation.react-server"
+import { Language } from "../util/user/preference/language"
+import { RegionFormat } from "../util/user/preference/region_format"
+import { FontSize } from "../util/user/preference/font_size"
 
 const UserFormSchema = z.object(
 {
@@ -83,7 +86,16 @@ export async function create(prevState: UserState, formData: FormData)
                 password: await hash(password, await genSalt(15)),
                 profiles: {
                     create: {
-                        username: username
+                        username: username,
+                        preference: {
+                            create: {
+                                private: false,
+                                language: Language.English,
+                                region_format: RegionFormat["United States"],
+                                font_size: FontSize.Small,
+                                theme: "DARK"
+                            }
+                        }
                     }
                 }
             }
@@ -224,7 +236,7 @@ export async function getByEmail(email: string) {
 }
 
 export async function getByUsername(username: string) {
-    return await prisma.profile.findFirst({where: {username: username}, include: {user: true, image: true, followers: true, following: true, posts: true}})
+    return await prisma.profile.findFirst({where: {username: username}, include: {user: true, image: true, followers: true, following: true, posts: true, preference: true}})
 }
 
 export async function getById(id: number) {

@@ -12,7 +12,7 @@ export default function Dashboard({user}: {user: any})
 
     const regex = /\[(.*?)\]/g
 
-    const user_bio = user.bio && user.bio.replace(regex, "") || "My bio here"
+    const user_bio = user.bio && user.bio.replace(regex, "").split("\n")
     
     const bio_links: string[] = user.bio && user.bio.match(regex)?.map((match: string) => match.slice(1, -1)) || []
 
@@ -58,8 +58,10 @@ export default function Dashboard({user}: {user: any})
                     className="rounded-full w-32 h-32 mb-6 border-4 border-gray-700"
                   />
                   <h2 className="text-xl font-bold text-center">{user.user.name || "User"}</h2>
-                  <p className="text-gray-400 text-center">@{user.username || 'username'}</p>
-                  <textarea readOnly rows={7} className="bg-transparent scrollbar-none outline-none text-center my-5" value={user_bio || 'Aqui vai a bio do usuário'}></textarea>
+                  <p className="text-gray-400 text-center max-w-full whitespace-nowrap overflow-hidden overflow-ellipsis">@{user.username || 'username'}</p>
+                  {user_bio && <div className="max-w-full p-5 text-center"> {user_bio.map((line: string, i: number)=>{
+                    return <p key={i} className="max-w-full whitespace-nowrap overflow-hidden overflow-ellipsis italic text-gray-200"> {line} </p>
+                  }) }</div>}
                   {bio_links && 
                   <div className="max-w-full">
                     {

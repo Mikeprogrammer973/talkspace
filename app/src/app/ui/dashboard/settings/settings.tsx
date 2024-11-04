@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, forwardRef, useRef } from 'react';
+import React, { useState, forwardRef } from 'react';
 import { Transition } from '@headlessui/react';
 import NotificationsSection from './sections/notification';
 import PreferencesSection from './sections/preference';
@@ -7,8 +7,9 @@ import ProfileSection from './sections/profile';
 import SecuritySection from './sections/security';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid';
 import FeedbackSection from './sections/feedback';
+import { Preference } from '@prisma/client';
 
-const SettingsPage = ({user_}: {user_: any}) => {
+const SettingsPage = ({profile}: {profile: any}) => {
   const [activeSection, setActiveSection] = useState('profile');
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -19,13 +20,13 @@ const SettingsPage = ({user_}: {user_: any}) => {
   const renderSection = () => {
     switch (activeSection) {
       case 'profile':
-        return <ProfileSection user={user_} />;
+        return <ProfileSection profile={profile} />;
       case 'security':
         return <SecuritySection />;
       case 'notifications':
-        return <NotificationsSection />;
+        return <NotificationsSection prefs={profile.preference as Preference} />;
       case 'preferences':
-        return <PreferencesSection />;
+        return <PreferencesSection prefs={profile.preference as Preference} />;
       case "feedback":
         return <FeedbackSection />
       default:

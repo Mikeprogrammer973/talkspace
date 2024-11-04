@@ -56,16 +56,16 @@ model Preference {
   language String
   region_format String
   theme String
-  accessibilbity String?
+  accessibilbity String[]
   font_size String
-  content String?
+  content String[]
   private Boolean
-  ntf_follower String?
-  ntf_mention String?
-  ntf_like String?
-  ntf_comment String?
-  ntf_msg String?
-  ntf_follow_req String?
+  ntf_follower String[]
+  ntf_mention String[]
+  ntf_like String[]
+  ntf_comment String[]
+  ntf_msg String[]
+  ntf_follow_req String[]
   profile Profile?
 }
 

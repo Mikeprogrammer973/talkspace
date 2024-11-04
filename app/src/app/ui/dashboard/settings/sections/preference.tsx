@@ -1,5 +1,6 @@
+import { Preference } from "@prisma/client";
 
-export default function PreferencesSection() {
+export default function PreferencesSection({prefs}: {prefs: Preference}) {
     return <div className="bg-gray-800 p-6 rounded-lg shadow-lg transform transition-all duration-300">
     <h2 className="text-2xl font-semibold mb-4">Preferences</h2>
 

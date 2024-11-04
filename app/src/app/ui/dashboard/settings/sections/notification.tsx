@@ -1,138 +1,149 @@
+import { Preference } from '@prisma/client';
+import React, { useState } from 'react';
 
-export default function NotificationsSection() {
-    return  <div className="bg-gray-800 p-6 rounded-lg shadow-lg transform transition-all duration-300">
-    <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
+type NotificationOption = {
+  app: boolean;
+  email: boolean;
+  popup: boolean;
+};
 
-    {/* Notificações de Seguidores */}
-    <div className="space-y-4 mb-8">
-      <h3 className="text-lg font-medium">New Followers</h3>
-      <p className="text-sm text-gray-400">
-        Receive a notification when someone follows you.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">App Notification</span>
-        </label>
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">Email Notification</span>
-        </label>
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">Push Notification</span>
-        </label>
+type Mentions = {
+  comments: NotificationOption;
+  posts: NotificationOption;
+  likes: NotificationOption;
+};
+
+type Messages = {
+  directMessage: NotificationOption;
+  friendRequest: NotificationOption;
+  follow: NotificationOption;
+};
+
+export default function NotificationsSection({prefs}: {prefs: Preference}){
+  const [mentions, setMentions] = useState<Mentions>({
+    comments: { app: false, email: false, popup: false },
+    posts: { app: false, email: false, popup: false },
+    likes: { app: false, email: false, popup: false },
+  });
+
+  const [messages, setMessages] = useState<Messages>({
+    directMessage: { app: false, email: false, popup: false },
+    friendRequest: { app: false, email: false, popup: false },
+    follow: { app: false, email: false, popup: false },
+  });
+
+  const handleMentionsChange = (event: React.ChangeEvent<HTMLInputElement>, option: keyof Mentions) => {
+    const { name, checked } = event.target;
+    setMentions((prev) => ({
+      ...prev,
+      [option]: {
+        ...prev[option],
+        [name]: checked,
+      },
+    }));
+  };
+
+  const handleMessagesChange = (event: React.ChangeEvent<HTMLInputElement>, option: keyof Messages) => {
+    const { name, checked } = event.target;
+    setMessages((prev) => ({
+      ...prev,
+      [option]: {
+        ...prev[option],
+        [name]: checked,
+      },
+    }));
+  };
+
+  console.log(mentions, messages)
+
+  return (
+    <div className="bg-gray-900 text-white p-8 rounded-lg max-w-lg mx-auto">
+      <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
+
+      {/* Mentions Category */}
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-4">Mentions</h3>
+        {Object.keys(mentions).map((option) => (
+          <div key={option} className="mb-4">
+            <h4 className="font-medium mb-2 capitalize text-gray-100">{option}</h4>
+            <div className="grid gap-4 grid-cols-1 md:grid-cols-3 text-gray-300">
+              <label className="flex items-center mb-1">
+                <input
+                  type="checkbox"
+                  name="app"
+                  checked={mentions[option as keyof Mentions].app}
+                  onChange={(e) => handleMentionsChange(e, option as keyof Mentions)}
+                  className="mr-2"
+                />
+                App Notification
+              </label>
+              <label className="flex items-center mb-1">
+                <input
+                  type="checkbox"
+                  name="email"
+                  checked={mentions[option as keyof Mentions].email}
+                  onChange={(e) => handleMentionsChange(e, option as keyof Mentions)}
+                  className="mr-2"
+                />
+                Email Notification
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="popup"
+                  checked={mentions[option as keyof Mentions].popup}
+                  onChange={(e) => handleMentionsChange(e, option as keyof Mentions)}
+                  className="mr-2"
+                />
+                Pop-up Notification
+              </label>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Messages Category */}
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-4">Messages</h3>
+        {Object.keys(messages).map((option) => (
+          <div key={option} className="mb-4">
+            <h4 className="font-medium mb-2 capitalize text-gray-100">{option}</h4>
+            <div className="grid gap-4 grid-cols-1 md:grid-cols-3 text-gray-300">
+              <label className="flex items-center mb-1">
+                <input
+                  type="checkbox"
+                  name="app"
+                  checked={messages[option as keyof Messages].app}
+                  onChange={(e) => handleMessagesChange(e, option as keyof Messages)}
+                  className="mr-2"
+                />
+                App Notification
+              </label>
+              <label className="flex items-center mb-1">
+                <input
+                  type="checkbox"
+                  name="email"
+                  checked={messages[option as keyof Messages].email}
+                  onChange={(e) => handleMessagesChange(e, option as keyof Messages)}
+                  className="mr-2"
+                />
+                Email Notification
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="popup"
+                  checked={messages[option as keyof Messages].popup}
+                  onChange={(e) => handleMessagesChange(e, option as keyof Messages)}
+                  className="mr-2"
+                />
+                Pop-up Notification
+              </label>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
-
-    {/* Notificações de Menções */}
-    <div className="space-y-4 mb-8">
-      <h3 className="text-lg font-medium">Mentions</h3>
-      <p className="text-sm text-gray-400">
-        Get notified when someone mentions you in a comment or post.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">App Notification</span>
-        </label>
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">Email Notification</span>
-        </label>
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">Push Notification</span>
-        </label>
-      </div>
-    </div>
-
-    {/* Notificações de Curtidas */}
-    <div className="space-y-4 mb-8">
-      <h3 className="text-lg font-medium">Likes</h3>
-      <p className="text-sm text-gray-400">
-        Receive a notification when someone likes your post or comment.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">App Notification</span>
-        </label>
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">Email Notification</span>
-        </label>
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">Push Notification</span>
-        </label>
-      </div>
-    </div>
-
-    {/* Notificações de Comentários */}
-    <div className="space-y-4 mb-8">
-      <h3 className="text-lg font-medium">Comments</h3>
-      <p className="text-sm text-gray-400">
-        Get notified when someone comments on your post or reply.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">App Notification</span>
-        </label>
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">Email Notification</span>
-        </label>
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">Push Notification</span>
-        </label>
-      </div>
-    </div>
-
-    {/* Notificações de Mensagens */}
-    <div className="space-y-4 mb-8">
-      <h3 className="text-lg font-medium">Messages</h3>
-      <p className="text-sm text-gray-400">
-        Receive a notification when someone sends you a new message.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">App Notification</span>
-        </label>
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">Email Notification</span>
-        </label>
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">Push Notification</span>
-        </label>
-      </div>
-    </div>
-
-    {/* Notificações de Convites de Amizade */}
-    <div className="space-y-4 mb-8">
-      <h3 className="text-lg font-medium">Follow Requests</h3>
-      <p className="text-sm text-gray-400">
-        Receive a notification when someone sends you a follow request.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">App Notification</span>
-        </label>
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">Email Notification</span>
-        </label>
-        <label className="flex items-center text-sm">
-          <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" />
-          <span className="ml-2 text-white">Push Notification</span>
-        </label>
-      </div>
-    </div>
-  </div>
-}
+  );
+};
+;

@@ -14,7 +14,7 @@ export default function ProfileSection({profile}: {profile: any}) {
     
     const bio_links: string[] = profile.bio && profile.bio.match(regex)?.map((match: string) => match.slice(1, -1)) || []
 
-    return <div className="bg-gray-950 p-6 rounded-xl shadow-lg max-w-2xl mx-auto">
+    return <div className="bg-gray-800 p-6 rounded-xl shadow-lg mx-auto">
         <div className="flex flex-col items-center space-y-6 sm:space-y-0 sm:flex-row sm:space-x-8">
         
             {/* Foto do usuário */}

@@ -57,7 +57,7 @@ export default function NotificationsSection({prefs}: {prefs: Preference}){
   console.log(mentions, messages)
 
   return (
-    <div className="bg-gray-900 text-white p-8 rounded-lg max-w-lg mx-auto">
+    <div className="bg-gray-800 text-white p-8 rounded-lg mx-auto">
       <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
 
       {/* Mentions Category */}

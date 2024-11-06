@@ -26,7 +26,7 @@ export default function InitHeader({selectedPage}: {selectedPage: number}) {
         { name: 'Sign up', href: '/auth/signup', current: selectedPage === 1 ? true : false},
         { name: 'About us', href: '#', current: selectedPage === 2 ? true : false},
         { name: 'FAQ', href: '#', current: selectedPage === 3 ? true : false},
-        { name: 'Privacy policy', href: '#', current: selectedPage === 4 ? true : false},
+        { name: 'Privacy policy', href: '/info/privacy-policy', current: selectedPage === 4 ? true : false},
     ]   
   return (
       <div className="min-h-full sticky top-0 z-20">

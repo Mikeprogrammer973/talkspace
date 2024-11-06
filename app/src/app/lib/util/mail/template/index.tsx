@@ -201,8 +201,8 @@ export default class EmailTemplate
                                     <a title="Telegram" href="https://t.me/mikeprogrammer973"><img style={{width: "30px", height: "30px", borderRadius: "50%", marginRight: "5px", marginLeft: "5px"}} src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/2048px-Telegram_logo.svg.png" alt="telegram" /></a>
                                     <a title="GitHub" href="https://github.com/Mikeprogrammer973"><img style={{width: "30px", height: "30px", borderRadius: "50%", marginLeft: "5px"}} src="https://cdn2.iconfinder.com/data/icons/social-icons-33/128/Github-512.png" alt="github" /></a>
                                 </p>
-                                <p style={{ fontSize: '12px', margin: '5px 0 0' }}>
-                                    <a href="#" style={{ color: '#4f46e5', textDecoration: 'none' }}>Privacy Policy</a>
+                                <p style={{ fontSize: '14px', margin: '5px 0 0' }}>
+                                    <a href="https://talkspace-ten.vercel.app/info/privacy-policy" style={{ color: '#4f46e5', textDecoration: 'none' }}>Privacy Policy</a>
                                 </p>
                             </td>
                         </tr>

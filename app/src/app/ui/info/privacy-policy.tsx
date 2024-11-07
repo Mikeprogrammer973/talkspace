@@ -11,7 +11,7 @@ export default function PrivacyPolicy()
           <section className="space-y-8">
             <div className="relative overflow-hidden border border-gray-700 bg-gray-800 p-6 rounded-lg shadow-lg">
               <h2 className="text-2xl font-semibold mb-4 flex gap-3 flex-wrap items-center">
-                <FaUserLock className="text-gray-500 opacity-50" size={36} /> 
+                <FaUserLock className="text-gray-500 opacity-50 hidden sm:flex" size={36} /> 
                 Information We Collect
               </h2>
               <p className="text-gray-400 mb-2">We collect the following types of information:</p>
@@ -25,7 +25,7 @@ export default function PrivacyPolicy()
     
             <div className="relative overflow-hidden border border-gray-700 bg-gray-800 p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-semibold mb-4 flex gap-3 flex-wrap items-center">
-                    <FaEye className="text-gray-500 opacity-50" size={36} />
+                    <FaEye className="text-gray-500 opacity-50 hidden sm:flex" size={36} />
                     How We Use Your Information
                 </h2>
               <p className="text-gray-400 mb-2">We use your data for:</p>
@@ -39,7 +39,7 @@ export default function PrivacyPolicy()
     
             <div className="relative overflow-hidden border border-gray-700 bg-gray-800 p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-semibold mb-4 flex gap-3 flex-wrap items-center">
-                    <FaShieldAlt className="text-gray-500 opacity-50" size={36} />
+                    <FaShieldAlt className="text-gray-500 opacity-50 hidden sm:flex" size={36} />
                     Data Sharing and Disclosure
                 </h2>
               <p className="text-gray-400 mb-2">We may share data with:</p>
@@ -52,7 +52,7 @@ export default function PrivacyPolicy()
     
             <div className="relative overflow-hidden border border-gray-700 bg-gray-800 p-6 rounded-lg shadow-lg">
               <h2 className="text-2xl font-semibold mb-4 flex gap-3 flex-wrap items-center">
-                <FaSyncAlt className="text-gray-500 opacity-50" size={36} />
+                <FaSyncAlt className="text-gray-500 opacity-50 hidden sm:flex" size={36} />
                 Data Security
               </h2>
               <p className="text-gray-300">
@@ -62,7 +62,7 @@ export default function PrivacyPolicy()
     
             <div className="relative overflow-hidden border border-gray-700 bg-gray-800 p-6 rounded-lg shadow-lg">
               <h2 className="text-2xl font-semibold mb-4 flex gap-3 flex-wrap items-center">
-                <FaChild className="text-gray-500 opacity-50" size={36} />
+                <FaChild className="text-gray-500 opacity-50 hidden sm:flex" size={36} />
                 Children’s Privacy
               </h2>
               <p className="text-gray-300">
@@ -72,7 +72,7 @@ export default function PrivacyPolicy()
     
             <div className="relative overflow-hidden border border-gray-700 bg-gray-800 p-6 rounded-lg shadow-lg">
               <h2 className="text-2xl font-semibold mb-4 flex gap-3 flex-wrap items-center">
-                <FaEnvelope className="text-gray-500 opacity-50" size={36} />
+                <FaEnvelope className="text-gray-500 opacity-50 hidden sm:flex" size={36} />
                 Contact Us
               </h2>
               <p className="text-gray-300">

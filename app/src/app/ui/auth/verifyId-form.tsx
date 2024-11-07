@@ -58,7 +58,7 @@ export default async function VerifyIdForm({email, password, setPage}: {email: s
   return (
     <div className="flex items-center justify-center h-screen">
         <Spinner visible={spinnerV} label="" />
-        <MsgBox visible={visible} msg={<Alert color="info" title="" msg="Verification code sent!" />} setVisible={setV} />
+        <MsgBox visible={visible} msg={<Alert color="info" title="" msg={<div className="text-sm md:text-lg">Verification code sent!</div>} />} setVisible={setV} />
         <MsgBox visible={visible2} msg={<Button onClick={()=>{
                 setV2(false)
                 sendVerificationCode()

@@ -1,19 +1,9 @@
-"use client"
-import { Button } from '@headlessui/react'
-import { ArrowLeftIcon } from '@heroicons/react/20/solid'
-import { useRouter } from 'next/navigation'
 import { FaShieldAlt, FaUserLock, FaEye, FaSyncAlt, FaChild, FaEnvelope } from 'react-icons/fa'
 
 export default function PrivacyPolicy()
 {
-    const router = useRouter()
-    
     return (
         <div className="bg-gray-900 text-white px-6 py-10 lg:px-24 lg:py-20 max-w-5xl mx-auto space-y-10 animate-fadeIn">
-          <Button onClick={()=>router.back()} className="bg-transparent">
-                    <ArrowLeftIcon title="Back" fill="white" className="w-8" />
-          </Button>
-          <h1 className="text-4xl font-semibold py-4 text-center underline underline-offset-4 tracking-wide">Privacy Policy</h1>
           <p className="mb-8 text-gray-300 text-center text-lg max-w-3xl mx-auto">
             At TalkSpace, we are committed to safeguarding your privacy. This policy outlines our data practices, including what we collect, how we use it, and your rights.
           </p>

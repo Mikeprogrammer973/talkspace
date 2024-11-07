@@ -24,8 +24,8 @@ export default function InitHeader({selectedPage}: {selectedPage: number}) {
     const navigation = [
         { name: 'Sign in', href: '/auth/signin', current: selectedPage === 0 ? true : false},
         { name: 'Sign up', href: '/auth/signup', current: selectedPage === 1 ? true : false},
-        { name: 'About us', href: '#', current: selectedPage === 2 ? true : false},
-        { name: 'FAQ', href: '#', current: selectedPage === 3 ? true : false},
+        { name: 'About us', href: '/info/about-us', current: selectedPage === 2 ? true : false},
+        { name: 'FAQ', href: '/info/faq', current: selectedPage === 3 ? true : false},
         { name: 'Privacy policy', href: '/info/privacy-policy', current: selectedPage === 4 ? true : false},
     ]   
   return (

@@ -202,7 +202,7 @@ export default class EmailTemplate
                                     <a title="GitHub" href="https://github.com/Mikeprogrammer973"><img style={{width: "30px", height: "30px", borderRadius: "50%", marginLeft: "5px"}} src="https://cdn2.iconfinder.com/data/icons/social-icons-33/128/Github-512.png" alt="github" /></a>
                                 </p>
                                 <p style={{ fontSize: '14px', margin: '5px 0 0' }}>
-                                    <a href="https://talkspace-ten.vercel.app/info/privacy-policy" style={{ color: '#4f46e5', textDecoration: 'none' }}>Privacy Policy</a>
+                                    <a href="https://talkspace-ten.vercel.app/info/privacy-policy" style={{ color: '#4f46e5', textDecoration: 'none' }}>Privacy Policy</a> | <a href="https://talkspace-ten.vercel.app/info/about-us" style={{ color: '#4f46e5', textDecoration: 'none'}}>About Us</a> | <a href="https://talkspace-ten.vercel.app/info/faq" style={{ color: '#4f46e5', textDecoration: 'none'}}>FAQ</a>
                                 </p>
                             </td>
                         </tr>

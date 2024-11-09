@@ -10,11 +10,6 @@ const report = {
     'https://img.icons8.com/pastel_glyph/512/228BE6/info.png',
 }
 
-const reportNavigation = [
-  { name: 'Support team', href: '#' },
-  { name: 'Contact us', href: '#' },
-  { name: 'Report a bug', href: '#' },
-]
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -27,7 +22,14 @@ export default function InitHeader({selectedPage}: {selectedPage: number}) {
         { name: 'About us', href: '/info/about-us', current: selectedPage === 2 ? true : false},
         { name: 'FAQ', href: '/info/faq', current: selectedPage === 3 ? true : false},
         { name: 'Privacy policy', href: '/info/privacy-policy', current: selectedPage === 4 ? true : false},
-    ]   
+    ]
+
+    const reportNavigation = [
+      { name: 'Support team', href: '/support/support-team', current: selectedPage === 5 ? true : false },
+      { name: 'Contact us', href: '/support/contact-us', current: selectedPage === 6 ? true : false },
+      { name: 'Report a bug', href: '/support/report-a-bug', current: selectedPage === 7 ? true : false },
+    ]
+
   return (
       <div className="min-h-full sticky top-0 z-20">
         <Disclosure as="nav" className="bg-gray-950">
@@ -81,7 +83,10 @@ export default function InitHeader({selectedPage}: {selectedPage: number}) {
                         <MenuItem key={item.name}>
                           <Link
                             href={item.href}
-                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                            className={classNames(
+                              item.current ? "bg-blue-700 text-white" : "text-gray-700 data-[focus]:bg-gray-100",
+                              "block px-4 py-2 text-sm"
+                            )}
                           >
                             {item.name}
                           </Link>
@@ -134,7 +139,10 @@ export default function InitHeader({selectedPage}: {selectedPage: number}) {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-800 hover:text-white"
+                    className={classNames(
+                      item.current ? "bg-gray-800 text-white" : "text-gray-400 hover:bg-gray-900 hover:text-gray-200",
+                      "block rounded-md px-3 py-2 text-base font-medium"
+                    )}
                   >{item.name}</Link>
                 ))}
               </div>

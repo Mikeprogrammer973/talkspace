@@ -17,7 +17,7 @@ export async function middleware(req: NextRequest)
   }
 
   if (!token) {
-    if(!req.nextUrl.pathname.startsWith("/auth") && !req.nextUrl.pathname.startsWith("/info")) return NextResponse.redirect(new URL('/auth/signin', req.url));
+    if(!req.nextUrl.pathname.startsWith("/auth") && !req.nextUrl.pathname.startsWith("/info") && !req.nextUrl.pathname.startsWith("/support")) return NextResponse.redirect(new URL('/auth/signin', req.url));
   }
 
   if(token && req.nextUrl.pathname.startsWith("/auth")) return NextResponse.redirect(new URL("/", req.url))

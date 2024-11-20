@@ -10,24 +10,25 @@ import { getByEmail, validVerificationCode } from "tspace/app/lib/user";
 import { useRouter } from "next/navigation";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { signIn } from "next-auth/react";
+import { get } from "tspace/app/lib/user/profile";
 
-export default async function VerifyIdForm({email, password, setPage}: {email: string, password: string, setPage: Dispatch<SetStateAction<number>>})
+export default async function VerifyIdForm({username, password, setPage}: {username: string, password: string, setPage: Dispatch<SetStateAction<number>>})
 {
     const [ visible, setV ] = useState(false)
     const [ visible2, setV2 ] = useState(true)
     const [ spinnerV, setSpinnerV ] = useState(false)
     const router = useRouter()
 
-    const user = await getByEmail(email)
+    const profile = await get()
 
     async function sendVerificationCode()
     {
         setSpinnerV(true)
         await new Promise(revolve => setTimeout(revolve, 3000))
         await send({
-            to: user?.email as string,
+            to: profile?.user.email as string,
             subject: "Verify your Identity",
-            html: EmailTemplate.getTemplate(EmailTemplate.verifyIdTemplate(user?.profiles[0].username as string, user?.verificationCode as string))
+            html: EmailTemplate.getTemplate(EmailTemplate.verifyIdTemplate(profile?.username as string, profile?.user?.verificationCode as string))
         })
         setSpinnerV(false)
         setV(true)
@@ -36,13 +37,13 @@ export default async function VerifyIdForm({email, password, setPage}: {email: s
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSpinnerV(true)
-    if(!(await validVerificationCode(user?.email as string, (new FormData(e.currentTarget)).getAll("verificationCode")[0] as string)))
+    if(!(await validVerificationCode(profile?.user.email as string, (new FormData(e.currentTarget)).getAll("verificationCode")[0] as string)))
     {
         router.push("/auth/error")
     } else {
         const result = await signIn("credentials", {
             redirect: false,
-            email,
+            username,
             password
         })
 
@@ -90,7 +91,7 @@ export default async function VerifyIdForm({email, password, setPage}: {email: s
             </button>
             </form>
             <p className="text-sm text-gray-300 text-center mt-6">
-            Didn't receive a code? <button onClick={()=>sendVerificationCode()} className="text-indigo-600 hover:underline">Resend</button>
+            Didn't receive the code? <button onClick={()=>sendVerificationCode()} className="text-indigo-600 hover:underline">Resend</button>
             </p>
             <Button onClick={()=>setPage(0)} className="my-5 bg-transparent">
                 <ArrowLeftIcon title="Back" fill="white" className="w-8" />

@@ -1,7 +1,6 @@
-import { User } from "@prisma/client";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
-import { getByEmail, getByUsername, getProfilePicture } from "tspace/app/lib/user";
+import { get } from "tspace/app/lib/user/profile";
 import Dashboard from "tspace/app/ui/dashboard/profile/dashboard";
 
 export const metadata: Metadata = {
@@ -16,9 +15,9 @@ export default async function Page()
     return <div>Auth Error!</div>;
   }
 
-  const user = await getByUsername((await getByEmail(session.user.email))?.profiles[0].username as string)
+  const profile = await get()
 
   return (
-    <Dashboard user={user} />
+    <Dashboard profile={profile} />
   )
 }

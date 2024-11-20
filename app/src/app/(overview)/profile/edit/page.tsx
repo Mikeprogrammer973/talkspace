@@ -1,8 +1,7 @@
 import { ArrowLeftCircleIcon } from "@heroicons/react/20/solid";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth";
 import Link from "next/link";
-import { getByEmail } from "tspace/app/lib/user";
+import { get } from "tspace/app/lib/user/profile";
 import EditForm from "tspace/app/ui/dashboard/profile/edit/edit-form";
 
 export const metadata: Metadata = {
@@ -10,8 +9,7 @@ export const metadata: Metadata = {
   }
 
 const UserProfileEdit = async () => {
-    const session = await getServerSession()
-    const user = await getByEmail(session?.user.email as string)
+    const profile = await get()
 
    return (
     <div className="bg-gray-900 p-5">
@@ -20,7 +18,7 @@ const UserProfileEdit = async () => {
                 <ArrowLeftCircleIcon fill="currentColor" className="w-10" />
             </Link>
         </button>
-        <EditForm user={user} />
+        <EditForm profile={profile} />
     </div>
    )
 };

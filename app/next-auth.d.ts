@@ -5,8 +5,8 @@ declare module 'next-auth' {
   interface User extends NextAuthUser {
     id: string;
     email: string;
-    name?: string;
-    image?: string;
+    username: string;
+    image: string;
   }
   
   interface Session {

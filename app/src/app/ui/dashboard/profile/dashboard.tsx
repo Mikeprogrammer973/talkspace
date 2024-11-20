@@ -5,16 +5,16 @@ import { useState } from "react";
 import VideoPlayer from "../user/util/video_player";
 import Link from "next/link";
 
-export default function Dashboard({user}: {user: any})
+export default function Dashboard({profile}: {profile: any})
 {
     const [filter, setFilter] = useState(0)
     const picture = useSession().data?.user.image
 
     const regex = /\[(.*?)\]/g
 
-    const user_bio = user.bio && user.bio.replace(regex, "").split("\n")
+    const profile_bio = profile.bio && profile.bio.replace(regex, "").split("\n")
     
-    const bio_links: string[] = user.bio && user.bio.match(regex)?.map((match: string) => match.slice(1, -1)) || []
+    const bio_links: string[] = profile.bio && profile.bio.match(regex)?.map((match: string) => match.slice(1, -1)) || []
 
     return (
         <div className="min-h-screen bg-gray-900 text-gray-100">
@@ -25,10 +25,10 @@ export default function Dashboard({user}: {user: any})
               <div className="flex items-center space-x-6">
                 <img
                   src={picture}
-                  alt={user.user.name || 'User'}
+                  alt={profile.user.name || 'profile'}
                   className="rounded-full w-10 h-10"
                 />
-                <p className="font-semibold sm:inline-block hidden max-w-40 whitespace-nowrap overflow-hidden overflow-ellipsis">{user.user.name || "User"}</p>
+                <p className="font-semibold sm:inline-block hidden max-w-40 whitespace-nowrap overflow-hidden overflow-ellipsis">{profile.user.name || "profile"}</p>
                 <button title="Edit Profile" className="text-gra y-300 hover:text-gray-200">
                   <Link href={"/profile/edit"}>
                       <PencilSquareIcon fill="currentColor" className="w-7" />
@@ -49,17 +49,17 @@ export default function Dashboard({user}: {user: any})
           {/* Main Content */}
           <main className="container mx-auto py-12 px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              {/* User Info */}
+              {/* profile Info */}
               <div className="bg-gray-800 p-8 rounded-lg shadow-md">
                 <div className="flex flex-col items-center">
                   <img
                     src={picture}
-                    alt={user?.name || 'User'}
+                    alt={profile.user.name || 'profile'}
                     className="rounded-full w-32 h-32 mb-6 border-4 border-gray-700"
                   />
-                  <h2 className="text-xl font-bold text-center">{user.user.name || "User"}</h2>
-                  <p className="text-gray-400 text-center max-w-full whitespace-nowrap overflow-hidden overflow-ellipsis">@{user.username || 'username'}</p>
-                  {user_bio && <div className="max-w-full p-5 text-center"> {user_bio.map((line: string, i: number)=>{
+                  <h2 className="text-xl font-bold text-center">{profile.user.name || "profile"}</h2>
+                  <p className="text-gray-400 text-center max-w-full whitespace-nowrap overflow-hidden overflow-ellipsis">@{profile.username || 'profilename'}</p>
+                  {profile_bio && <div className="max-w-full p-5 text-center"> {profile_bio.map((line: string, i: number)=>{
                     return <p key={i} className="max-w-full whitespace-nowrap overflow-hidden overflow-ellipsis italic text-gray-200"> {line} </p>
                   }) }</div>}
                   {bio_links && 
@@ -78,21 +78,21 @@ export default function Dashboard({user}: {user: any})
                 </div>
                 <div className="flex gap-5 justify-around mt-8 overflow-x-scroll scrollbar-none">
                   <div className="text-center">
-                    <span className="font-bold text-lg text-white"> {user.posts.length} </span>
+                    <span className="font-bold text-lg text-white"> {profile.posts.length} </span>
                     <p className="text-gray-400">Posts</p>
                   </div>
                   <div className="text-center">
-                    <span className="font-bold text-lg text-white"> {user.followers.length} </span>
+                    <span className="font-bold text-lg text-white"> {profile.followers.length} </span>
                     <p className="text-gray-400">Followers</p>
                   </div>
                   <div className="text-center">
-                    <span className="font-bold text-lg text-white"> {user.following.length} </span>
+                    <span className="font-bold text-lg text-white"> {profile.following.length} </span>
                     <p className="text-gray-400">Following</p>
                   </div>
                 </div>
               </div>
     
-              {/* User Posts Grid */}
+              {/* profile Posts Grid */}
               <div className="md:col-span-2">
                 <div className="flex items-center justify-between my-5">
                   <button onClick={()=>setFilter(0)} title="ALL POSTS" className={"flex flex-wrap items-center justify-center gap-2 py-4 " + (filter === 0 ? "text-gray-100 border-t-2 border-current" : "text-gray-400 border-none")}>

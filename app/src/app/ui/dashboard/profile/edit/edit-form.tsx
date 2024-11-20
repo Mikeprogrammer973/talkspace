@@ -7,13 +7,12 @@ import { update, verifyId } from "tspace/app/lib/user";
 import { Button } from "tspace/app/ui/global/button";
 import Spinner from "tspace/app/ui/global/spinner";
 
-export default function EditForm({user}: {user: any})
+export default function EditForm({profile}: {profile: any})
 {
-  if(user.user !== undefined) user = user.user
-  const [name, setName] = useState<string>(user.name || "")
-  const [email, setEmail] = useState<string>(user.email)
-  const [username, setUsername] = useState<string>(user.profiles[0].username || "username")
-  const [bio, setBio] = useState<string>(user.profiles[0].bio || 'This is my bio.')
+  const [name, setName] = useState<string>(profile.user.name || "")
+  const [email, setEmail] = useState<string>(profile.user.email)
+  const [username, setUsername] = useState<string>(profile.username || "username")
+  const [bio, setBio] = useState<string>(profile.bio || 'This is my bio.')
   const [profilePic, setProfilePic] = useState(useSession().data?.user.image)
   const [picData, setPicData] = useState<string>('')
   const [page, setPage] = useState(0)

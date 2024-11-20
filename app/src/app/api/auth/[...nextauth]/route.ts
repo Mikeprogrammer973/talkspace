@@ -1,11 +1,11 @@
 
 import { z } from 'zod'
-import { getByEmail, getByUsername, getProfilePicture } from 'tspace/app/lib/user';
 import { compare } from "bcryptjs";
 import Credentials from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
 import NextAuth from 'next-auth/next'
+import { get, picture } from 'tspace/app/lib/user/profile';
 
 const prisma = new PrismaClient()
 
@@ -15,8 +15,8 @@ const handler = NextAuth({
         Credentials({
             name: "credentials",
             credentials: {
-                email: {
-                    label: "Email",
+                username: {
+                    label: "Username",
                     type: "text"
                 },
                 password: {
@@ -26,21 +26,21 @@ const handler = NextAuth({
             },
             async authorize(credentials){
                 const parsedCreds = z.object({
-                    email: z.string().trim(),
+                    username: z.string().trim(),
                     password: z.string().min(8)
                 }).safeParse(credentials)
                 
                 if(parsedCreds.success)
                 {
-                    const {email, password} = parsedCreds.data
+                    const {username, password } = parsedCreds.data
 
-                    const user = await getByEmail(email)
-                    if(!user) return null
-                    const passwordsMatch = await compare(password, user.password)
+                    const profile = await get(username)
+                    if(!profile) return null
+                    const passwordsMatch = await compare(password, profile.user.password)
 
                     if(passwordsMatch) {
-                        await prisma.user.update({where: {email: email}, data: {verificationCode: null}});
-                        return user as any
+                        await prisma.user.update({where: {email: profile.user.email}, data: {verificationCode: null}});
+                        return {email: profile.user.email, id: profile.user.id, username: username} as any
                     }
                 }
 
@@ -59,11 +59,11 @@ const handler = NextAuth({
         maxAge: 86400
       },
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user}) {
             if (user) {
                 token.email = user.email 
                 token.id = user.id 
-                token.name = user.name 
+                token.name = user.username
             }
             return token;
         },
@@ -72,8 +72,8 @@ const handler = NextAuth({
                 session.user = {
                     id: token.id as string,
                     email: token.email as string,
-                    name: token.name as string,
-                    image: await getProfilePicture()
+                    username: token.name as string,
+                    image: await picture(token.name as string)
                 };
             }
             return session

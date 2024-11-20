@@ -10,6 +10,7 @@ import { redirect } from "next/dist/client/components/navigation.react-server"
 import { Language } from "../util/user/preference/language"
 import { RegionFormat } from "../util/user/preference/region_format"
 import { FontSize } from "../util/user/preference/font_size"
+import { get } from "./profile"
 
 const UserFormSchema = z.object(
 {
@@ -57,7 +58,7 @@ export async function create(prevState: UserState, formData: FormData)
         await prisma.$disconnect()
 
         // if username already registred
-        if((await getByUsername(username)) != null)
+        if((await get(username)) != null)
         {
             return {
                 message: {
@@ -113,6 +114,7 @@ export async function create(prevState: UserState, formData: FormData)
 export async function update(data: {name: string | null, email: string, username: string, bio: string | null, picture: string | null})
 {
     const user = await getByEmail((await getServerSession())?.user.email as string)
+
     const img_name = data.picture && `${data.username}_profile_picture.${data.picture.split(';')[0].split(':')[1].split('/')[1]}`
     if(data.picture)
     {
@@ -128,7 +130,7 @@ export async function update(data: {name: string | null, email: string, username
       redirect("/error?error=Email address already in use!")
     }
 
-    if(user?.profiles[0].username !== data.username && (await getByUsername(data.username)) !== null)
+    if(user?.profiles[0].username !== data.username && (await get(data.username)) !== null)
     {
       redirect("/error?error=Username already in use. You must choose another one!")
     }
@@ -159,14 +161,14 @@ export async function update(data: {name: string | null, email: string, username
     redirect("/profile")
 }
 
-export async function verifyCreds(email: string, passsword: string)
+export async function verifyCreds(username: string, passsword: string)
 {
-    const user = await getByEmail(email)
+    const profile = await get(username)
 
-    if(user !== null)
+    if(profile !== null && profile.type === "Main")
     {
-        if(await compare(passsword, user.password)) {
-            await setVerificationCode(email)
+        if(await compare(passsword, profile.user.password)) {
+            await setVerificationCode(profile.user.email)
             return true
         }
     }
@@ -178,7 +180,7 @@ export async function verifyResetPwdCreds(username: string, token: string)
 {
     let msg_error = "Something went wrong!"
 
-    const profile = await getByUsername(username)
+    const profile = await get(username)
 
     if(!profile)
     {
@@ -235,18 +237,7 @@ export async function getByEmail(email: string) {
     return await prisma.user.findFirst({where: {email: email}, include: {profiles: true}})
 }
 
-export async function getByUsername(username: string) {
-    return await prisma.profile.findFirst({where: {username: username}, include: {user: true, image: true, followers: true, following: true, posts: true, preference: true}})
-}
-
 export async function getById(id: number) {
     return await prisma.user.findFirst({where: {id: id}, include: {profiles: true}})
 }
 
-export async function getProfilePicture()
-{
-    const imgID = (await getByEmail((await getServerSession())?.user.email as string))?.profiles[0].imageId
-    const image = imgID && await prisma.image.findFirst({where: {id: imgID as number}})
-
-    return image ? `${image?.type},${(await new Mega().download(FolderPath.PROFILES, image?.name as string))?.toString('base64')}` : "https://qaziclinic.com/wp-content/uploads/2021/01/img3-5.jpg"
-}

@@ -8,6 +8,7 @@ import SecuritySection from './sections/security';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid';
 import FeedbackSection from './sections/feedback';
 import { Preference } from '@prisma/client';
+import AccountSection from './sections/account';
 
 const SettingsPage = ({profile}: {profile: any}) => {
   const [activeSection, setActiveSection] = useState('profile');
@@ -17,8 +18,12 @@ const SettingsPage = ({profile}: {profile: any}) => {
     setMenuOpen(!menuOpen);
   };
 
+  const menu_opts = ['account', 'profile', 'security', 'notifications', 'preferences', "feedback"]
+
   const renderSection = () => {
     switch (activeSection) {
+      case 'account':
+        return <AccountSection />
       case 'profile':
         return <ProfileSection profile={profile} />;
       case 'security':
@@ -40,7 +45,7 @@ const SettingsPage = ({profile}: {profile: any}) => {
       <div className="md:w-1/4 hidden md:block fixed bg-gray-900 p-6 h-screen">
         <h2 className="text-3xl font-bold mb-6">Settings</h2>
         <ul className="space-y-4">
-          {['profile', 'security', 'notifications', 'preferences', "feedback"].map((section) => (
+          {menu_opts.map((section) => (
             <li key={section}>
               <button
                 onClick={() => setActiveSection(section)}
@@ -82,7 +87,7 @@ const SettingsPage = ({profile}: {profile: any}) => {
           onClose={toggleMenu}
         >
           <ul className="space-y-4">
-            {['profile', 'security', 'notifications', 'preferences', "feedback"].map((section) => (
+            {menu_opts.map((section) => (
               <li key={section}>
                 <button
                   onClick={() => {

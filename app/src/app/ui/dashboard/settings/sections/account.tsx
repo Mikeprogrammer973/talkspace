@@ -303,7 +303,7 @@ const AccountSection = () => {
 
         {/* Linked Profile Modal */}
         {isLinkedProfilesModalOpen && selectedProfile && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-10">
             <div className="bg-gray-900 p-6 rounded-lg shadow-lg max-w-sm w-full">
                 <h3 className="text-xl font-semibold mb-4">Manage {selectedProfile.username}</h3>
                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
@@ -347,7 +347,7 @@ const AccountSection = () => {
 
         {/* Edit Info Modal */}
         {isEditingInfo && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-10">
             <div className="bg-gray-800 text-white p-6 rounded-md w-full max-w-md">
             <h3 className="text-xl font-semibold mb-4">Edit Personal Info</h3>
             <div className="relative">
@@ -390,7 +390,7 @@ const AccountSection = () => {
 
         {/* Address Modal */}
         {isAddressModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-10">
             <div className="bg-gray-800 text-white p-6 rounded-md w-full max-w-md">
             <h3 className="text-xl font-semibold mb-4">Add Address</h3>
             <input
@@ -436,7 +436,7 @@ const AccountSection = () => {
 
         {/* Education Modal */}
         {isEducationModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-10">
             <div className="bg-gray-800 text-white p-6 rounded-md w-full max-w-md">
             <h3 className="text-xl font-semibold mb-4">Add Education</h3>
             <input

@@ -31,7 +31,7 @@ const supportTeam = [
 const SupportTeam = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white py-16 px-8">
-      <h1 className="text-4xl font-bold text-center text-blue-400 mb-12">Our Support Team</h1>
+      <h1 className="text-4xl lg:text-5xl font-bold text-center text-blue-400 mb-12">Our Support Team</h1>
       <p className="text-center text-gray-400 mb-8 max-w-2xl mx-auto">
         We are here to help! Our dedicated support team is available to assist you with any questions or concerns you may have.
       </p>

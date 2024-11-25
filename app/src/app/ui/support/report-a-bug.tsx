@@ -23,7 +23,7 @@ const ReportBug = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white py-16 px-8 flex justify-center">
       <div className="max-w-4xl w-full space-y-8">
-        <h1 className="text-5xl font-bold text-center text-red-500 mb-10">Report a Bug</h1>
+        <h1 className="text-4xl lg:text-5xl font-bold text-center text-red-500 mb-10">Report a Bug</h1>
         <p className="text-center text-gray-400 mb-8">
           Encountered a bug? Let us know the details, and our team will work to resolve it promptly.
         </p>
@@ -110,7 +110,7 @@ const ReportBug = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full py-3 bg-red-500 text-lg font-semibold rounded-lg hover:bg-red-600 transition-transform transform hover:scale-105 focus:ring-4 focus:ring-red-700"
+            className="w-full sm:w-auto py-3 px-6 bg-red-500 text-lg font-semibold rounded-lg hover:bg-red-600 transition-transform transform hover:scale-105 focus:ring-4 focus:ring-red-700"
           >
             <FiSend className="inline mr-2" /> Submit Report
           </button>

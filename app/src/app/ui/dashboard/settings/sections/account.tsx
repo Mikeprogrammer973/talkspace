@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from "react"
+import axios from "axios"
+import { MdOutlineEmail, MdOutlineSettings, MdPermIdentity } from "react-icons/md"
 
 interface Address {
   id: number;
@@ -129,32 +130,44 @@ const AccountSection = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-800 text-white p-6">
+    <div className="min-h-screen bg-gray-800 text-white p-6 rounded-xl">
         <h1 className="text-2xl font-semibold mb-6">Account Settings</h1>
 
         <div className="space-y-8">
         {/* Personal Info */}
         <div  className="mt-4 border-t-[1px] py-4">
-            <h2 className="text-lg font-semibold mb-2 flex justify-between items-center">
+            <h2 className="text-lg font-semibold mb-2 flex gap-3 justify-between items-center">
             Personal Info
             <button
                 onClick={() => setIsEditingInfo(true)}
-                className="px-4 py-2 bg-blue-500 rounded-md hover:bg-blue-600"
+                className="px-4 py-2 text-sm bg-blue-500 rounded-md hover:bg-blue-600"
             >
                 Edit Info
             </button>
             </h2>
-            <p><strong>Name:</strong> {name}</p>
-            <p><strong>Email:</strong> {email}</p>
+            <div className="flex gap-4 flex-wrap items-center">
+                <div className="bg-gray-700 rounded-lg max-w-full">
+                    <h3 className="text-gray-300 p-2 font-light flex gap-2 items-center">
+                        <MdPermIdentity size={25} /><span>Name</span>
+                    </h3>
+                    <p className="p-5 text-center overflow-hidden overflow-ellipsis"> {name} </p>
+                </div>
+                <div className="bg-gray-700 rounded-lg max-w-full">
+                    <h3 className="text-gray-300 p-2 font-light flex gap-2 items-center">
+                        <MdOutlineEmail size={25} /><span>Email</span>
+                    </h3>
+                    <p className="p-5 text-center overflow-hidden overflow-ellipsis"> {email} </p>
+                </div>
+            </div>
         </div>
 
         {/* Addresses */}
         <div  className="mt-4 border-t-[1px] py-4">
-            <h2 className="text-lg font-semibold mb-4 flex justify-between items-center">
+            <h2 className="text-lg font-semibold mb-4 flex gap-3 justify-between items-center">
             Addresses
             <button
                 onClick={() => setIsAddressModalOpen(true)}
-                className="px-4 py-2 bg-blue-500 rounded-md hover:bg-blue-600"
+                className="px-4 py-2 text-sm bg-blue-500 rounded-md hover:bg-blue-600"
             >
                 Add Address
             </button>
@@ -166,18 +179,26 @@ const AccountSection = () => {
                 {addresses.map((address) => (
                 <div
                     key={address.id}
-                    className="bg-gray-800 p-4 rounded-md shadow-md relative"
+                    className="bg-gray-950 p-4 rounded-md shadow-md relative"
                 >
                     <p className="text-sm text-gray-300">{address.address}</p>
+                    {/*<button
+                        onClick={() =>
+                            setAddresses((prev) =>
+                            prev.filter((item) => item.id !== address.id)
+                            )
+                        }
+                        className="absolute top-2 right-2 text-red-500 hover:text-red-700" title="Remove"
+                        >
+                        ✕
+                    </button>*/}
                     <button
-                    onClick={() =>
-                        setAddresses((prev) =>
-                        prev.filter((item) => item.id !== address.id)
-                        )
-                    }
-                    className="absolute top-2 right-2 text-red-500 hover:text-red-700"
-                    >
-                    ✕
+                        onClick={() =>
+                            console.log()
+                        }
+                        className="absolute top-2 right-2 text-green-500 hover:text-green-700" title="Manage"
+                        >
+                        <MdOutlineSettings size={20}/>
                     </button>
                 </div>
                 ))}
@@ -187,11 +208,11 @@ const AccountSection = () => {
 
         {/* Education */}
         <div  className="mt-4 border-t-[1px] py-4">
-            <h2 className="text-lg font-semibold mb-4 flex justify-between items-center">
+            <h2 className="text-lg font-semibold mb-4 flex gap-3 justify-between items-center">
             Education
             <button
                 onClick={() => setIsEducationModalOpen(true)}
-                className="px-4 py-2 bg-green-500 rounded-md hover:bg-green-600"
+                className="px-4 py-2 text-sm bg-green-500 rounded-md hover:bg-green-600"
             >
                 Add Education
             </button>
@@ -203,7 +224,7 @@ const AccountSection = () => {
                 {educations.map((edu) => (
                 <div
                     key={edu.id}
-                    className="bg-gray-800 p-6 rounded-md shadow-md relative"
+                    className="bg-gray-950 p-6 rounded-md shadow-md relative"
                 >
                     <div className="space-y-2">
                     <p>
@@ -225,7 +246,7 @@ const AccountSection = () => {
                         <strong>Comments:</strong> {edu.comments}
                     </p>
                     </div>
-                    <button
+                    {/* <button
                     onClick={() =>
                         setEducations((prev) =>
                         prev.filter((item) => item.id !== edu.id)
@@ -234,6 +255,14 @@ const AccountSection = () => {
                     className="absolute top-2 right-2 text-red-500 hover:text-red-700"
                     >
                     ✕
+                    </button> */}
+                    <button
+                        onClick={() =>
+                            console.log()
+                        }
+                        className="absolute top-2 right-2 text-green-500 hover:text-green-700" title="Manage"
+                        >
+                        <MdOutlineSettings size={20}/>
                     </button>
                 </div>
                 ))}
@@ -251,7 +280,7 @@ const AccountSection = () => {
             {linkedProfiles.map((profile) => (
                 <div
                 key={profile.id}
-                className="flex items-center justify-between bg-gray-900 p-4 rounded-md shadow-md"
+                className="flex items-center justify-between gap-3 bg-gray-950 p-4 rounded-md shadow-md"
                 >
                 <div className="flex items-center space-x-4">
                     <img
@@ -259,13 +288,13 @@ const AccountSection = () => {
                     alt={profile.username}
                     className="w-12 h-12 rounded-full"
                     />
-                    <p className="text-sm text-gray-300">{profile.username}</p>
+                    <p className="text-sm text-gray-300 overflow-hidden overflow-ellipsis">{profile.username}</p>
                 </div>
                 <button
-                    onClick={() => handleOpenProfileModal(profile)}
+                    onClick={() => handleOpenProfileModal(profile)} title="Manage profile"
                     className="px-4 py-2 bg-blue-500 rounded-md text-white hover:bg-blue-600"
                 >
-                    Manage
+                    <MdOutlineSettings size={22} />
                 </button>
                 </div>
             ))}
@@ -321,20 +350,26 @@ const AccountSection = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-gray-800 text-white p-6 rounded-md w-full max-w-md">
             <h3 className="text-xl font-semibold mb-4">Edit Personal Info</h3>
-            <input
-                type="text"
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
-                placeholder="Name"
-                className="w-full bg-transparent p-2 border rounded-md mb-4"
-            />
-            <input
-                type="email"
-                value={newEmail}
-                onChange={(e) => setNewEmail(e.target.value)}
-                placeholder="Email"
-                className="w-full bg-transparent p-2 border rounded-md mb-4"
-            />
+            <div className="relative">
+                <input
+                    type="text"
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                    placeholder="Name"
+                    className="peer w-full bg-transparent p-2 pl-10 border rounded-md mb-4"
+                />
+                <MdPermIdentity size={25} className="pointer-events-none absolute left-2 top-1/3 -translate-y-1/2 text-gray-400 peer-focus:text-gray-600"  />
+            </div>
+            <div className="relative">
+                <input
+                    type="email"
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
+                    placeholder="Email"
+                    className="peer w-full bg-transparent p-2 pl-10 border rounded-md mb-4"
+                />
+                <MdOutlineEmail size={25} className="pointer-events-none absolute left-2 top-1/3 -translate-y-1/2 text-gray-400 peer-focus:text-gray-600"  />
+            </div>
             <div className="flex justify-end space-x-2">
                 <button
                 onClick={() => setIsEditingInfo(false)}

@@ -4,8 +4,8 @@ import { FaRocket, FaUsers, FaHandsHelping, FaBullseye } from 'react-icons/fa';
 
 export default function AboutUs(){
   return (
-    <div className="bg-gray-900 text-white px-6 py-10 lg:px-24 lg:py-20 max-w-5xl mx-auto space-y-16">
-      <h1 className="text-5xl font-bold text-center mb-10 animate-fadeIn">About Us</h1>
+    <div className="bg-gray-900 text-white px-6 py-10 lg:px-24 lg:py-20 space-y-16">
+      <h1 className="text-4xl lg:text-5xl font-bold text-center mb-10 animate-fadeIn">About Us</h1>
 
       {/* Introdução */}
       <section className="text-center space-y-4">

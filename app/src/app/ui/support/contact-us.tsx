@@ -2,8 +2,8 @@ import React from 'react';
 
 const ContactUs = () => {
   return (
-    <div className="bg-gray-900 text-white p-6 lg:p-20 max-w-5xl mx-auto space-y-16">
-      <h1 className="text-5xl font-bold text-center mb-10 animate-fadeIn">Contact Us</h1>
+    <div className="bg-gray-900 text-white p-6 lg:p-20 space-y-16">
+      <h1 className="text-4xl lg:text-5xl font-bold text-center mb-10 animate-fadeIn">Contact Us</h1>
       <p className="text-gray-400 text-center text-lg max-w-3xl mx-auto mb-10">
         Have questions or feedback? We’d love to hear from you! Reach out to us using the form below or via our contact information.
       </p>
@@ -63,7 +63,7 @@ const ContactUs = () => {
             ></textarea>
           </div>
 
-          <div className="md:col-span-2 text-center">
+          <div className="md:col-span-2">
             <button
               type="submit"
               className="bg-blue-500 text-lg w-full sm:w-auto font-semibold py-3 px-8 rounded-lg hover:bg-blue-400 transition-colors focus:ring-4 focus:ring-blue-600"

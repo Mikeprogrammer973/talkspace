@@ -3,7 +3,7 @@ import { FaShieldAlt, FaUserLock, FaEye, FaSyncAlt, FaChild, FaEnvelope } from '
 export default function PrivacyPolicy()
 {
     return (
-        <div className="bg-gray-900 text-white px-6 py-10 lg:px-24 lg:py-20 max-w-5xl mx-auto space-y-10 animate-fadeIn">
+        <div className="bg-gray-900 text-white px-6 py-10 lg:px-24 lg:py-20 space-y-10 animate-fadeIn">
           <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-center animate-slideIn">Privacy Policy</h1>
           <p className="mb-8 text-gray-300 text-center text-lg max-w-3xl mx-auto">
             At TalkSpace, we are committed to safeguarding your privacy. This policy outlines our data practices, including what we collect, how we use it, and your rights.

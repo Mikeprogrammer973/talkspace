@@ -51,7 +51,7 @@ export default function RegisterForm()
     }
 
     return (
-        <div>
+        <div className="bg-black">
             <InitHeader selectedPage={1} />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <LogoBanner />

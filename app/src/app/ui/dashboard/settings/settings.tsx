@@ -61,7 +61,7 @@ const SettingsPage = ({profile}: {profile: any}) => {
       </div>
 
       {/* Menu superior em telas pequenas */}
-      <div className="md:hidden w-full sticky top-0 z-20 bg-gray-900 p-4 flex justify-between items-center py-5">
+      <div className="md:hidden w-full sticky top-0 z-20 bg-gray-950 p-4 flex justify-between items-center py-5">
         <h2 className="text-xl font-bold">Settings</h2>
         <button
           onClick={toggleMenu}
@@ -83,7 +83,7 @@ const SettingsPage = ({profile}: {profile: any}) => {
       >
         {/* Envolva o conteúdo do Transition em uma div e passe o ref */}
         <DropdownMenu
-          className="md:hidden w-full absolute top-[9rem] z-30 bg-gray-950 p-4"
+          className="md:hidden w-full z-30 bg-gray-950 p-4"
           onClose={toggleMenu}
         >
           <ul className="space-y-4">

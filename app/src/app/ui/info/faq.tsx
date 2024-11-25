@@ -33,12 +33,12 @@ export default function FAQ(){
   ];
 
   return (
-    <div className="bg-gray-900 text-white p-6 lg:p-20 max-w-4xl mx-auto">
+    <div className="bg-gray-900 text-white p-6 lg:p-20">
       <h1 className="text-4xl lg:text-5xl font-bold text-center mb-10 animate-fadeIn">Frequently Asked Questions</h1>
       <p className="text-gray-400 text-center mb-10 text-lg">
         Here you’ll find answers to the most common questions about TalkSpace.
       </p>
-      <div className="space-y-4">
+      <div className="space-y-4 max-w-4xl mx-auto">
         {faqs.map((faq, index) => (
           <div
             key={index}

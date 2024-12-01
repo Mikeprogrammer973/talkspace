@@ -3,6 +3,50 @@
 import React, { useState } from "react"
 import axios from "axios"
 import { MdOutlineEmail, MdOutlineSettings, MdPermIdentity } from "react-icons/md"
+import { acquiredTitles, studyStatuses, studyTypes } from "./utils/education";
+import { FaGraduationCap, FaCalendarAlt, FaRegCommentDots } from "react-icons/fa";
+
+const EducationList = ({ educationItems, onRemove }: { educationItems: any[]; onRemove: (id: number) => void }) => {
+  return (
+    <div className="space-y-6">
+      {educationItems.map((item) => (
+        <div
+          key={item.id}
+          className="flex flex-col md:flex-row justify-between items-start md:items-center bg-gray-950 p-4 rounded-lg shadow-md relative"
+        >
+          {/* Content */}
+          <div className="flex items-start space-x-4">
+            {/* Icon */}
+            <div className="text-blue-500 text-2xl">
+              <FaGraduationCap />
+            </div>
+
+            {/* Details */}
+            <div>
+              <h3 className="text-lg font-bold text-white">{item.title}</h3>
+              <p className="text-sm text-gray-400 flex items-center">
+                <FaCalendarAlt className="mr-2" /> {item.startDate} - {item.endDate || "Present"}
+              </p>
+              <p className="text-sm text-gray-400 flex items-center">
+                <FaRegCommentDots className="mr-2" /> {item.comments || "No comments"}
+              </p>
+              <p className="mt-1 text-sm text-gray-300">Status: {item.status}</p>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <button
+            onClick={() => onRemove(item.id)} title="Manage"
+            className="absolute top-2 right-2 text-red-500 hover:text-red-700"
+          >
+            <MdOutlineSettings className="text-xl" />
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 
 interface Address {
   id: number;
@@ -44,11 +88,11 @@ const AccountSection = () => {
 
   const [newEducation, setNewEducation] = useState<Education>({
     id: 0,
-    type: "",
-    title: "",
+    type: studyTypes[0],
+    title: acquiredTitles[0],
     startDate: "",
     endDate: "",
-    status: "",
+    status: studyStatuses[0],
     comments: "",
   });
 
@@ -119,8 +163,12 @@ const AccountSection = () => {
 
   const handleAddEducation = () => {
     setEducations((prev) => [...prev, { ...newEducation, id: Date.now() }]);
-    setNewEducation({ id: 0, type: "", title: "", startDate: "", endDate: "", status: "", comments: "" });
+    setNewEducation({ id: 0, type: studyTypes[0], title: acquiredTitles[0], startDate: "", endDate: "", status: studyStatuses[0], comments: "" });
     setIsEducationModalOpen(false);
+  };
+
+  const handleRemoveEducation = (id: number) => {
+    setEducations((prev) => prev.filter((item) => item.id !== id));
   };
 
   const handleSaveInfo = () => {
@@ -196,7 +244,7 @@ const AccountSection = () => {
                         onClick={() =>
                             console.log()
                         }
-                        className="absolute top-2 right-2 text-green-500 hover:text-green-700" title="Manage"
+                        className="absolute top-2 right-2 text-red-500 hover:text-red-700" title="Manage"
                         >
                         <MdOutlineSettings size={20}/>
                     </button>
@@ -220,53 +268,7 @@ const AccountSection = () => {
             {educations.length === 0 ? (
             <p>No education details added.</p>
             ) : (
-            <div className="space-y-4">
-                {educations.map((edu) => (
-                <div
-                    key={edu.id}
-                    className="bg-gray-950 p-6 rounded-md shadow-md relative"
-                >
-                    <div className="space-y-2">
-                    <p>
-                        <strong>Type:</strong> {edu.type}
-                    </p>
-                    <p>
-                        <strong>Title:</strong> {edu.title}
-                    </p>
-                    <p>
-                        <strong>Start Date:</strong> {edu.startDate}
-                    </p>
-                    <p>
-                        <strong>End Date:</strong> {edu.endDate}
-                    </p>
-                    <p>
-                        <strong>Status:</strong> {edu.status}
-                    </p>
-                    <p>
-                        <strong>Comments:</strong> {edu.comments}
-                    </p>
-                    </div>
-                    {/* <button
-                    onClick={() =>
-                        setEducations((prev) =>
-                        prev.filter((item) => item.id !== edu.id)
-                        )
-                    }
-                    className="absolute top-2 right-2 text-red-500 hover:text-red-700"
-                    >
-                    ✕
-                    </button> */}
-                    <button
-                        onClick={() =>
-                            console.log()
-                        }
-                        className="absolute top-2 right-2 text-green-500 hover:text-green-700" title="Manage"
-                        >
-                        <MdOutlineSettings size={20}/>
-                    </button>
-                </div>
-                ))}
-            </div>
+            <EducationList educationItems={educations} onRemove={handleRemoveEducation} />
             )}
         </div>
         </div>
@@ -439,39 +441,37 @@ const AccountSection = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-10">
             <div className="bg-gray-800 text-white p-6 rounded-md w-full max-w-md">
             <h3 className="text-xl font-semibold mb-4">Add Education</h3>
-            <input
-                type="text"
-                value={newEducation.type}
-                onChange={(e) => setNewEducation({ ...newEducation, type: e.target.value })}
-                placeholder="Type"
-                className="w-full p-2 bg-transparent border rounded-md mb-4"
-            />
-            <input
-                type="text"
-                value={newEducation.title}
-                onChange={(e) => setNewEducation({ ...newEducation, title: e.target.value })}
-                placeholder="Title"
-                className="w-full p-2 bg-transparent border rounded-md mb-4"
-            />
-            <input
-                type="date"
-                value={newEducation.startDate}
-                onChange={(e) => setNewEducation({ ...newEducation, startDate: e.target.value })}
-                className="w-full p-2 bg-transparent border rounded-md mb-4"
-            />
-            <input
-                type="date"
-                value={newEducation.endDate}
-                onChange={(e) => setNewEducation({ ...newEducation, endDate: e.target.value })}
-                className="w-full p-2 bg-transparent border rounded-md mb-4"
-            />
-            <input
-                type="text"
-                value={newEducation.status}
-                onChange={(e) => setNewEducation({ ...newEducation, status: e.target.value })}
-                placeholder="Status"
-                className="w-full p-2 bg-transparent border rounded-md mb-4"
-            />
+            <select multiple={false} onChange={(e) => setNewEducation({ ...newEducation, type: e.target.selectedOptions[0].value })} title="Type" className="w-full p-2 bg-transparent border rounded-md mb-4">
+                {studyTypes.map((type, i) =>{
+                    return <option className="bg-gray-900" key={i} value={type} > { type } </option>
+                })}
+            </select>
+            <select multiple={false} onChange={(e) => setNewEducation({ ...newEducation, title: e.target.selectedOptions[0].value })} title="Title" className="w-full p-2 bg-transparent border rounded-md mb-4">
+                {acquiredTitles.map((title, i) =>{
+                    return <option className="bg-gray-900" key={i} value={title} > { title } </option>
+                })}
+            </select>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3">
+                <input
+                    type="date"
+                    value={newEducation.startDate}
+                    onChange={(e) => setNewEducation({ ...newEducation, startDate: e.target.value })}
+                    className="w-full p-2 bg-transparent border rounded-md mb-4"
+                    title="Start date"
+                />
+                <input
+                    type="date"
+                    value={newEducation.endDate}
+                    onChange={(e) => setNewEducation({ ...newEducation, endDate: e.target.value })}
+                    className="w-full p-2 bg-transparent border rounded-md mb-4"
+                    title="End date"
+                />
+            </div>
+            <select multiple={false} onChange={(e) => setNewEducation({ ...newEducation, status: e.target.selectedOptions[0].value })} title="Status" className="w-full p-2 bg-transparent border rounded-md mb-4">
+                {studyStatuses.map((status, i) =>{
+                    return <option className="bg-gray-900" key={i} value={status} > { status } </option>
+                })}
+            </select>
             <textarea
                 value={newEducation.comments}
                 onChange={(e) => setNewEducation({ ...newEducation, comments: e.target.value })}

@@ -1,6 +1,6 @@
 import { FaMapMarkerAlt, FaEdit } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { Address } from "./address_modal";
+import { Address } from "../modal/address_modal";
 
 const AddressList = ({ addresses, onRemove }: { addresses: Address[]; onRemove: (id: number) => void }) => {
   return (

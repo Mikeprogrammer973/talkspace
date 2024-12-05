@@ -2,10 +2,12 @@
 
 import React, { useState } from "react"
 import { MdOutlineEmail, MdOutlineSettings, MdPermIdentity } from "react-icons/md"
-import EducationList from "./utils/education_list";
-import AddressList from "./utils/address_list";
-import AddressModal, { Address, AddressDetails } from "./utils/address_modal";
-import EducationModal, { Education, EducationDetails } from "./utils/education_modal";
+import EducationList from "./utils/list/education_list";
+import AddressList from "./utils/list/address_list";
+import AddressModal from "./utils/modal/address_modal";
+import EducationModal from "./utils/modal/education_modal";
+import { Education } from "./utils/definition/education";
+import { Address, AddressDetails } from "./utils/definition/address";
 
 
 interface Profile {

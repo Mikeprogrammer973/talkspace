@@ -1,19 +1,6 @@
 import React, { useState } from "react";
 import { FaSearch, FaPlus } from "react-icons/fa";
-
-export interface AddressDetails {
-    label: string
-    line: string
-    city: string
-    state: string
-    country: string
-    postalCode: string
-}
-
-export interface Address {
-    id: number
-    details: AddressDetails
-}
+import { AddressDetails } from "../definition/address";
 
 const AddressModal = ({ onAddAddress, onClose }: { onAddAddress: (address: AddressDetails) => void; onClose: () => void }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -63,7 +50,7 @@ const AddressModal = ({ onAddAddress, onClose }: { onAddAddress: (address: Addre
   };
 
   return (
-    <div className="fixed inset-0 z-40 bg-black bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 z-40 p-10 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-gray-800 text-white rounded-lg shadow-lg p-6 w-full max-w-lg">
         <h2 className="text-xl font-bold mb-4">Add Address</h2>
         {/* Search Field */}

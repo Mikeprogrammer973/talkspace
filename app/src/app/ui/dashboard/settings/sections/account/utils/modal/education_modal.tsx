@@ -1,19 +1,6 @@
 import { useState } from "react";
-import { studyTypes, acquiredTitles, studyStatuses } from "./education"
-
-export interface EducationDetails {
-    type: string;
-    title: string;
-    startDate: string;
-    endDate: string;
-    status: string;
-    comments: string;
-}
-
-export interface Education {
-    id: number;
-    details: EducationDetails;
-}
+import { studyTypes, acquiredTitles, studyStatuses } from "../data/education"
+import { Education } from "../definition/education";
 
 const EducationModal = ({ onAddEducation, onClose }: { onAddEducation: (education: Education) => void; onClose: () => void }) => {
     const [newEducation, setNewEducation] = useState<Education>({

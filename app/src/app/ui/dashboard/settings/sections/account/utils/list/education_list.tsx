@@ -1,6 +1,6 @@
 import { FaGraduationCap, FaCalendarAlt, FaRegCommentDots } from "react-icons/fa";
 import { MdOutlineSettings } from "react-icons/md";
-import { Education } from "../modal/education_modal";
+import { Education } from "../definition/education";
 
 const EducationList = ({ educationItems, onRemove }: { educationItems: Education[]; onRemove: (id: number) => void }) => {
   return (

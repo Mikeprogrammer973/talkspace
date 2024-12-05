@@ -1,67 +1,12 @@
 "use client";
 
 import React, { useState } from "react"
-import axios from "axios"
 import { MdOutlineEmail, MdOutlineSettings, MdPermIdentity } from "react-icons/md"
-import { acquiredTitles, studyStatuses, studyTypes } from "./utils/education";
-import { FaGraduationCap, FaCalendarAlt, FaRegCommentDots } from "react-icons/fa";
+import EducationList from "./utils/education_list";
+import AddressList from "./utils/address_list";
+import AddressModal, { Address, AddressDetails } from "./utils/address_modal";
+import EducationModal, { Education, EducationDetails } from "./utils/education_modal";
 
-const EducationList = ({ educationItems, onRemove }: { educationItems: any[]; onRemove: (id: number) => void }) => {
-  return (
-    <div className="space-y-6">
-      {educationItems.map((item) => (
-        <div
-          key={item.id}
-          className="flex flex-col md:flex-row justify-between items-start md:items-center bg-gray-950 p-4 rounded-lg shadow-md relative"
-        >
-          {/* Content */}
-          <div className="flex items-start space-x-4">
-            {/* Icon */}
-            <div className="text-blue-500 text-2xl">
-              <FaGraduationCap />
-            </div>
-
-            {/* Details */}
-            <div>
-              <h3 className="text-lg font-bold text-white">{item.title}</h3>
-              <p className="text-sm text-gray-400 flex items-center">
-                <FaCalendarAlt className="mr-2" /> {item.startDate} - {item.endDate || "Present"}
-              </p>
-              <p className="text-sm text-gray-400 flex items-center">
-                <FaRegCommentDots className="mr-2" /> {item.comments || "No comments"}
-              </p>
-              <p className="mt-1 text-sm text-gray-300">Status: {item.status}</p>
-            </div>
-          </div>
-
-          {/* Actions */}
-          <button
-            onClick={() => onRemove(item.id)} title="Manage"
-            className="absolute top-2 right-2 text-red-500 hover:text-red-700"
-          >
-            <MdOutlineSettings className="text-xl" />
-          </button>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-
-interface Address {
-  id: number;
-  address: string;
-}
-
-interface Education {
-  id: number;
-  type: string;
-  title: string;
-  startDate: string;
-  endDate: string;
-  status: string;
-  comments: string;
-}
 
 interface Profile {
     id: number
@@ -83,46 +28,12 @@ const AccountSection = () => {
   const [newName, setNewName] = useState(name);
   const [newEmail, setNewEmail] = useState(email);
 
-  const [newAddress, setNewAddress] = useState("");
-  const [addressSuggestions, setAddressSuggestions] = useState<string[]>([]);
-
-  const [newEducation, setNewEducation] = useState<Education>({
-    id: 0,
-    type: studyTypes[0],
-    title: acquiredTitles[0],
-    startDate: "",
-    endDate: "",
-    status: studyStatuses[0],
-    comments: "",
-  });
-
   const [isLinkedProfilesModalOpen, setIsLinkedProfilesModalOpen] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState<Profile>();
   const [linkedProfiles, setLinkedProfiles] = useState<Profile[]>([
     { id: 1, username: '@john_doe', profileImage: 'https://via.placeholder.com/50' },
     { id: 2, username: '@jane_smith', profileImage: 'https://via.placeholder.com/50' },
   ]);
-
-  const fetchAddressSuggestions = async (query: string) => {
-    if (query.length < 3) {
-      setAddressSuggestions([]);
-      return;
-    }
-    try {
-      const response = await axios.get("https://nominatim.openstreetmap.org/search", {
-        params: {
-          q: query,
-          format: "json",
-          addressdetails: 1,
-          limit: 5,
-        },
-      });
-      const results = response.data;
-      setAddressSuggestions(results.map((item: any) => item.display_name));
-    } catch (error) {
-      console.error("Error fetching address suggestions:", error);
-    }
-  };
 
   const handleOpenProfileModal = (profile: Profile) => {
     setSelectedProfile(profile);
@@ -154,16 +65,17 @@ const AccountSection = () => {
     handleCloseProfileModal();
   };
 
-  const handleAddAddress = () => {
-    setAddresses((prev) => [...prev, { id: Date.now(), address: newAddress }]);
-    setNewAddress("");
-    setAddressSuggestions([]);
+  const handleAddAddress = (new_address: AddressDetails) => {
+    setAddresses((prev) => [...prev, { id: Date.now(), details: new_address }]);
     setIsAddressModalOpen(false);
   };
 
-  const handleAddEducation = () => {
-    setEducations((prev) => [...prev, { ...newEducation, id: Date.now() }]);
-    setNewEducation({ id: 0, type: studyTypes[0], title: acquiredTitles[0], startDate: "", endDate: "", status: studyStatuses[0], comments: "" });
+  const handleRemoveAddress = (id: number) => {
+    setAddresses((prev) => prev.filter((address) => address.id !== id));
+  }
+
+  const handleAddEducation = (new_education: Education) => {
+    setEducations((prev) => [...prev, {...new_education, id: Date.now()}]);
     setIsEducationModalOpen(false);
   };
 
@@ -223,34 +135,7 @@ const AccountSection = () => {
             {addresses.length === 0 ? (
             <p>No addresses added.</p>
             ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {addresses.map((address) => (
-                <div
-                    key={address.id}
-                    className="bg-gray-950 p-4 rounded-md shadow-md relative"
-                >
-                    <p className="text-sm text-gray-300">{address.address}</p>
-                    {/*<button
-                        onClick={() =>
-                            setAddresses((prev) =>
-                            prev.filter((item) => item.id !== address.id)
-                            )
-                        }
-                        className="absolute top-2 right-2 text-red-500 hover:text-red-700" title="Remove"
-                        >
-                        ✕
-                    </button>*/}
-                    <button
-                        onClick={() =>
-                            console.log()
-                        }
-                        className="absolute top-2 right-2 text-red-500 hover:text-red-700" title="Manage"
-                        >
-                        <MdOutlineSettings size={20}/>
-                    </button>
-                </div>
-                ))}
-            </div>
+            <AddressList addresses={addresses} onRemove={handleRemoveAddress} />
             )}
         </div>
 
@@ -391,110 +276,10 @@ const AccountSection = () => {
         )}
 
         {/* Address Modal */}
-        {isAddressModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-10">
-            <div className="bg-gray-800 text-white p-6 rounded-md w-full max-w-md">
-            <h3 className="text-xl font-semibold mb-4">Add Address</h3>
-            <input
-                type="text"
-                value={newAddress}
-                onChange={(e) => {
-                setNewAddress(e.target.value);
-                fetchAddressSuggestions(e.target.value);
-                }}
-                placeholder="Start typing..."
-                className="w-full p-2 bg-transparent border rounded-md mb-4"
-            />
-            {addressSuggestions.length > 0 && (
-                <ul className="border max-h-80 rounded-md overflow-y-scroll">
-                {addressSuggestions.map((suggestion, index) => (
-                    <li
-                    key={index}
-                    className="p-2 hover:bg-gray-700 cursor-pointer"
-                    onClick={() => setNewAddress(suggestion)}
-                    >
-                    {suggestion}
-                    </li>
-                ))}
-                </ul>
-            )}
-            <div className="flex justify-end space-x-2 mt-3">
-                <button
-                onClick={() => setIsAddressModalOpen(false)}
-                className="px-4 py-2 bg-red-500 rounded-md text-white"
-                >
-                Cancel
-                </button>
-                <button
-                onClick={handleAddAddress}
-                className="px-4 py-2 bg-blue-500 rounded-md text-white"
-                >
-                Add
-                </button>
-            </div>
-            </div>
-        </div>
-        )}
-
+        {isAddressModalOpen && (<AddressModal onAddAddress={handleAddAddress} onClose={()=>setIsAddressModalOpen(false)} />)}
+          
         {/* Education Modal */}
-        {isEducationModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-10">
-            <div className="bg-gray-800 text-white p-6 rounded-md w-full max-w-md">
-            <h3 className="text-xl font-semibold mb-4">Add Education</h3>
-            <select multiple={false} onChange={(e) => setNewEducation({ ...newEducation, type: e.target.selectedOptions[0].value })} title="Type" className="w-full p-2 bg-transparent border rounded-md mb-4">
-                {studyTypes.map((type, i) =>{
-                    return <option className="bg-gray-900" key={i} value={type} > { type } </option>
-                })}
-            </select>
-            <select multiple={false} onChange={(e) => setNewEducation({ ...newEducation, title: e.target.selectedOptions[0].value })} title="Title" className="w-full p-2 bg-transparent border rounded-md mb-4">
-                {acquiredTitles.map((title, i) =>{
-                    return <option className="bg-gray-900" key={i} value={title} > { title } </option>
-                })}
-            </select>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-3">
-                <input
-                    type="date"
-                    value={newEducation.startDate}
-                    onChange={(e) => setNewEducation({ ...newEducation, startDate: e.target.value })}
-                    className="w-full p-2 bg-transparent border rounded-md mb-4"
-                    title="Start date"
-                />
-                <input
-                    type="date"
-                    value={newEducation.endDate}
-                    onChange={(e) => setNewEducation({ ...newEducation, endDate: e.target.value })}
-                    className="w-full p-2 bg-transparent border rounded-md mb-4"
-                    title="End date"
-                />
-            </div>
-            <select multiple={false} onChange={(e) => setNewEducation({ ...newEducation, status: e.target.selectedOptions[0].value })} title="Status" className="w-full p-2 bg-transparent border rounded-md mb-4">
-                {studyStatuses.map((status, i) =>{
-                    return <option className="bg-gray-900" key={i} value={status} > { status } </option>
-                })}
-            </select>
-            <textarea
-                value={newEducation.comments}
-                onChange={(e) => setNewEducation({ ...newEducation, comments: e.target.value })}
-                placeholder="Comments"
-                className="w-full p-2 bg-transparent border rounded-md mb-4"
-            />
-            <div className="flex justify-end space-x-2">
-                <button
-                onClick={() => setIsEducationModalOpen(false)}
-                className="px-4 py-2 bg-red-500 rounded-md text-white"
-                >
-                Cancel
-                </button>
-                <button
-                onClick={handleAddEducation}
-                className="px-4 py-2 bg-green-500 rounded-md text-white"
-                >
-                Add
-                </button>
-            </div>
-            </div>
-        </div>
-        )}
+        {isEducationModalOpen && ( <EducationModal onAddEducation={handleAddEducation} onClose={()=> setIsEducationModalOpen(false)} /> )}
     </div>
   );
 };
